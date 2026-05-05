@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "tp-app (Next.js dev)",
+      "name": "TP Website (Next.js dev)",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "tp-app"],
+      "runtimeArgs": ["run", "dev"],
       "port": 3000
     }
   ]
