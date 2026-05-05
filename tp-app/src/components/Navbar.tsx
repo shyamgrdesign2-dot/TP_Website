@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const NAV_LINKS = ["Solution", "Features", "Pricing", "About Us", "Contact"];
 
 function Logo() {
@@ -16,6 +20,19 @@ function Logo() {
 }
 
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    if (open) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = prev;
+      };
+    }
+  }, [open]);
+
   return (
     <nav className="absolute left-1/2 top-3 z-30 w-[min(1140px,calc(100%-24px))] -translate-x-1/2 sm:top-5 sm:w-[min(1140px,calc(100%-40px))]">
       <div
@@ -49,7 +66,7 @@ export default function Navbar() {
           </a>
           <a
             href="#"
-            className="inline-flex h-[42px] items-center justify-center whitespace-nowrap rounded-[14px] px-[14px] text-sm font-semibold leading-7 text-white sm:w-[136px] sm:px-[18px]"
+            className="hidden h-[42px] items-center justify-center whitespace-nowrap rounded-[14px] px-[14px] text-sm font-semibold leading-7 text-white sm:inline-flex sm:w-[136px] sm:px-[18px]"
             style={{
               backgroundImage:
                 "linear-gradient(101deg, #4B4AD5 0%, #27276F 131.58%)",
@@ -57,8 +74,81 @@ export default function Navbar() {
           >
             Start Free Trial
           </a>
+          {/* Hamburger — mobile only, no background */}
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex h-10 w-10 items-center justify-center text-[#1F1F1F] sm:hidden"
+          >
+            {open ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M6 6l12 12M6 18L18 6"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path
+                  d="M4 7h16M4 12h16M4 17h16"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile dropdown panel */}
+      {open && (
+        <div
+          className="mt-2 overflow-hidden rounded-[18px] border border-white/40 backdrop-blur-xl backdrop-saturate-150 sm:hidden"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.4) 100%)",
+            boxShadow:
+              "0 1px 0 rgba(255,255,255,0.65) inset, 0 8px 32px rgba(33,32,119,0.18)",
+          }}
+        >
+          <ul className="flex flex-col py-2">
+            {NAV_LINKS.map((label) => (
+              <li key={label}>
+                <a
+                  href="#"
+                  onClick={() => setOpen(false)}
+                  className="block px-5 py-3 text-base font-medium text-[#1F1F1F] hover:bg-white/40"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="flex flex-col gap-2 border-t border-white/40 p-4">
+            <a
+              href="#"
+              className="flex h-[48px] items-center justify-center rounded-[14px] border border-[#4B4AD5] bg-white/40 text-sm font-semibold text-[#4B4AD5]"
+            >
+              Book Demo
+            </a>
+            <a
+              href="#"
+              className="flex h-[48px] items-center justify-center rounded-[14px] text-sm font-semibold text-white"
+              style={{
+                backgroundImage:
+                  "linear-gradient(101deg, #4B4AD5 0%, #27276F 131.58%)",
+              }}
+            >
+              Start Free Trial
+            </a>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

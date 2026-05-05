@@ -10,6 +10,23 @@ export default function Hero() {
           "linear-gradient(-1deg, rgba(255,255,255,0.4) 10%, rgba(99,7,151,0.04) 99%), linear-gradient(90deg, #fff, #fff)",
       }}
     >
+      {/* Geometric line tracery — sits stuck to the navbar; the upper half
+          is hidden behind the navbar's frosted background, the lower half
+          fans out into the hero. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 z-[2] -translate-x-1/2 -translate-y-1/2"
+        style={{
+          top: "clamp(54px, 7vh, 90px)",
+          width: "min(960px, 96vw)",
+          aspectRatio: "947 / 508",
+          backgroundImage: "url('/figma/header-lines.svg')",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "100% 100%",
+        }}
+      />
+
       {/* Top semicircle glow (sits behind navbar, scales with width AND height) */}
       <div
         aria-hidden
@@ -43,7 +60,7 @@ export default function Hero() {
         style={{
           backgroundImage:
             "linear-gradient(to right, rgba(75,74,213,0.10) 1px, transparent 1px), linear-gradient(to bottom, rgba(75,74,213,0.10) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+          backgroundSize: "clamp(40px, 4.5vw, 64px) clamp(40px, 4.5vw, 64px)",
           backgroundPosition: "center center",
           WebkitMaskImage:
             "radial-gradient(ellipse 60% 55% at center, black 35%, transparent 95%)",
@@ -118,10 +135,11 @@ export default function Hero() {
           {/* Headline + subhead */}
           <div className="flex flex-col items-center gap-3.5">
             <h1
-              className="font-bold leading-[1.08] tracking-[-1px] text-[#1F1F1F] [text-wrap:balance] sm:tracking-[-2px]"
+              className="font-extrabold leading-[1.08] tracking-[-1px] text-[#1F1F1F] [text-wrap:balance] sm:tracking-[-2px]"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(28px, 5.2vw, 80px)",
+                fontWeight: 800,
+                fontSize: "clamp(40px, 5.8vw, 92px)",
                 maxWidth: "min(1100px, 92vw)",
               }}
             >
@@ -139,7 +157,7 @@ export default function Hero() {
               className="text-[#3D3D3D]"
               style={{
                 maxWidth: "clamp(420px, 55vw, 880px)",
-                fontSize: "clamp(15px, 1.45vw, 24px)",
+                fontSize: "clamp(16px, 1.45vw, 24px)",
                 lineHeight: 1.7,
               }}
             >
@@ -183,10 +201,8 @@ export default function Hero() {
 
       {/* Trust strip — pinned to bottom of the hero viewport */}
       <div className="relative z-10 mx-auto flex w-full flex-shrink-0 flex-col items-center pb-4 sm:pb-6">
-        <div className="w-full max-w-full overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div className="mx-auto flex w-fit">
-            <TrustBadges />
-          </div>
+        <div className="flex w-full justify-center px-4">
+          <TrustBadges />
         </div>
         <div className="mt-2 opacity-70">
           <ScrollArrow />
