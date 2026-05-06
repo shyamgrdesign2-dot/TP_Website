@@ -4,9 +4,6 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
-  turbopack: {
-    root: __dirname,
-  },
 };
 
 export default nextConfig;

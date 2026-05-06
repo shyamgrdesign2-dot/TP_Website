@@ -1,6 +1,6 @@
 <svg width="947" height="508" viewBox="0 0 947 508" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-<g opacity="0.85">
-<g opacity="0.6" stroke="url(#lineGrad)" stroke-width="1" fill="none">
+<g opacity="1">
+<g opacity="0.9" stroke="url(#lineGrad)" stroke-width="1" fill="none">
 <path d="M79.4 288.5L8.9 359.1"/>
 <path d="M364.3 288.4L292.7 360"/>
 <path d="M7.3 66.5H440"/>
@@ -100,9 +100,9 @@
 </g>
 <defs>
 <radialGradient id="lineGrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(453.6 -163.3) rotate(90.5) scale(462.8 466.7)">
-<stop stop-color="#5347D8" stop-opacity="0.7"/>
-<stop offset="0.5" stop-color="#9B2BF6" stop-opacity="0.35"/>
-<stop offset="1" stop-color="#9B2BF6" stop-opacity="0"/>
+<stop stop-color="#FFFFFF" stop-opacity="0.95"/>
+<stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.7"/>
+<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
 </radialGradient>
 </defs>
 </svg>

@@ -21,6 +21,8 @@ function Logo() {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  // Solid = past the hero, switch to a denser glass + stronger shadow.
+  const [solid, setSolid] = useState(false);
 
   // Lock body scroll while the mobile menu is open
   useEffect(() => {
@@ -33,48 +35,101 @@ export default function Navbar() {
     }
   }, [open]);
 
+  // Track scroll only to thicken the glass once we're past the top — the
+  // navbar itself stays sticky so the CTAs are always reachable.
+  useEffect(() => {
+    const onScroll = () => setSolid(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <nav className="absolute left-1/2 top-3 z-30 w-[min(1140px,calc(100%-24px))] -translate-x-1/2 sm:top-5 sm:w-[min(1140px,calc(100%-40px))]">
+    <nav
+      className={[
+        "fixed left-1/2 top-3 z-30 -translate-x-1/2 transition-all duration-300 ease-out sm:top-5",
+        "w-[min(1240px,calc(100%-24px))] sm:w-[min(1240px,calc(100%-40px))]",
+      ].join(" ")}
+    >
       <div
-        className="flex items-center justify-between gap-2 rounded-[18px] border border-white/40 px-3 py-2 backdrop-blur-xl backdrop-saturate-150 sm:px-[18px] sm:py-3"
+        className={[
+          "relative flex items-center justify-between gap-2 overflow-hidden rounded-[20px] border border-white/50 px-3 py-2 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 sm:px-[22px] sm:py-3",
+        ].join(" ")}
         style={{
           background:
-            "linear-gradient(90deg, rgba(255,255,255,0.45) 17%, rgba(255,255,255,0.22) 51%, rgba(255,255,255,0.45) 85%)",
-          boxShadow:
-            "0 1px 0 rgba(255,255,255,0.65) inset, 0 8px 32px rgba(33,32,119,0.18)",
+            "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.30) 50%, rgba(255,255,255,0.45) 100%)",
+          boxShadow: solid
+            ? [
+                // Top sheen
+                "0 1px 0 rgba(255,255,255,0.95) inset",
+                // Bottom shade for "lifted" feel
+                "0 -1px 0 rgba(75,74,213,0.10) inset",
+                // Soft corners glow
+                "0 0 0 1px rgba(255,255,255,0.20) inset",
+                // Drop shadow — bigger when solid
+                "0 14px 44px rgba(33,32,119,0.22)",
+                "0 4px 14px rgba(33,32,119,0.12)",
+              ].join(", ")
+            : [
+                "0 1px 0 rgba(255,255,255,0.85) inset",
+                "0 -1px 0 rgba(75,74,213,0.06) inset",
+                "0 0 0 1px rgba(255,255,255,0.18) inset",
+                "0 8px 28px rgba(33,32,119,0.16)",
+              ].join(", "),
         }}
       >
-        <Logo />
-        <ul className="hidden items-center gap-1 lg:flex">
+        {/* Inner gloss highlights — give every corner a soft sheen */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[20px]"
+          style={{
+            background:
+              "radial-gradient(120% 90% at 0% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 35%), radial-gradient(120% 90% at 100% 0%, rgba(196,75,255,0.18) 0%, rgba(255,255,255,0) 40%), radial-gradient(120% 90% at 100% 100%, rgba(75,74,213,0.10) 0%, rgba(255,255,255,0) 45%), radial-gradient(120% 90% at 0% 100%, rgba(255,180,220,0.18) 0%, rgba(255,255,255,0) 45%)",
+          }}
+        />
+        {/* Subtle moving shimmer along the top edge */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-x-6 top-0 h-px"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0) 100%)",
+          }}
+        />
+
+        <div className="relative z-[1]">
+          <Logo />
+        </div>
+        <ul className="relative z-[1] hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((label) => (
             <li key={label}>
               <a
                 href="#"
-                className="block rounded-lg px-4 py-2 text-sm capitalize text-black tracking-wide hover:bg-white/40"
+                className="block rounded-lg px-4 py-2 text-sm capitalize text-black tracking-wide transition hover:bg-white/50"
               >
                 {label}
               </a>
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="relative z-[1] flex items-center gap-2 sm:gap-3">
           <a
             href="#"
-            className="hidden h-[42px] items-center whitespace-nowrap rounded-[14px] border border-[#4B4AD5] bg-white/40 px-[18px] text-sm font-semibold leading-7 text-[#4B4AD5] sm:inline-flex"
+            className="cta-outline hidden h-[42px] items-center whitespace-nowrap rounded-[14px] border border-[#4B4AD5] bg-white/40 px-[20px] text-sm font-semibold leading-7 text-[#4B4AD5] sm:inline-flex"
           >
             Book Demo
           </a>
           <a
             href="#"
-            className="hidden h-[42px] items-center justify-center whitespace-nowrap rounded-[14px] px-[14px] text-sm font-semibold leading-7 text-white sm:inline-flex sm:w-[136px] sm:px-[18px]"
+            className="cta-shimmer hidden h-[42px] items-center justify-center whitespace-nowrap rounded-[14px] px-[20px] text-sm font-semibold leading-7 text-white sm:inline-flex sm:min-w-[148px]"
             style={{
               backgroundImage:
                 "linear-gradient(101deg, #4B4AD5 0%, #27276F 131.58%)",
             }}
           >
-            Start Free Trial
+            <span className="relative z-[1]">Start Free Trial</span>
           </a>
-          {/* Hamburger — mobile only, no background */}
+          {/* Hamburger — mobile only */}
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -84,21 +139,11 @@ export default function Navbar() {
           >
             {open ? (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  d="M6 6l12 12M6 18L18 6"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+                <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             ) : (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  d="M4 7h16M4 12h16M4 17h16"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
+                <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
               </svg>
             )}
           </button>
