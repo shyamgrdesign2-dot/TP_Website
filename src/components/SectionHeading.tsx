@@ -20,7 +20,7 @@ export default function SectionHeading({
       ].join(" ")}
       style={{
         fontFamily: "var(--font-display)",
-        fontSize: "clamp(28px, 4vw, 48px)",
+        fontSize: "clamp(24px, 3.5vw, 42px)",
         lineHeight: 1.12,
         letterSpacing: "-0.02em",
       }}

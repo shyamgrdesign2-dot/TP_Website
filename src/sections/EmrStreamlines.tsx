@@ -1,7 +1,7 @@
-import SectionHeading, { GradientSpan } from "./_primitives/SectionHeading";
-import EmrTabbedInterface from "./_emr/EmrTabbedInterface";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import SectionHeading, { GradientSpan } from "../components/SectionHeading";
+import EmrTabbedInterface from "../features/emr/EmrTabbedInterface";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 export default function EmrStreamlines() {
   return (

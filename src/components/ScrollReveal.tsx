@@ -56,7 +56,7 @@ export default function ScrollReveal({
 
   return (
     <Tag
-      ref={ref as React.Ref<HTMLDivElement>}
+      ref={ref as React.Ref<never>}
       className={cls}
       style={mergedStyle}
     >

@@ -1,4 +1,4 @@
-import FooterSection from "./_landingref/FooterRaw";
+import FooterSection from "../components/_landingref/FooterRaw";
 
 export default function Footer() {
   return (

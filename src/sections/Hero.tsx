@@ -1,6 +1,6 @@
 import TrustBadges from "./TrustBadges";
 import ScrollArrow from "./ScrollArrow";
-import SectionBg from "./_primitives/SectionBg";
+import SectionBg from "../components/SectionBg";
 
 export default function Hero() {
   return (
@@ -135,7 +135,7 @@ export default function Hero() {
                 animationDelay: "240ms",
                 fontFamily: "var(--font-display)",
                 fontWeight: 800,
-                fontSize: "clamp(40px, 6.5vw, 116px)",
+                fontSize: "clamp(28px, 4.8vw, 88px)",
                 maxWidth: "min(1280px, 92vw)",
               }}
             >
@@ -147,7 +147,7 @@ export default function Hero() {
               style={{
                 animationDelay: "420ms",
                 maxWidth: "clamp(420px, 60vw, 960px)",
-                fontSize: "clamp(16px, 1.6vw, 28px)",
+                fontSize: "clamp(14px, 1.15vw, 20px)",
                 lineHeight: 1.65,
               }}
             >

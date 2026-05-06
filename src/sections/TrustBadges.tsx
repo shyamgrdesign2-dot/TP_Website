@@ -18,17 +18,16 @@ const Sparkle = ({ side }: { side: "left" | "right" }) => (
     src={`/figma/sparkle-${side}.svg`}
     alt=""
     aria-hidden
-    className="h-12 w-[16px] shrink-0 opacity-80 sm:h-[68px] sm:w-6"
+    className="h-9 w-[13px] shrink-0 opacity-80 sm:h-[52px] sm:w-[18px]"
   />
 );
 
 function BadgeCard({ title, subtitle, src }: Badge) {
   return (
     <div
-      className="flex min-w-0 items-center justify-center gap-2 rounded-[14px] border border-white/55 px-3 py-2 sm:gap-3 sm:rounded-[18px] sm:px-5 sm:py-3"
+      className="flex w-fit items-center gap-1.5 rounded-[12px] border border-white/55 px-2.5 py-1.5 sm:gap-2 sm:rounded-[14px] sm:px-3.5 sm:py-2"
       style={{
-        height: "clamp(48px, 4.2vw, 72px)",
-        minWidth: "clamp(108px, 11vw, 168px)",
+        height: "clamp(40px, 3.4vw, 58px)",
         background:
           "linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.32) 100%)",
         boxShadow:
@@ -44,20 +43,20 @@ function BadgeCard({ title, subtitle, src }: Badge) {
         aria-hidden
         className="shrink-0 object-contain"
         style={{
-          height: "clamp(24px, 2.2vw, 36px)",
-          width: "clamp(24px, 2.2vw, 36px)",
+          height: "clamp(18px, 1.7vw, 26px)",
+          width: "clamp(18px, 1.7vw, 26px)",
         }}
       />
-      <div className="flex min-w-0 flex-col items-start leading-tight">
+      <div className="flex flex-col items-start leading-tight">
         <span
-          className="truncate font-semibold tracking-tight text-[#0B0A6F]"
-          style={{ fontSize: "clamp(11px, 0.95vw, 14px)" }}
+          className="whitespace-nowrap font-semibold tracking-tight text-[#0B0A6F]"
+          style={{ fontSize: "clamp(10px, 0.78vw, 12px)" }}
         >
           {title}
         </span>
         <span
-          className="truncate font-semibold tracking-tight text-[#0B0A6F]"
-          style={{ fontSize: "clamp(11px, 0.95vw, 14px)" }}
+          className="whitespace-nowrap font-semibold tracking-tight text-[#0B0A6F]"
+          style={{ fontSize: "clamp(10px, 0.78vw, 12px)" }}
         >
           {subtitle}
         </span>
@@ -69,18 +68,16 @@ function BadgeCard({ title, subtitle, src }: Badge) {
 export default function TrustBadges() {
   return (
     <div
-      className="flex w-full items-center justify-center gap-3 py-[14px] sm:justify-between sm:gap-4 sm:py-[18px]"
+      className="flex w-full items-center justify-center gap-2 py-[10px] sm:gap-3 sm:py-[14px]"
       style={{ maxWidth: "var(--section-w)" }}
     >
       <Sparkle side="left" />
 
-      {/* Mobile: 3 on top centered, 2 on bottom centered. Desktop: single row. */}
-      <div className="flex flex-1 flex-col items-center gap-2 sm:flex-1 sm:flex-row sm:flex-nowrap sm:justify-between sm:gap-3">
-        <div className="flex flex-wrap justify-center gap-2 sm:contents">
-          {BADGES.map((b) => (
-            <BadgeCard key={b.title} {...b} />
-          ))}
-        </div>
+      {/* Cards sit at natural width, centered, 12px gap */}
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {BADGES.map((b) => (
+          <BadgeCard key={b.title} {...b} />
+        ))}
       </div>
 
       <Sparkle side="right" />

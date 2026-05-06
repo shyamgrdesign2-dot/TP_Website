@@ -1,6 +1,6 @@
-import RadialGradientBg from "./_primitives/RadialGradientBg";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import RadialGradientBg from "../components/RadialGradientBg";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 export default function FinalCTA() {
   return (
@@ -32,7 +32,7 @@ export default function FinalCTA() {
               className="font-bold text-white [text-wrap:balance]"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(28px, 3.4vw, 44px)",
+                fontSize: "clamp(24px, 3vw, 40px)",
                 letterSpacing: "-0.02em",
                 lineHeight: 1.12,
               }}

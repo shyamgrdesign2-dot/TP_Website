@@ -1,7 +1,7 @@
-import SectionHeading, { GradientSpan } from "./_primitives/SectionHeading";
-import AiTabbedInterface from "./_ai/AiTabbedInterface";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import SectionHeading, { GradientSpan } from "../components/SectionHeading";
+import AiTabbedInterface from "../features/ai/AiTabbedInterface";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 export default function BuiltInAI() {
   return (

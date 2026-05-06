@@ -1,14 +1,14 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import PracticeManagement from "@/components/PracticeManagement";
-import OurScale from "@/components/OurScale";
-import BuiltInAI from "@/components/BuiltInAI";
-import EmrStreamlines from "@/components/EmrStreamlines";
-import BuiltForEverySize from "@/components/BuiltForEverySize";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import FinalCTA from "@/components/FinalCTA";
-import Footer from "@/components/Footer";
+import Navbar from "@/sections/Navbar";
+import Hero from "@/sections/Hero";
+import PracticeManagement from "@/sections/PracticeManagement";
+import OurScale from "@/sections/OurScale";
+import BuiltInAI from "@/sections/BuiltInAI";
+import EmrStreamlines from "@/sections/EmrStreamlines";
+import BuiltForEverySize from "@/sections/BuiltForEverySize";
+import Testimonials from "@/sections/Testimonials";
+import FAQ from "@/sections/FAQ";
+import FinalCTA from "@/sections/FinalCTA";
+import Footer from "@/sections/Footer";
 
 export default function Home() {
   // No global page pattern — every section now renders its own contained

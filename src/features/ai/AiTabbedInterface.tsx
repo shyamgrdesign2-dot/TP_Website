@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import VoiceRx from "./imports/Voice/EmrWeb-4-397";
-import SmartSync from "./imports/SmartSync/EmrWeb-4-446";
-import SnapRx from "./imports/SnapRx/EmrWeb-4-433";
-import Receptionist from "./imports/Receptionist/EmrWeb-4-420";
-import Doctor from "./imports/Doctor/EmrWeb-4-407";
+import VoiceRx from "./tabs/voice/EmrWeb-4-397";
+import SmartSync from "./tabs/smart-sync/EmrWeb-4-446";
+import SnapRx from "./tabs/snap-rx/EmrWeb-4-433";
+import Receptionist from "./tabs/receptionist/EmrWeb-4-420";
+import Doctor from "./tabs/doctor/EmrWeb-4-407";
 
 type TabType = "voicerx" | "smartsync" | "snaprx" | "receptionist" | "doctor";
 

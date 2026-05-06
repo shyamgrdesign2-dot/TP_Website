@@ -203,7 +203,7 @@ function MenuFooterVert3() {
       <p className="font-['Inter:Regular',sans-serif] font-normal leading-[0] relative shrink-0 text-[14px]">
         <span className="decoration-solid leading-[normal] underline">+91-</span>
         <a className="[text-decoration-skip-ink:none] cursor-pointer decoration-solid leading-[normal] underline" href="tel:+919876543210" target="_blank">
-          <span className="[text-decoration-skip-ink:none] decoration-solid underline" href="tel:+919876543210" target="_blank">
+          <span className="[text-decoration-skip-ink:none] decoration-solid underline">
             98765 43210
           </span>
         </a>

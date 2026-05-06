@@ -1,6 +1,6 @@
-import OurScaleSection from "./_landingref/OurScaleRaw";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import OurScaleSection from "../components/_landingref/OurScaleRaw";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 export default function OurScale() {
   return (

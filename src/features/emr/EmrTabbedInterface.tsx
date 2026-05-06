@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import EmrClinicalCare from "./imports/EmrWeb/EmrWeb";
-import EmrDigitalPresence from "./imports/EmrWeb-1/EmrWeb-1-908";
-import EmrAbdm from "./imports/EmrWeb-2/EmrWeb-1-931";
-import EmrAnalytics from "./imports/EmrWeb-3/EmrWeb-1-955";
-import EmrFrontDesk from "./imports/EmrWeb-4/EmrWeb-1-975";
+import EmrClinicalCare from "./tabs/tab-base/EmrWeb";
+import EmrDigitalPresence from "./tabs/tab-1/EmrWeb-1-908";
+import EmrAbdm from "./tabs/tab-2/EmrWeb-1-931";
+import EmrAnalytics from "./tabs/tab-3/EmrWeb-1-955";
+import EmrFrontDesk from "./tabs/tab-4/EmrWeb-1-975";
 
 type TabType = "clinical-care" | "front-desk" | "analytics" | "abdm" | "digital-presence";
 

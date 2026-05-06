@@ -1,6 +1,6 @@
-import TestimonialsSection from "./_landingref/TestimonialsRaw";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import TestimonialsSection from "../components/_landingref/TestimonialsRaw";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 export default function Testimonials() {
   return (

@@ -1,6 +1,6 @@
-import PracticeSizeRaw from "./_size/PracticeSizeRaw";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import PracticeSizeRaw from "../features/size/PracticeSizeRaw";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 export default function BuiltForEverySize() {
   return (

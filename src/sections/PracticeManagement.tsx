@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import RadialGradientBg from "./_primitives/RadialGradientBg";
-import CornerVector from "./_primitives/CornerVector";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
-import Detail1 from "./_pm/imports/Detail1/ImageAndIconsContainer";
-import Detail2 from "./_pm/imports/Detail2/ImageAndIconsContainer-10-8378";
-import Detail3 from "./_pm/imports/Detail3/ImageAndIconsContainer-10-8383";
-import BackButton from "./_pm/imports/BackButton/DivRelative";
+import RadialGradientBg from "../components/RadialGradientBg";
+import CornerVector from "../components/CornerVector";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
+import Detail1 from "../features/pm/detail-1/ImageAndIconsContainer";
+import Detail2 from "../features/pm/detail-2/ImageAndIconsContainer-10-8378";
+import Detail3 from "../features/pm/detail-3/ImageAndIconsContainer-10-8383";
+import BackButton from "../features/pm/back-button/DivRelative";
 
 type LogoMark = {
   name: string;
@@ -268,7 +268,7 @@ export default function PracticeManagement() {
                 className="bg-clip-text text-center font-bold text-transparent [text-wrap:balance]"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "clamp(26px, 3.6vw, 48px)",
+                  fontSize: "clamp(22px, 3.2vw, 42px)",
                   lineHeight: 1.12,
                   letterSpacing: "-0.02em",
                   backgroundImage:
@@ -300,19 +300,24 @@ export default function PracticeManagement() {
                 {/* FRONT */}
                 <div
                   className="absolute inset-0 overflow-hidden rounded-[24px]"
-                  style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+                  style={{
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
+                    background:
+                      "linear-gradient(135deg, #1A1A4D 0%, #2A1F5A 50%, #1A1A4D 100%)",
+                  }}
                 >
                   <Image
                     src="/figma/practice-mgmt-hero.png"
-                    alt="TatvaPractice — AI-first practice management interface"
+                    alt=""
+                    aria-hidden
                     fill
-                    sizes="(max-width: 768px) 90vw, 880px"
-                    className="object-cover select-none"
-                    draggable={false}
+                    className="pointer-events-none object-cover object-center opacity-40"
+                    sizes="(max-width: 768px) 100vw, 862px"
+                    priority
                   />
 
-                  {/* Tooltip card (static) + floating dot below it.
-                      Tooltip overlays the baked-in speech bubble in the PNG. */}
+                  {/* Tooltip card (static) + floating dot below it. */}
                   {TOOLTIPS.map((t, i) => (
                     <Tooltip
                       key={t.card}

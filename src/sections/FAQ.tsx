@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import SectionHeading from "./_primitives/SectionHeading";
-import ScrollReveal from "./_primitives/ScrollReveal";
-import SectionBg from "./_primitives/SectionBg";
+import SectionHeading from "../components/SectionHeading";
+import ScrollReveal from "../components/ScrollReveal";
+import SectionBg from "../components/SectionBg";
 
 type Item = { q: string; a: string };
 
