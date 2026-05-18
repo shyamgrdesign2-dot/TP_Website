@@ -6,6 +6,7 @@ export default function Hero() {
   return (
     <section
       className="relative flex h-screen min-h-[640px] w-full flex-col overflow-hidden bg-white"
+      aria-label="TatvaPractice — AI-first EMR for Indian clinics"
     >
       {/* Same lavender atmospheric wash used by every section below — keeps
           the hero family-coherent with PracticeManagement so there's no hard
@@ -46,14 +47,16 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft white radial wash behind the content so the grid doesn't
-          fight with the headline / subtext for legibility */}
+      {/* Subtle lavender-tinted wash behind the content — replaces
+          the previous near-white radial that read as a hard "white
+          fade" at the bottom of the section. Matches the soft
+          lavender atmosphere the rest of the page uses. */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[80vh] w-[120vw] max-w-[1600px] -translate-x-1/2 -translate-y-1/2"
         style={{
           background:
-            "radial-gradient(ellipse 45% 38% at center, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.65) 35%, rgba(255,255,255,0) 75%)",
+            "radial-gradient(ellipse 45% 38% at center, rgba(248,244,255,0.55) 0%, rgba(248,244,255,0.30) 40%, rgba(248,244,255,0) 80%)",
         }}
       />
 
@@ -86,14 +89,16 @@ export default function Hero() {
 
       {/* Vertically-centered hero content — top padding equals the navbar's
           top offset + height so the content centers within the visible
-          gap between the navbar and the trust strip, not the full section. */}
+          gap between the navbar and the scroll arrow. Trust badges now
+          live INSIDE this centred group (just below the CTAs) so there's
+          no big dead-air between the headline and the trust strip. */}
       <div
         className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center"
         style={{ paddingTop: "clamp(72px, 8vh, 110px)" }}
       >
         <div
-          className="flex w-full flex-col items-center gap-5 sm:gap-7"
-          style={{ maxWidth: "min(1320px, 92vw)" }}
+          className="flex w-full flex-col items-center gap-4 sm:gap-6"
+          style={{ maxWidth: "var(--section-w)" }}
         >
           {/* Pill — glossy glass effect matching the navbar */}
           <div
@@ -186,15 +191,32 @@ export default function Hero() {
               <span className="relative z-[1]">Start Free Trial</span>
             </a>
           </div>
+
+          {/* Trust badges — now part of the centred hero group rather than
+              pinned to the viewport bottom. Same approach the Feature
+              subpage heroes use: badges hug the CTAs, so there's no large
+              empty band between the copy and the proof points. Generous
+              vertical padding gives the row visible breathing room on both
+              sides so the chips don't feel cramped against the CTAs above
+              or the scroll arrow below. */}
+          <div
+            className="load-rise flex w-full justify-center"
+            style={{
+              animationDelay: "700ms",
+              paddingTop: "clamp(28px, 3vw, 52px)",
+              paddingBottom: "clamp(20px, 2.4vw, 40px)",
+            }}
+          >
+            <TrustBadges />
+          </div>
         </div>
       </div>
 
-      {/* Trust strip — pinned to bottom of the hero viewport */}
+      {/* Scroll arrow — pinned to the bottom of the hero viewport so it
+          always reads as a "more below" affordance, even with the trust
+          badges now living up near the CTAs. */}
       <div className="relative z-10 mx-auto flex w-full flex-shrink-0 flex-col items-center pb-4 sm:pb-6">
-        <div className="flex w-full justify-center px-4">
-          <TrustBadges />
-        </div>
-        <div className="mt-2 opacity-70">
+        <div className="opacity-70">
           <ScrollArrow />
         </div>
       </div>

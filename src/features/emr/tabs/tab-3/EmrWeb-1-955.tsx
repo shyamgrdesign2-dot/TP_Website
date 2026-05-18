@@ -4,7 +4,7 @@ import imgScreenshot20250113At21015Pm1 from "./0a8ad3d4ef575d85038e81a74a3794579
 
 function Frame12() {
   return (
-    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[0.5px] top-[calc(50%+26.28px)] w-[443px]">
+    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-72px] top-[calc(50%+26.28px)] w-[443px]">
       <div className="absolute h-[323.62px] left-[80px] rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] top-[46.59px] w-[538.063px]" data-name="image 2301">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] size-full" src={imgImage2301.src} />
         <div aria-hidden="true" className="absolute border-6 border-[rgba(187,182,193,0.4)] border-solid inset-[-6px] rounded-br-[24px] rounded-tl-[24px] rounded-tr-[24px]" />

@@ -1,5 +1,6 @@
 import SectionHeading, { GradientSpan } from "../components/SectionHeading";
 import EmrTabbedInterface from "../features/emr/EmrTabbedInterface";
+import MobileEmrTabs from "../features/emr/MobileEmrTabs";
 import ScrollReveal from "../components/ScrollReveal";
 import SectionBg from "../components/SectionBg";
 
@@ -12,9 +13,9 @@ export default function EmrStreamlines() {
         className="relative mx-auto flex w-full flex-col items-center"
         style={{
           maxWidth: "var(--section-w)",
-          paddingTop: "clamp(64px, 6.5vw, 100px)",
-          paddingBottom: "clamp(56px, 6vw, 96px)",
-          gap: "clamp(28px, 3vw, 44px)",
+          paddingTop: "clamp(28px, 2.8vw, 40px)",
+          paddingBottom: "clamp(36px, 3.8vw, 60px)",
+          gap: "clamp(20px, 3vw, 44px)",
         }}
       >
         <ScrollReveal variant="fade-up">
@@ -25,15 +26,24 @@ export default function EmrStreamlines() {
           </SectionHeading>
         </ScrollReveal>
 
+        {/* Desktop layout (≥ sm) — Figma tab interface. */}
         <ScrollReveal
           variant="scale-in"
           delay={120}
-          className="tab-widget-fit w-full"
+          className="hidden w-full sm:block"
         >
-          <div className="tab-widget-fit-inner">
-            <EmrTabbedInterface />
+          <div className="tab-widget-fit w-full">
+            <div className="tab-widget-fit-inner">
+              <EmrTabbedInterface />
+            </div>
           </div>
         </ScrollReveal>
+
+        {/* Mobile layout (< sm) — matches Figma artboard 2116-9393.
+            Tab pills, title, 3 icon bullets, illustration at bottom.
+            Pulls from `emrTabsData.tsx` so adding/editing tabs only
+            touches one file. */}
+        <MobileEmrTabs />
       </div>
     </section>
   );

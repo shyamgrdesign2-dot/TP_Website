@@ -1,12 +1,39 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import NavDropdown, { type NavDropdownItem } from "../components/NavDropdown";
 
-const NAV_LINKS = ["Solution", "Features", "Pricing", "About Us", "Contact"];
+type NavItem =
+  | { label: string; href: string }
+  | { label: string; items: NavDropdownItem[] };
+
+const NAV_ITEMS: NavItem[] = [
+  {
+    label: "Solution",
+    items: [
+      { label: "For Clinics",   href: "/solutions/clinics" },
+      { label: "For Hospitals", href: "/solutions/hospitals" },
+    ],
+  },
+  {
+    label: "Features",
+    items: [
+      { label: "Voice Rx",            href: "/features/voice-rx" },
+      { label: "SmartSync",           href: "/features/smart-sync" },
+      { label: "SnapRx",              href: "/features/snap-rx" },
+      { label: "Doctor Agent",        href: "/features/doctor-agent" },
+      { label: "Receptionist Agent",  href: "/features/receptionist-agent" },
+    ],
+  },
+  { label: "Pricing",  href: "/#pricing" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact",  href: "/contact" },
+];
 
 function Logo() {
   return (
-    <a href="#" className="flex items-center" aria-label="TatvaPractice">
+    <Link href="/" className="flex items-center" aria-label="TatvaPractice">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/figma/tatvapractice-logo.svg"
@@ -15,12 +42,14 @@ function Logo() {
         height={32}
         className="h-8 w-auto"
       />
-    </a>
+    </Link>
   );
 }
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  // Which mobile dropdown is currently expanded (single-open accordion).
+  const [openMobile, setOpenMobile] = useState<string | null>(null);
   // Solid = past the hero, switch to a denser glass + stronger shadow.
   const [solid, setSolid] = useState(false);
 
@@ -44,16 +73,21 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const closeMobile = () => {
+    setOpen(false);
+    setOpenMobile(null);
+  };
+
   return (
     <nav
       className={[
         "fixed left-1/2 top-3 z-30 -translate-x-1/2 transition-all duration-300 ease-out sm:top-5",
-        "w-[min(1240px,calc(100%-24px))] sm:w-[min(1240px,calc(100%-40px))]",
+        "w-[min(1360px,calc(100%-16px))] sm:w-[min(1360px,calc(100%-28px))]",
       ].join(" ")}
     >
       <div
         className={[
-          "relative flex items-center justify-between gap-2 overflow-hidden rounded-[20px] border border-white/50 px-3 py-2 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 sm:px-[22px] sm:py-3",
+          "relative flex items-center justify-between gap-2 overflow-visible rounded-[20px] border border-white/50 px-3 py-2 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 sm:px-[22px] sm:py-3",
         ].join(" ")}
         style={{
           background:
@@ -101,14 +135,22 @@ export default function Navbar() {
           <Logo />
         </div>
         <ul className="relative z-[1] hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((label) => (
-            <li key={label}>
-              <a
-                href="#"
-                className="block rounded-lg px-4 py-2 text-sm capitalize text-black tracking-wide transition hover:bg-white/50"
-              >
-                {label}
-              </a>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.label}>
+              {"items" in item ? (
+                <NavDropdown
+                  variant="desktop"
+                  label={item.label}
+                  items={item.items}
+                />
+              ) : (
+                <Link
+                  href={item.href}
+                  className="block rounded-lg px-4 py-2 text-sm capitalize text-black tracking-wide transition hover:bg-white/50"
+                >
+                  {item.label}
+                </Link>
+              )}
             </li>
           ))}
         </ul>
@@ -134,7 +176,12 @@ export default function Navbar() {
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
+            onClick={() =>
+              setOpen((v) => {
+                if (v) setOpenMobile(null);
+                return !v;
+              })
+            }
             className="inline-flex h-10 w-10 items-center justify-center text-[#1F1F1F] sm:hidden"
           >
             {open ? (
@@ -153,24 +200,40 @@ export default function Navbar() {
       {/* Mobile dropdown panel */}
       {open && (
         <div
-          className="mt-2 overflow-hidden rounded-[18px] border border-white/40 backdrop-blur-xl backdrop-saturate-150 sm:hidden"
+          className="mt-2 overflow-y-auto rounded-[18px] border border-white/40 backdrop-blur-xl backdrop-saturate-150 sm:hidden"
           style={{
             background:
               "linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.4) 100%)",
             boxShadow:
               "0 1px 0 rgba(255,255,255,0.65) inset, 0 8px 32px rgba(33,32,119,0.18)",
+            maxHeight: "calc(100dvh - 120px)",
           }}
         >
           <ul className="flex flex-col py-2">
-            {NAV_LINKS.map((label) => (
-              <li key={label}>
-                <a
-                  href="#"
-                  onClick={() => setOpen(false)}
-                  className="block px-5 py-3 text-base font-medium text-[#1F1F1F] hover:bg-white/40"
-                >
-                  {label}
-                </a>
+            {NAV_ITEMS.map((item) => (
+              <li key={item.label}>
+                {"items" in item ? (
+                  <NavDropdown
+                    variant="mobile"
+                    label={item.label}
+                    items={item.items}
+                    isOpen={openMobile === item.label}
+                    onToggle={() =>
+                      setOpenMobile((cur) =>
+                        cur === item.label ? null : item.label,
+                      )
+                    }
+                    onItemClick={closeMobile}
+                  />
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={closeMobile}
+                    className="block px-5 py-3 text-base font-medium text-[#1F1F1F] hover:bg-white/40"
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

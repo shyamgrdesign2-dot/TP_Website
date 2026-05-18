@@ -149,7 +149,7 @@ function Container23() {
 
 function Container22() {
   return (
-    <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] h-[250px] min-w-px relative rounded-[24px]" data-name="Container">
+    <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] min-h-[250px] min-w-px relative rounded-[24px]" data-name="Container">
       <div aria-hidden="true" className="absolute border-[0.5px] border-[rgba(226,226,234,0.5)] border-solid inset-0 pointer-events-none rounded-[24px]" />
       <div className="flex flex-col justify-center size-full">
         <div className="content-stretch flex flex-col gap-[18px] items-start justify-center p-[16px] relative size-full">
@@ -259,7 +259,7 @@ function Container28() {
 
 function Container27() {
   return (
-    <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] h-[250px] min-w-px relative rounded-[24px]" data-name="Container">
+    <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] min-h-[250px] min-w-px relative rounded-[24px]" data-name="Container">
       <div aria-hidden="true" className="absolute border-[0.5px] border-[rgba(226,226,234,0.5)] border-solid inset-0 pointer-events-none rounded-[24px]" />
       <div className="flex flex-col justify-center size-full">
         <div className="content-stretch flex flex-col gap-[18px] items-start justify-center p-[16px] relative size-full">
@@ -369,7 +369,7 @@ function Container33() {
 
 function Container32() {
   return (
-    <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] h-[250px] min-w-px relative rounded-[24px]" data-name="Container">
+    <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] min-h-[250px] min-w-px relative rounded-[24px]" data-name="Container">
       <div aria-hidden="true" className="absolute border-[0.5px] border-[rgba(226,226,234,0.5)] border-solid inset-0 pointer-events-none rounded-[24px]" />
       <div className="flex flex-col justify-center size-full">
         <div className="content-stretch flex flex-col gap-[18px] items-start justify-center p-[16px] relative size-full">
@@ -385,7 +385,7 @@ function Container32() {
 
 function Container21() {
   return (
-    <div className="content-stretch flex gap-[24px] h-[250px] items-center relative shrink-0 w-[862px]" data-name="Container">
+    <div className="content-stretch flex gap-[24px] min-h-[250px] items-center relative shrink-0 w-[862px]" data-name="Container">
       <Container22 />
       <Container27 />
       <Container32 />
@@ -416,7 +416,7 @@ function Arrow1() {
 
 function Frame7() {
   return (
-    <div className="content-stretch flex gap-[24px] h-[296px] items-center justify-center relative shrink-0 w-[1040px]">
+    <div className="content-stretch flex gap-[24px] min-h-[296px] items-center justify-center relative shrink-0 w-[1040px]">
       <Arrow />
       <Container21 />
       <div className="flex items-center justify-center relative shrink-0">
@@ -437,7 +437,7 @@ function DivFlex13() {
         </div>
       </div>
       <Frame15 />
-      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[42px] text-center tracking-[-2px] w-[499.536px]">
+      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[30px] text-center tracking-[-2px] w-[499.536px]">
         <p className="leading-[normal] mb-0">Hear from</p>
         <p className="leading-[normal]">Healthcare Professionals</p>
       </div>

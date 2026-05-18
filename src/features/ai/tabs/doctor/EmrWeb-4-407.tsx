@@ -1,10 +1,11 @@
 import svgPaths from "./svg-4iyfdqmhnl";
+import CardCtaPair from "@/components/CardCtaPair";
 import imgImage2332 from "./78550997e329090d9bb2ef2a68834ac572dc5a09.png";
 import imgImage66 from "./6188eb939b873c8e596d12a298475f6fb9d46c2f.png";
 
 function Frame9() {
   return (
-    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-0.5px] top-[calc(50%+26.12px)] w-[443px]">
+    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-72px] top-[calc(50%+26.12px)] w-[443px]">
       <div className="absolute h-[330.382px] left-[80.21px] rounded-[18px] top-[46.59px] w-[550px]" data-name="image 2332">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-[18px] size-full" src={imgImage2332.src} />
         <div aria-hidden="true" className="absolute border-6 border-[rgba(187,182,193,0.5)] border-solid inset-[-6px] rounded-[24px]" />
@@ -1798,7 +1799,7 @@ function PFontMatter() {
           <span className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[28px]">summarizes patient history</span>
           <span className="font-['Inter:Regular',sans-serif] font-normal leading-[28px]">, suggests next steps, and answers in-consultation questions on the go.</span>
         </p>
-        <p className="[text-decoration-skip-ink:none] decoration-solid leading-[28px] text-[16px] underline">Learn More</p>
+        <CardCtaPair learnMoreHref="/features/doctor-agent" variant="dark" className="mt-2" />
       </div>
     </div>
   );

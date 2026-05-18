@@ -4,9 +4,19 @@
   --background: #ffffff;
   --foreground: #1f1f1f;
 
-  /* Single shared width that every below-fold section uses, so they
-     visually align as one column. Scales with viewport. */
-  --section-w: min(1080px, 92vw);
+  /* Single shared content width used by EVERY section on every page
+     (hero cards, content cards, FinalCTA). Sections render their
+     background/grid/glow layers full-bleed, then constrain their
+     content column to this value via `max-width: var(--section-w);
+     margin: 0 auto`. Keeping one variable makes the page rhythm
+     consistent — when this number changes, every section moves
+     together.
+
+     The `86vw` term gives ~160 px of left/right page gutter on a
+     1440 px-wide viewport (up from 120 px) — content sits in a
+     comfortably wide margin band while still expanding fluidly on
+     smaller screens. */
+  --section-w: min(1120px, 86vw);
 
   /* Inline SVG fractal-noise overlay (matches Figma feTurbulence spec).
      Applied at low opacity over the radial gradients. */
@@ -237,14 +247,11 @@
   mix-blend-mode: overlay;
 }
 
-/* Card hover micro-lift — drop into any clickable card. */
+/* Card resting shadow — drop into any card that should sit on a
+   subtle lifted shadow by default. The previous version added the
+   shadow only on hover, which the design team felt was too quiet.
+   The shadow now ships always-on with no hover state. */
 .lift-on-hover {
-  transition:
-    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lift-on-hover:hover {
-  transform: translateY(-3px);
   box-shadow:
     0 14px 32px rgba(75, 74, 213, 0.12),
     0 1px 0 rgba(255, 255, 255, 0.95) inset;
@@ -272,28 +279,88 @@
 }
 
 /* Scale-to-fit a fixed-design Figma widget so it fills the parent
-   container width while preserving its aspect ratio. The whole widget
-   grows uniformly from the centre. Override --design-w / --design-h on
-   the wrapper to use with different design sizes. */
+   container width. The widget's INTERNAL content height drives the
+   section height — we use `zoom` (not `transform: scale`) because
+   `zoom` participates in layout flow, so the parent reserves space
+   based on the actually-rendered scaled content. That means a
+   testimonial card whose quote text wraps to 5 lines pushes the
+   section taller; a card whose quote wraps to 3 lines lets the
+   section be shorter. No more `--design-h` guesswork getting the
+   bottom of cards clipped on the "Hear from Healthcare
+   Professionals" or "Our Scale" sections.
+
+   Override `--design-w` on the wrapper for different design canvas
+   widths. `--design-h` is kept as documentation only — it's no
+   longer used by the CSS. */
 .tab-widget-fit {
   container-type: inline-size;
   width: 100%;
   --design-w: 862;
   --design-h: 430;
-  aspect-ratio: var(--design-w) / var(--design-h);
+  /* Lower bound on the zoom factor. On phones (≤ ~640 px wide) the
+     800–1041 px design canvases naturally need to shrink below 50%
+     to fit the viewport — clamping the floor at 0.7 caused horizontal
+     overflow on mobile. The floor stays modest (0.3 = 30%) so text
+     doesn't get unreadable on extreme aspect ratios, but lets the
+     content actually fit on real-world phones. We deliberately do
+     NOT clamp the UPPER bound — capping it left content sitting in
+     empty side-margin on wide viewports. If specific elements feel
+     oversized on big screens, cap them at the ELEMENT level with
+     `clamp()` instead of strangling the whole layout. */
+  --fit-min: 0.3;
   position: relative;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 .tab-widget-fit > .tab-widget-fit-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
   width: calc(var(--design-w) * 1px);
-  height: calc(var(--design-h) * 1px);
-  transform-origin: center center;
-  transform: translate(-50%, -50%) scale(calc(100cqw / (var(--design-w) * 1px)));
+  /* `min-height` (not fixed `height`) — gives absolute-positioned
+     children inside the Figma exports a real positioning context
+     (BuiltInAI / EmrStreamlines tabs, Hero card, Practice Mgmt all
+     use `position: absolute` for their inner layers — without a
+     fixed-height parent they collapse to 0 and the entire section
+     renders blank). Using `min-height` instead of `height` lets
+     flow-based content (Testimonials, Our Scale) extend beyond the
+     design budget when their natural copy wraps wider.
+     `--fit-min-h` defaults to the design height but can be set to 0
+     on the wrapper for flow-only sections that DON'T need a height
+     floor (Why Doctors, Specialties grid) — otherwise the floor
+     creates dead space below the content. */
+  min-height: var(--fit-min-h, calc(var(--design-h) * 1px));
+  /* `zoom` resizes the element AND its layout box, so the parent
+     auto-grows to fit the scaled natural content. Modern Chromium,
+     WebKit, and Firefox 126+ all support `zoom` with calc(). The
+     `max()` enforces the lower floor only; the upper end is left
+     uncapped so sections fill the full content width on wide
+     viewports. */
+  zoom: max(
+    var(--fit-min),
+    calc(100cqw / (var(--design-w) * 1px))
+  );
+  /* Fallback for older Firefox / engines that don't honour `zoom`
+     properly — falls back to `transform: scale` (no layout flow),
+     which clips like the original behaviour but at least renders. */
+}
+@supports not (zoom: 2) {
+  .tab-widget-fit {
+    aspect-ratio: var(--design-w) / var(--design-h);
+    align-items: center;
+  }
+  .tab-widget-fit > .tab-widget-fit-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: calc(var(--design-h) * 1px);
+    transform-origin: center center;
+    transform: translate(-50%, -50%)
+      scale(
+        max(
+          var(--fit-min),
+          calc(100cqw / (var(--design-w) * 1px))
+        )
+      );
+    zoom: 1;
+  }
 }
 
 /* 3D card-flip primitives — apply .card-flip-perspective to the wrapper,

@@ -1,10 +1,11 @@
 import svgPaths from "./svg-8j7tqm62gf";
+import CardCtaPair from "@/components/CardCtaPair";
 import imgImage2295 from "./62a91b29b17e0e6350a130c32776b8482f393fe1.png";
 import imgImage2294 from "./7fc2e9c59124232ca79b96817d5b9f1a1ea9c216.png";
 
 function Frame9() {
   return (
-    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-0.5px] top-[calc(50%+26.12px)] w-[443px]">
+    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-72px] top-[calc(50%+26.12px)] w-[443px]">
       <div className="absolute h-[345.75px] left-[80px] rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] top-[46.59px] w-[540px]" data-name="image 2295">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] size-full" src={imgImage2295.src} />
         <div aria-hidden="true" className="absolute border-7 border-[rgba(187,182,193,0.4)] border-solid inset-[-7px] rounded-br-[25px] rounded-tl-[25px] rounded-tr-[25px]" />
@@ -1796,7 +1797,7 @@ function PFontMatter() {
           <span className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[28px]">structured digital format</span>
           <span className="font-['Inter:Regular',sans-serif] font-normal leading-[28px]">{` in seconds with zero manual entry.`}</span>
         </p>
-        <p className="[text-decoration-skip-ink:none] decoration-solid leading-[28px] text-[16px] underline">Learn More</p>
+        <CardCtaPair learnMoreHref="/features/snap-rx" variant="dark" className="mt-2" />
       </div>
     </div>
   );

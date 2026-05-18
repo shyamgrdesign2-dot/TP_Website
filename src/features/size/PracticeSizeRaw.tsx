@@ -1,4 +1,5 @@
 import svgPaths from "./svg-cazyfuvy64";
+import SharedCtaPair from "@/components/CardCtaPair";
 
 function TitleContainer() {
   return (
@@ -185,16 +186,40 @@ function Container4() {
   );
 }
 
+function CardBodyWatermark() {
+  // Same polygon vector that the dark gradient header uses, but tinted
+  // indigo at very low opacity so it reads as a watermark on the white
+  // frosted body. Pinned to the bottom-right of the card.
+  return (
+    <div aria-hidden className="pointer-events-none absolute bottom-3 right-[-24px] h-[160px] w-[132px] opacity-[0.07]">
+      <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 134.939 162.543">
+        <g id="VectorBodyWatermark">
+          <path d={svgPaths.p3aeb9340} fill="#1F1F6E" />
+          <path d={svgPaths.p18487670} fill="#1F1F6E" />
+          <path d={svgPaths.p2783da00} fill="#1F1F6E" />
+          <path d={svgPaths.p1b2a2872} fill="#1F1F6E" />
+          <path d={svgPaths.p396c3680} fill="#1F1F6E" />
+          <path d={svgPaths.pc2cc240} fill="#1F1F6E" />
+          <path d={svgPaths.p32948170} fill="#1F1F6E" />
+          <path d={svgPaths.p23e88100} fill="#1F1F6E" />
+          <path d={svgPaths.p26919600} fill="#1F1F6E" />
+          <path d={svgPaths.p3b614f70} fill="#1F1F6E" />
+          <path d={svgPaths.pda4e980} fill="#1F1F6E" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function Container1() {
   return (
     <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] min-w-px relative rounded-[24px]" data-name="Container">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
+        <CardBodyWatermark />
         <div className="content-stretch flex flex-col gap-[18px] items-center p-[18px] relative size-full">
           <Container2 />
           <Container4 />
-          <div className="flex flex-col font-['Inter:Medium',sans-serif] font-medium justify-center leading-[0] not-italic relative shrink-0 text-[#4b4ad5] text-[16px] whitespace-nowrap">
-            <p className="decoration-solid leading-[42px] underline">Learn more</p>
-          </div>
+          <CardCtaPair href="/solutions/clinics" />
         </div>
       </div>
       <div aria-hidden="true" className="absolute border-[0.5px] border-[rgba(226,226,234,0.5)] border-solid inset-0 pointer-events-none rounded-[24px]" />
@@ -349,7 +374,7 @@ function Container12() {
   return (
     <div className="opacity-80 relative shrink-0 w-full" data-name="Container">
       <div className="content-stretch flex flex-col gap-[25px] items-start px-[8px] relative size-full">
-        <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#454551] text-[16px] w-[389.276px]">
+        <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[#454551] text-[16px] w-full max-w-[389.276px]">
           <p className="leading-[22px]">Enterprise-grade EMR with compliance, control, and dedicated support.</p>
         </div>
         <Container13 />
@@ -362,12 +387,11 @@ function Container9() {
   return (
     <div className="backdrop-blur-[20px] backdrop-saturate-150 bg-[rgba(255,255,255,0.62)] flex-[1_0_0] min-w-px relative rounded-[24px]" data-name="Container">
       <div className="flex flex-col items-center overflow-clip rounded-[inherit] size-full">
+        <CardBodyWatermark />
         <div className="content-stretch flex flex-col gap-[18px] items-center p-[18px] relative size-full">
           <Container10 />
           <Container12 />
-          <div className="flex flex-col font-['Inter:Medium',sans-serif] font-medium justify-center leading-[0] not-italic relative shrink-0 text-[#4b4ad5] text-[16px] whitespace-nowrap">
-            <p className="decoration-solid leading-[42px] underline">Learn more</p>
-          </div>
+          <CardCtaPair href="/solutions/hospitals" />
         </div>
       </div>
       <div aria-hidden="true" className="absolute border-[0.5px] border-[rgba(226,226,234,0.5)] border-solid inset-0 pointer-events-none rounded-[24px]" />
@@ -375,9 +399,22 @@ function Container9() {
   );
 }
 
+// CardCtaPair is the shared component in src/components — re-exported
+// locally so the two practice-size cards can compose it cleanly.
+function CardCtaPair({ href }: { href: string }) {
+  return <SharedCtaPair learnMoreHref={href} variant="light" />;
+}
+
 function Container() {
+  // Mobile (< sm): stack the two "Practice Size" cards vertically so
+  // the "For Clinics & Solo Practices" + "For Hospitals & Health
+  // Systems" cards don't squeeze side-by-side at 375 px.
+  // Desktop (≥ sm): keep the original 44 px horizontal row.
   return (
-    <div className="content-stretch flex gap-[44px] items-center relative size-full" data-name="Container">
+    <div
+      className="flex flex-col items-stretch gap-6 sm:flex-row sm:items-center sm:gap-[44px]"
+      data-name="Container"
+    >
       <Container1 />
       <Container9 />
     </div>

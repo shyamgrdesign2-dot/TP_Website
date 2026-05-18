@@ -35,7 +35,7 @@ function VuesaxBulkProfile2User() {
 
 function Card() {
   return (
-    <div className="flex-[1_0_0] h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
+    <div className="flex-[1_0_0] min-h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
       <div className="overflow-clip rounded-[inherit] size-full">
         <CardContent />
         <div className="absolute left-[-28.81px] opacity-10 size-[123.032px] top-[17.13px]" data-name="profile-2user">
@@ -82,7 +82,7 @@ function VuesaxBulkClipboardText() {
 
 function Card1() {
   return (
-    <div className="flex-[1_0_0] h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
+    <div className="flex-[1_0_0] min-h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
       <div className="overflow-clip rounded-[inherit] size-full">
         <CardContent1 />
         <div className="absolute left-[-27px] opacity-14 size-[105.122px] top-[22.58px]" data-name="clipboard-text">
@@ -126,7 +126,7 @@ function Group36() {
 
 function Card2() {
   return (
-    <div className="flex-[1_0_0] h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
+    <div className="flex-[1_0_0] min-h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
       <div className="overflow-clip rounded-[inherit] size-full">
         <CardContent2 />
         <div className="absolute left-[-24.92px] opacity-10 overflow-clip size-[89.548px] top-[24.14px]" data-name="Card Icon">
@@ -141,7 +141,7 @@ function Card2() {
 
 function PartnersCards() {
   return (
-    <div className="content-stretch flex gap-[18.688px] h-[105.901px] items-start relative shrink-0 w-full" data-name="Partners Cards">
+    <div className="content-stretch flex gap-[18.688px] min-h-[105.901px] items-start relative shrink-0 w-full" data-name="Partners Cards">
       <Card />
       <Card1 />
       <Card2 />
@@ -189,7 +189,7 @@ function Frame() {
 
 function Card3() {
   return (
-    <div className="flex-[1_0_0] h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
+    <div className="flex-[1_0_0] min-h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
       <div className="overflow-clip rounded-[inherit] size-full">
         <CardContent3 />
         <Frame />
@@ -218,7 +218,7 @@ function CardContent4() {
 
 function Card4() {
   return (
-    <div className="flex-[1_0_0] h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
+    <div className="flex-[1_0_0] min-h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
       <div className="overflow-clip rounded-[inherit] size-full">
         <CardContent4 />
         <div className="absolute left-[-26.22px] opacity-10 overflow-clip size-[101.229px] top-[24.92px]" data-name="Card Icon">
@@ -278,7 +278,7 @@ function Frame1() {
 
 function Card5() {
   return (
-    <div className="flex-[1_0_0] h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
+    <div className="flex-[1_0_0] min-h-[108.237px] min-w-px overflow-hidden relative rounded-[16px] lift-on-hover" style={{ backgroundImage: "linear-gradient(-61.0859deg, rgba(233, 204, 255, 0) 0%, rgba(242, 225, 255, 0.5) 130.11%)", backgroundColor: "rgba(255,255,255,0.55)", backdropFilter: "blur(20px) saturate(150%)", WebkitBackdropFilter: "blur(20px) saturate(150%)", border: "none" }} data-name="Card">
       <div className="overflow-clip rounded-[inherit] size-full">
         <CardContent5 />
         <Frame1 />
@@ -290,7 +290,7 @@ function Card5() {
 
 function PartnersCards1() {
   return (
-    <div className="content-stretch flex gap-[18.688px] h-[105.901px] items-start relative shrink-0 w-full" data-name="Partners Cards">
+    <div className="content-stretch flex gap-[18.688px] min-h-[105.901px] items-start relative shrink-0 w-full" data-name="Partners Cards">
       <Card3 />
       <Card4 />
       <Card5 />
@@ -310,7 +310,7 @@ function Content() {
 function OurScale() {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-center relative shrink-0" data-name="Our Scale">
-      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] min-w-full relative shrink-0 text-[#454551] text-[42px] text-center tracking-[-0.84px] w-[min-content]">
+      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] min-w-full relative shrink-0 text-[#454551] text-[30px] text-center tracking-[-0.84px] w-[min-content]">
         <p className="leading-[normal]">Our Scale</p>
       </div>
       <Content />

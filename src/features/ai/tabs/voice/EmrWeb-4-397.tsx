@@ -1,10 +1,11 @@
 import svgPaths from "./svg-vms9olr1ti";
+import CardCtaPair from "@/components/CardCtaPair";
 import imgImage2309 from "./560f3db26f9bd4c617bc93af18a0eff809528d5e.png";
 import imgImage2292 from "./64b8ed40e9023820e968f32d67bccdfd4942b06c.png";
 
 function Frame() {
   return (
-    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-0.5px] top-[calc(50%+26.12px)] w-[443px]">
+    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-72px] top-[calc(50%+26.12px)] w-[443px]">
       <div className="absolute h-[326.25px] left-[80px] rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] top-[46.75px] w-[540px]" data-name="image 2309">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] size-full" src={imgImage2309.src} />
         <div aria-hidden="true" className="absolute border-7 border-[rgba(187,182,193,0.4)] border-solid inset-[-7px] rounded-br-[25px] rounded-tl-[25px] rounded-tr-[25px]" />
@@ -1798,7 +1799,7 @@ function PFontMatter() {
           <span className="font-['Inter:Regular',sans-serif] font-normal leading-[28px]">{` your clinical speech and instantly turns it into a `}</span>
           <span className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[28px]">structured Rx.</span>
         </p>
-        <p className="[text-decoration-skip-ink:none] decoration-solid leading-[28px] text-[16px] underline">Learn More</p>
+        <CardCtaPair learnMoreHref="/features/voice-rx" variant="dark" className="mt-2" />
       </div>
     </div>
   );

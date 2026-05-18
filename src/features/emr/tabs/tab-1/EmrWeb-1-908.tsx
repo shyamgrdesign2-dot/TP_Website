@@ -3,7 +3,7 @@ import imgImage2309 from "./f86602480e7499f322b9cd96743919009e695b7e.png";
 
 function Frame12() {
   return (
-    <div className="-translate-y-1/2 absolute h-[340px] right-[0.5px] top-[calc(50%+26.28px)] w-[445px]">
+    <div className="-translate-y-1/2 absolute h-[340px] right-[-72px] top-[calc(50%+26.28px)] w-[445px]">
       <div className="-translate-y-1/2 absolute h-[324.596px] left-[54.57px] pointer-events-none rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] top-[calc(50%+38.54px)] w-[540px]" data-name="image 2309">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] size-full" src={imgImage2309.src} />
         <div aria-hidden="true" className="absolute border-7 border-[rgba(187,182,193,0.4)] border-solid inset-[-7px] rounded-br-[25px] rounded-tl-[25px] rounded-tr-[25px]" />

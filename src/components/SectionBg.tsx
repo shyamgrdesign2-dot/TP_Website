@@ -58,7 +58,7 @@ export default function SectionBg({
           className="pointer-events-none absolute inset-0 z-0"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(75,74,213,0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(75,74,213,0.08) 1px, transparent 1px)",
+              "linear-gradient(to right, rgba(75,74,213,0.16) 1px, transparent 1px), linear-gradient(to bottom, rgba(75,74,213,0.16) 1px, transparent 1px)",
             backgroundSize:
               "clamp(40px, 4.5vw, 64px) clamp(40px, 4.5vw, 64px)",
             backgroundPosition: "center center",
@@ -70,6 +70,34 @@ export default function SectionBg({
           }}
         />
       )}
+
+      {/* Symmetric edge-fade washes at the top + bottom of every
+          section. Each strip softly bleaches the section edge to
+          white so the lavender/pink radial reads as a contained
+          atmosphere instead of a hard rectangle butting against its
+          neighbours.
+          The strips are intentionally short (≤ 48 px) so they never
+          bleach the actual content inside the section — they only
+          paint the negative-space band between the section edge and
+          where any heading / card begins. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 z-[1]"
+        style={{
+          height: "clamp(28px, 3.2vw, 48px)",
+          background:
+            "linear-gradient(to bottom, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0) 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1]"
+        style={{
+          height: "clamp(28px, 3.2vw, 48px)",
+          background:
+            "linear-gradient(to top, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0) 100%)",
+        }}
+      />
     </>
   );
 }

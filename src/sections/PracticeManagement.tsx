@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import RadialGradientBg from "../components/RadialGradientBg";
-import CornerVector from "../components/CornerVector";
+import Lottie from "lottie-react";
+import arrowAnim from "../../public/figma/arrow-animated.json";
+import Card from "../components/Card";
 import ScrollReveal from "../components/ScrollReveal";
 import SectionBg from "../components/SectionBg";
 import Detail1 from "../features/pm/detail-1/ImageAndIconsContainer";
 import Detail2 from "../features/pm/detail-2/ImageAndIconsContainer-10-8378";
 import Detail3 from "../features/pm/detail-3/ImageAndIconsContainer-10-8383";
 import BackButton from "../features/pm/back-button/DivRelative";
+import MobilePracticeManagement from "./MobilePracticeManagement";
 
 type LogoMark = {
   name: string;
@@ -151,7 +152,10 @@ function Tooltip({
             "0 6px 14px rgba(75,74,213,0.40), 0 1px 0 rgba(255,255,255,0.4) inset",
         }}
       >
-        See How <span aria-hidden>→</span>
+        See How{" "}
+          <span aria-hidden className="pointer-events-none" style={{ filter: "brightness(0) invert(1)" }}>
+            <Lottie animationData={arrowAnim} loop style={{ width: 18, height: 18 }} />
+          </span>
       </span>
 
       {/* Triangle tail — bottom-center, pointing down. Two stacked triangles
@@ -229,51 +233,51 @@ export default function PracticeManagement() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section
+      id="practice-management"
+      className="relative w-full overflow-hidden"
+      // Scroll-margin keeps hash links + keyboard "scroll into view"
+      // from landing the heading underneath the fixed navbar.
+      style={{ scrollMarginTop: "clamp(80px, 8vh, 120px)" }}
+    >
       <SectionBg variant="lavender" />
+      {/* Matches the Our-Scale section's vertical rhythm so the
+          lavender radial visibly fades to white at the section edges,
+          blending into the neighbouring sections. */}
       <div
         className="relative z-10 mx-auto"
         style={{
           maxWidth: "var(--section-w)",
-          paddingTop: "clamp(40px, 4vw, 64px)",
-          paddingBottom: "clamp(40px, 4vw, 64px)",
+          paddingTop: "clamp(56px, 5.5vw, 96px)",
+          paddingBottom: "clamp(56px, 5.5vw, 96px)",
         }}
       >
-        <div
-          className="relative w-full overflow-hidden"
-          style={{
-            borderRadius: "clamp(20px, 2.4vw, 32px)",
-            boxShadow:
-              "0 24px 60px rgba(16, 16, 86, 0.25), 0 1px 0 rgba(255,255,255,0.08) inset",
-          }}
-        >
-          <RadialGradientBg variant="navy" />
-
-          <CornerVector variant="tl" size={280} />
-          <CornerVector variant="tr" size={280} />
-          <CornerVector variant="bl" size={280} />
-          <CornerVector variant="br" size={280} />
-
+        {/* Navy-radial card — uses the shared `<Card>` primitive so
+            radius, padding, and corner-vector decorations stay
+            consistent with every other inner-card on the site. We pad
+            the card extra-generously on the Y axis so the heading sits
+            well clear of both the rounded top corner and the navbar
+            during scroll. The inner flex column uses `justify-center`
+            so the three child rows (heading / flip-card / trusted-by)
+            stay vertically centred inside the card on tall viewports. */}
+        <Card variant="navy" padX="lg" padY="xl" withCornerVectors>
           <div
-            className="relative z-10 mx-auto flex w-full flex-col items-center"
-            style={{
-              paddingTop: "clamp(48px, 5vw, 80px)",
-              paddingBottom: "clamp(40px, 4vw, 64px)",
-              paddingInline: "clamp(24px, 3.5vw, 56px)",
-              gap: "clamp(24px, 2.6vw, 40px)",
-            }}
+            className="relative mx-auto flex w-full flex-col items-center justify-center"
+            style={{ gap: "clamp(24px, 2.6vw, 40px)" }}
           >
             <ScrollReveal variant="fade-up">
               <h2
-                className="bg-clip-text text-center font-bold text-transparent [text-wrap:balance]"
+                className="text-center font-bold text-white [text-wrap:balance]"
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "clamp(22px, 3.2vw, 42px)",
-                  lineHeight: 1.12,
+                  lineHeight: 1.18,
                   letterSpacing: "-0.02em",
-                  backgroundImage:
-                    "linear-gradient(98deg, #ffffff 0%, rgba(255,255,255,0.85) 100%)",
                   maxWidth: "min(900px, 90vw)",
+                  // Subtle drop-glow lifts the heading off the navy
+                  // radial without needing a gradient that fades the
+                  // text edges.
+                  textShadow: "0 2px 18px rgba(75,74,213,0.45)",
                 }}
               >
                 Complete AI-First
@@ -282,12 +286,29 @@ export default function PracticeManagement() {
               </h2>
             </ScrollReveal>
 
-            {/* Flip card — verbatim mechanism from Complete Landing Page_2.zip */}
+            {/* Mobile (< sm): 3 vertical scenes stacked with their
+                own tooltips + Trusted By partner row. Matches Figma
+                artboard 2116-9096. */}
+            <MobilePracticeManagement />
+
+            {/*
+              Desktop flip card (≥ sm).
+              - Keeps the original 862 / 386 aspect ratio (wide
+                horizontal layout — text overlay on top of a
+                horizontal photo).
+              - Mobile (< sm): switches to a tall 4 / 5 aspect ratio
+                so the card stacks vertically — the vertical mobile
+                image (`/features/practice-mgmt/mobile.png`) takes
+                the full card area, the tooltips reposition over it,
+                and there's room to breathe. The aspect-ratio
+                breakpoint is handled via the `aspect-[…] sm:aspect-[…]`
+                Tailwind pair.
+            */}
             <ScrollReveal
               variant="scale-in"
               delay={120}
-              className="relative w-full"
-              style={{ maxWidth: CANVAS_W, aspectRatio: `${CANVAS_W} / ${CANVAS_H}`, perspective: "1000px" }}
+              className="relative hidden w-full sm:block sm:aspect-[862/386]"
+              style={{ maxWidth: CANVAS_W, perspective: "1000px" }}
             >
               <div
                 className="absolute inset-0 transition-transform duration-700 ease-in-out"
@@ -307,15 +328,35 @@ export default function PracticeManagement() {
                       "linear-gradient(135deg, #1A1A4D 0%, #2A1F5A 50%, #1A1A4D 100%)",
                   }}
                 >
-                  <Image
-                    src="/figma/practice-mgmt-hero.png"
-                    alt=""
+                  {/*
+                    Responsive backdrop image. On phones the wide
+                    horizontal photo of the OPD scene crops awkwardly
+                    inside the card's tall aspect ratio, so we serve a
+                    vertical 3-panel composition at the same path
+                    (`/features/practice-mgmt/mobile.png`). The
+                    `<picture>` source kicks in below the `sm`
+                    breakpoint; everything ≥ 640 px keeps using the
+                    original horizontal `practice-mgmt-hero.png`.
+                    Until the mobile.png file is uploaded, the
+                    `<source>` simply fails to match (or returns 404)
+                    and the browser silently falls back to the desktop
+                    `<img>` — so the page never breaks.
+                  */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <picture
                     aria-hidden
-                    fill
-                    className="pointer-events-none object-cover object-center opacity-40"
-                    sizes="(max-width: 768px) 100vw, 862px"
-                    priority
-                  />
+                    className="pointer-events-none absolute inset-0"
+                  >
+                    <source
+                      media="(max-width: 640px)"
+                      srcSet="/features/practice-mgmt/mobile.png"
+                    />
+                    <img
+                      src="/figma/practice-mgmt-hero.png"
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+                    />
+                  </picture>
 
                   {/* Tooltip card (static) + floating dot below it. */}
                   {TOOLTIPS.map((t, i) => (
@@ -418,7 +459,7 @@ export default function PracticeManagement() {
               </div>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </section>
   );

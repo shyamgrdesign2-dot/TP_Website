@@ -6,8 +6,15 @@ import SmartSync from "./tabs/smart-sync/EmrWeb-4-446";
 import SnapRx from "./tabs/snap-rx/EmrWeb-4-433";
 import Receptionist from "./tabs/receptionist/EmrWeb-4-420";
 import Doctor from "./tabs/doctor/EmrWeb-4-407";
+import DDX from "./tabs/ddx/EmrWeb-4-DDX";
 
-type TabType = "voicerx" | "smartsync" | "snaprx" | "receptionist" | "doctor";
+type TabType =
+  | "voicerx"
+  | "smartsync"
+  | "snaprx"
+  | "receptionist"
+  | "doctor"
+  | "ddx";
 
 interface TabConfig {
   id: TabType;
@@ -21,6 +28,7 @@ const tabs: TabConfig[] = [
   { id: "snaprx", label: "SnapRx", component: SnapRx },
   { id: "receptionist", label: "Receptionist Agent", component: Receptionist },
   { id: "doctor", label: "Doctor Agent", component: Doctor },
+  { id: "ddx", label: "DDX", component: DDX },
 ];
 
 export default function AiTabbedInterface() {
@@ -37,7 +45,7 @@ export default function AiTabbedInterface() {
       </div>
 
       <div
-        className="-translate-x-1/2 absolute backdrop-blur-[10px] content-stretch flex flex-col h-[62px] items-center justify-center left-[calc(50%-1.5px)] overflow-clip px-[18.319px] rounded-bl-[27.637px] rounded-br-[27.637px] shadow-[0px_1.527px_9.159px_0px_rgba(255,255,255,0.25)] top-[-0.5px] w-[662px] z-10"
+        className="-translate-x-1/2 absolute backdrop-blur-[10px] flex flex-col h-[62px] items-center justify-center left-[calc(50%-1.5px)] rounded-bl-[27.637px] rounded-br-[27.637px] shadow-[0px_1.527px_9.159px_0px_rgba(255,255,255,0.25)] top-[-0.5px] z-10 max-w-[min(740px,calc(100%-32px))] w-max overflow-hidden"
         style={{
           background:
             "linear-gradient(143deg, rgba(248, 225, 251, 0.20) -45.06%, rgba(215, 165, 235, 0.20) 42.51%, rgba(121, 70, 203, 0.20) 218.92%), #FFF",
@@ -45,7 +53,7 @@ export default function AiTabbedInterface() {
         data-name="Tabs Container"
       >
         <div
-          className="content-stretch flex gap-[12px] items-center relative shrink-0"
+          className="flex gap-[12px] items-center relative w-full overflow-x-auto px-[18.319px] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           data-name="Tabs"
         >
           {tabs.map((tab) => (

@@ -1,10 +1,11 @@
 import svgPaths from "./svg-e20iebuumk";
+import CardCtaPair from "@/components/CardCtaPair";
 import imgImage2296 from "./9af401997ede02dc77d014ea2a953fcf5f6817a5.png";
 import imgImage2298 from "./d5194114d4fcba343dfbdfb5212b3241a8429128.png";
 
 function Frame9() {
   return (
-    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-0.5px] top-[calc(50%+26.12px)] w-[443px]">
+    <div className="-translate-y-1/2 absolute h-[358px] pointer-events-none right-[-72px] top-[calc(50%+26.12px)] w-[443px]">
       <div className="-translate-y-1/2 absolute h-[345.75px] left-[80.77px] rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] top-[calc(50%+39.9px)] w-[540px]" data-name="image 2296">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] size-full" src={imgImage2296.src} />
         <div aria-hidden="true" className="absolute border-7 border-[rgba(187,182,193,0.4)] border-solid inset-[-7px] rounded-br-[25px] rounded-tl-[25px] rounded-tr-[25px]" />
@@ -1792,7 +1793,7 @@ function PFontMatter() {
     <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-name="p.font-matter">
       <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] not-italic relative shrink-0 text-[0px] text-[rgba(255,255,255,0.8)] tracking-[-0.16px] w-full">
         <p className="leading-[28px] mb-0 text-[16px]">Let your AI receptionist handle appointment bookings, collect symptoms and medical records, and guide patients all automatically</p>
-        <p className="[text-decoration-skip-ink:none] decoration-solid leading-[28px] text-[16px] underline">Learn More</p>
+        <CardCtaPair learnMoreHref="/features/receptionist-agent" variant="dark" className="mt-2" />
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import svgPaths from "./svg-gukz1cr64d";
+import CardCtaPair from "@/components/CardCtaPair";
 import imgImage2293 from "./a159032d489338bf829da27d3279c572a42a4134.png";
 import imgFile39Upscaled2 from "./122a7eea66f7f03ffc902b422f0003a1201212d5.png";
 import imgPaper from "./3c8cfd365d6532f0c847a8a1494dbed18bd10654.png";
@@ -181,7 +182,7 @@ function Frame16() {
 
 function Frame18() {
   return (
-    <div className="-translate-y-1/2 absolute h-[358px] right-[-0.5px] top-[calc(50%+26.12px)] w-[443px]">
+    <div className="-translate-y-1/2 absolute h-[358px] right-[-72px] top-[calc(50%+26.12px)] w-[443px]">
       <div className="absolute h-[345.75px] left-[80px] pointer-events-none rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] top-[46.59px] w-[540px]" data-name="image 2293">
         <img alt="" className="absolute inset-0 max-w-none object-cover rounded-br-[18px] rounded-tl-[18px] rounded-tr-[18px] size-full" src={imgImage2293.src} />
         <div aria-hidden="true" className="absolute border-7 border-[rgba(187,182,193,0.4)] border-solid inset-[-7px] rounded-br-[25px] rounded-tl-[25px] rounded-tr-[25px]" />
@@ -1977,7 +1978,7 @@ function PFontMatter() {
           <span className="font-['Inter:Semi_Bold',sans-serif] font-semibold leading-[28px]">handwritten prescription</span>
           <span className="font-['Inter:Regular',sans-serif] font-normal leading-[28px]">{` is captured in real time and our AI digitises it in seconds.`}</span>
         </p>
-        <p className="[text-decoration-skip-ink:none] decoration-solid leading-[28px] text-[16px] underline">Learn More</p>
+        <CardCtaPair learnMoreHref="/features/smart-sync" variant="dark" className="mt-2" />
       </div>
     </div>
   );

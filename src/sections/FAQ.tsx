@@ -4,35 +4,10 @@ import { useState } from "react";
 import SectionHeading from "../components/SectionHeading";
 import ScrollReveal from "../components/ScrollReveal";
 import SectionBg from "../components/SectionBg";
+import { FAQ_ITEMS, type FaqItem } from "./faq-data";
 
-type Item = { q: string; a: string };
-
-const ITEMS: Item[] = [
-  {
-    q: "How secure is my data?",
-    a: "All patient and clinic data is encrypted in transit and at rest. TatvaPractice is HIPAA-compliant, ISO 27001 accredited, and GDPR-aligned. You stay in full control of your records at all times.",
-  },
-  {
-    q: "Is there an additional fee for this support program?",
-    a: "No — onboarding, training, and standard support are included in every plan. Premium dedicated implementation is available for hospitals on request.",
-  },
-  {
-    q: "Who is eligible for this support program?",
-    a: "Any clinic, hospital, or solo practitioner using a paid TatvaPractice plan is eligible from day one.",
-  },
-  {
-    q: "How long does setup take?",
-    a: "Most clinics are live within a single day. ABDM linking and HL7 integration for hospitals typically take 1–2 weeks depending on scope.",
-  },
-  {
-    q: "Can I import data from my existing EMR?",
-    a: "Yes — we support imports from most major EMR systems via CSV, FHIR, and direct database connectors. Our team handles the migration end to end.",
-  },
-  {
-    q: "Do you offer in-person training?",
-    a: "We offer remote training for all customers and on-site training for hospital deployments and large multi-location clinics.",
-  },
-];
+type Item = FaqItem;
+const ITEMS = FAQ_ITEMS;
 
 export default function FAQ() {
   return (
@@ -42,8 +17,8 @@ export default function FAQ() {
         className="relative z-10 mx-auto flex flex-col items-center"
         style={{
           maxWidth: "var(--section-w)",
-          paddingTop: "clamp(56px, 5.5vw, 88px)",
-          paddingBottom: "clamp(56px, 6vw, 88px)",
+          paddingTop: "clamp(36px, 3.6vw, 56px)",
+          paddingBottom: "clamp(36px, 3.8vw, 56px)",
           gap: "clamp(28px, 3vw, 40px)",
         }}
       >
