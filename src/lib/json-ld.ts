@@ -16,7 +16,7 @@ import {
 
 export type JsonLd = Record<string, unknown>;
 
-/** schema.org/Organization — site-wide, lives in the root layout. */
+/** schema.org/Organization, site-wide, lives in the root layout. */
 export function organizationJsonLd(): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -25,7 +25,7 @@ export function organizationJsonLd(): JsonLd {
     legalName: SITE_NAME,
     parentOrganization: { "@type": "Organization", name: PARENT_ORG_NAME },
     url: SITE_URL,
-    logo: absoluteUrl("/figma/tatvapractice-logo.svg"),
+    logo: absoluteUrl("/tatvapractice-logo.svg"),
     description: SITE_DESCRIPTION,
     contactPoint: {
       "@type": "ContactPoint",
@@ -38,7 +38,7 @@ export function organizationJsonLd(): JsonLd {
   };
 }
 
-/** schema.org/WebSite with SearchAction — helps Google sitelinks search box. */
+/** schema.org/WebSite with SearchAction, helps Google sitelinks search box. */
 export function websiteJsonLd(): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -85,7 +85,7 @@ export function softwareApplicationJsonLd(args: {
 }
 
 /**
- * schema.org/FAQPage block — used when a page contains a structured
+ * schema.org/FAQPage block, used when a page contains a structured
  * FAQ section. The `items` array maps to mainEntity.
  */
 export function faqPageJsonLd(items: Array<{ q: string; a: string }>): JsonLd {
@@ -100,7 +100,7 @@ export function faqPageJsonLd(items: Array<{ q: string; a: string }>): JsonLd {
   };
 }
 
-/** schema.org/BreadcrumbList — emitted by per-page metadata where useful. */
+/** schema.org/BreadcrumbList, emitted by per-page metadata where useful. */
 export function breadcrumbsJsonLd(
   items: Array<{ name: string; url: string }>,
 ): JsonLd {

@@ -13,18 +13,18 @@ import RadialGradientBg from "./RadialGradientBg";
 //   </Card>
 //
 // Use this anywhere a section needs a navy / eggplant / light "inner
-// card" wrapper — keeps the radius, padding, and decoration set
+// card" wrapper, keeps the radius, padding, and decoration set
 // consistent across PracticeManagement, BuiltInAI, EmrStreamlines,
 // or any future surfaces. The card never bleeds past its parent so the
 // rounded corners are always visible end-to-end.
 
 export type CardVariant = "navy" | "eggplant" | "light";
 
-export type CardPad = "sm" | "md" | "lg" | "xl";
+export type CardPad = "sm" | "md" | "lg" | "xl" | "none";
 
 // Padding tokens scale smoothly with the viewport. Each step roughly
 // 1.5× the previous so the spacing rhythm reads as a deliberate scale.
-const PAD: Record<CardPad, string> = {
+const PAD: Record<Exclude<CardPad, "none">, string> = {
   sm: "clamp(16px, 1.8vw, 28px)",
   md: "clamp(24px, 2.6vw, 40px)",
   lg: "clamp(36px, 3.6vw, 56px)",
@@ -51,6 +51,8 @@ type Props = {
   cornerSize?: number;
   /** ClassName merged onto the outer card surface. */
   className?: string;
+  /** ClassName on the inner content slot (padding wrapper). */
+  contentClassName?: string;
   /** Inline style merged onto the outer card surface. */
   style?: CSSProperties;
 };
@@ -64,10 +66,11 @@ export default function Card({
   withCornerVectors = false,
   cornerSize = 280,
   className = "",
+  contentClassName = "",
   style,
 }: Props) {
   // Light variant ships a frosted-glass surface instead of a radial
-  // gradient — handy for content cards on coloured page sections.
+  // gradient, handy for content cards on coloured page sections.
   const lightSurface =
     variant === "light"
       ? {
@@ -91,7 +94,7 @@ export default function Card({
         ...style,
       }}
     >
-      {/* Variant fill (dark variants only — light surface lives on
+      {/* Variant fill (dark variants only, light surface lives on
           the outer div via the style above). */}
       {variant !== "light" ? <RadialGradientBg variant={variant} /> : null}
 
@@ -111,12 +114,14 @@ export default function Card({
           corner overlays. Padding keeps content well inside the
           rounded corners so the radius is always visible. */}
       <div
-        className="relative z-10"
+        className={`relative z-10 ${contentClassName}`.trim()}
         style={{
-          paddingTop: PAD[padY],
-          paddingBottom: PAD[padY],
-          paddingLeft: PAD[padX],
-          paddingRight: PAD[padX],
+          ...(padY !== "none"
+            ? { paddingTop: PAD[padY], paddingBottom: PAD[padY] }
+            : {}),
+          ...(padX !== "none"
+            ? { paddingLeft: PAD[padX], paddingRight: PAD[padX] }
+            : {}),
         }}
       >
         {children}

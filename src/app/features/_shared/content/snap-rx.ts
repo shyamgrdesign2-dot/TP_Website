@@ -3,22 +3,24 @@ import type { FeatureContent } from "./types";
 export const SNAP_RX_CONTENT: FeatureContent = {
   slug: "snap-rx",
   navLabel: "SnapRx",
-  metaTitle: "SnapRx — Photograph Any Handwritten Prescription",
+  metaTitle: "SnapRx, Photograph Any Handwritten Prescription",
   metaDescription:
-    "Snap a photo of a handwritten Rx and SnapRx digitises it into a structured, ABDM-ready prescription in seconds — trained on Indian doctors' handwriting.",
+    "Snap a photo of a handwritten Rx and SnapRx digitises it into a structured, ABDM-ready prescription in seconds, trained on Indian doctors' handwriting.",
 
   hero: {
     headlineLines: ["SnapRx – From", "Paper to Digital in a Snap"],
     subhead:
-      "Take a photo of handwritten prescriptions or notes. SnapRx converts them into structured digital records instantly — trained on Indian doctors' handwriting.",
+      "Take a photo of handwritten prescriptions or notes. SnapRx converts them into structured digital records instantly, trained on Indian doctors' handwriting.",
     mainImage: {
-      src: "/features/snap-rx/main.png",
+      src: "/Assets/AI/Snaprx.webp",
       alt: "Handwritten Rx being photographed and digitised by SnapRx",
     },
-    overlayImage: {
-      src: "/features/snap-rx/overlay.png",
-      alt: "Structured prescription generated from a SnapRx photo",
-    },
+    overlayImage: null,
+  },
+
+  videoSection: {
+    line1: "Three taps.",
+    line2: "Done.",
   },
 
   whyDoctors: {
@@ -34,7 +36,7 @@ export const SNAP_RX_CONTENT: FeatureContent = {
       },
       {
         title: "Auto-Structured Rx",
-        body: "Snap once. The Rx pad fills in — drug, strength, frequency, duration, instructions.",
+        body: "Snap once. The Rx pad fills in, drug, strength, frequency, duration, instructions.",
       },
       {
         title: "Dosage Validation",

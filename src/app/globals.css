@@ -9,23 +9,28 @@
      background/grid/glow layers full-bleed, then constrain their
      content column to this value via `max-width: var(--section-w);
      margin: 0 auto`. Keeping one variable makes the page rhythm
-     consistent — when this number changes, every section moves
+     consistent, when this number changes, every section moves
      together.
 
      The `86vw` term gives ~160 px of left/right page gutter on a
-     1440 px-wide viewport (up from 120 px) — content sits in a
+     1440 px-wide viewport (up from 120 px), content sits in a
      comfortably wide margin band while still expanding fluidly on
      smaller screens. */
-  --section-w: min(1120px, 86vw);
+  /* Horizontal page gutter, single source for nav + section columns */
+  --page-gutter: clamp(16px, 4.2vw, 40px);
+  --section-w: min(1120px, calc(100vw - 2 * var(--page-gutter)));
 
-  /* Inline SVG fractal-noise overlay (matches Figma feTurbulence spec).
-     Applied at low opacity over the radial gradients. */
-  --noise-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  /* Fixed navbar clearance + hero scroll-arrow band (homepage hero). */
+  --hero-nav-offset: clamp(5rem, 3.25rem + 4.5vw, 6.5rem);
+  --hero-scroll-offset: clamp(3.25rem, 4.5vh, 4.5rem);
+
+  /* Inline SVG fractal-noise overlay, very subtle texture on dark surfaces */
+  --noise-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
 /* Figma-export font-family aliases. The exports use Tailwind classes like
    `font-['Mulish:Bold',sans-serif]` which set the literal font-family
-   "Mulish:Bold" — that family doesn't exist, so layered text drifts. We
+   "Mulish:Bold", that family doesn't exist, so layered text drifts. We
    route those names through the real next/font variables. */
 [class*="Mulish"] {
   font-family: var(--font-mulish), ui-sans-serif, system-ui, sans-serif !important;
@@ -46,7 +51,7 @@
 [class*=":Regular"]   { font-weight: 400 !important; }
 [class*=":Light"]     { font-weight: 300 !important; }
 
-/* Two canonical radial gradients used across sections — exact stops from
+/* Two canonical radial gradients used across sections, exact stops from
    the user-supplied Figma SVGs. */
 .bg-navy-radial {
   background-color: #101056;
@@ -61,7 +66,7 @@
       #46286C 0%, #25113E 39.08%, #372153 78.16%, #6C4F90 100%);
 }
 
-/* Canonical liquid-glass surface — used on tab containers, tier cards,
+/* Canonical liquid-glass surface, used on tab containers, tier cards,
    FAQ items, testimonial cards. Layered gloss + inset highlight + drop. */
 .glass-surface {
   background-color: rgba(255, 255, 255, 0.5);
@@ -75,6 +80,289 @@
     0 1px 0 rgba(255, 255, 255, 1) inset,
     0 -1px 0 rgba(100, 56, 141, 0.04) inset,
     0 8px 24px rgba(75, 74, 213, 0.08);
+}
+
+/* Hero CTA row, pair uses CtaButton size="lg" (48px / 12px radius) */
+.hero-cta-row {
+  align-items: center;
+}
+
+/* Feature tab card, unified LP shell (tabs inside card, text + image grid) */
+.tab-showcase-root,
+.feature-tab-card,
+.product-tab-showcase {
+  isolation: isolate;
+}
+
+.feature-tab-card {
+  position: relative;
+  width: 100%;
+  max-width: min(862px, 100%);
+  overflow: hidden;
+  border-radius: clamp(20px, 3.2vw, 32px);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.04);
+}
+
+.feature-tab-card__tabs-wrap {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.feature-tab-card__tab-curve,
+.feature-tab-card__tabs .curved-shadow {
+  pointer-events: none;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  height: 11px;
+  width: 6px;
+  border-top-left-radius: 12px;
+  background: linear-gradient(to top, #f6effb, #696969);
+  opacity: 0.35;
+}
+
+.feature-tab-card__tab-curve--left {
+  left: 0;
+}
+
+.feature-tab-card__tab-curve--right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.feature-tab-card__body {
+  padding: clamp(16px, 3vw, 28px) clamp(16px, 3vw, 24px) clamp(20px, 3.5vw, 32px);
+}
+
+.feature-tab-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(20px, 4vw, 28px);
+}
+
+.feature-tab-card__text {
+  min-width: 0;
+}
+
+.feature-tab-card__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.feature-tab-card__point-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-tab-card__point-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.tab-content-anim .feature-tab-card__text,
+.tab-content-anim .feature-tab-card__text p {
+  animation: content-fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tab-content-anim .feature-tab-card__image .feature-tab-card__main-img,
+.tab-content-anim .feature-tab-card__main-img {
+  animation: mockup-slide-in-right 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tab-content-anim .feature-tab-card__overlay-img {
+  animation: mockup-slide-in-left 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 120ms;
+}
+
+/* Floating tab showcase, pills above card, content stacks below */
+.floating-tab-showcase {
+  isolation: isolate;
+  padding-bottom: 0;
+}
+
+.floating-tab-showcase__body .feature-tab-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(12px, 2.6vw, 24px);
+}
+
+.floating-tab-showcase__bar-row {
+  max-width: min(100%, 740px);
+}
+
+@media (min-width: 1024px) {
+  .floating-tab-showcase {
+    padding-top: 11px;
+  }
+
+  .floating-tab-showcase__tabs {
+    position: absolute;
+  }
+}
+
+.tab-content-anim.floating-tab-showcase__body .feature-tab-card__text,
+.tab-content-anim.floating-tab-showcase__body .feature-tab-card__text p {
+  animation: content-fade-up 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tab-content-anim.floating-tab-showcase__body .feature-tab-card__main-img,
+.tab-content-anim.floating-tab-showcase__body .feature-tab-card__media-stack .feature-tab-card__main-img {
+  animation: mockup-slide-in-right 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tab-content-anim.floating-tab-showcase__body .feature-tab-card__overlay-img,
+.tab-content-anim.floating-tab-showcase__body .feature-tab-card__media-stack .feature-tab-card__overlay-img {
+  animation: mockup-slide-in-left 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 120ms;
+}
+
+
+/* Mobile testimonials, center card, peek neighbors, loop */
+.testimonial-carousel-scroller {
+  gap: 12px;
+  width: 100%;
+  max-width: var(--section-w);
+  height: 100%;
+  scroll-padding-inline: calc((100% - min(86vw, 300px)) / 2);
+  padding-inline: calc((100% - min(86vw, 300px)) / 2);
+  overflow-y: visible;
+}
+
+.testimonial-mobile-heading {
+  font-size: clamp(26px, 4.1vw, 48px);
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  max-width: min(22em, 100%);
+}
+
+.testimonial-carousel-slide {
+  box-sizing: border-box;
+}
+
+/* Our Scale, keep icon large but outside copy zone */
+.scale-stats-grid {
+  container-type: inline-size;
+}
+
+@media (max-width: 639px) {
+  .scale-stats-grid {
+    padding-inline: clamp(4px, 1.8vw, 10px);
+    gap: clamp(10px, 2.2vw, 14px) !important;
+  }
+}
+
+.scale-stat-card-shell {
+  overflow: visible;
+  padding-bottom: 6px;
+}
+
+.scale-stat-card {
+  container-type: inline-size;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  /* ~110px tall on desktop; width follows grid (~370px @ 3-col) */
+  --scale-card-h: clamp(100px, 9.6vw, 110px);
+  /* Icon scales with card. Now anchored to bottom-right with -18px
+     bleed (overflow:hidden crops the bleed), so the icon can be
+     larger than the card height without crowding the text. */
+  --scale-icon-size: clamp(104px, 24cqw, 214px);
+  --scale-copy-pr: calc(var(--scale-icon-size) * 0.72);
+
+  height: var(--scale-card-h);
+  min-height: var(--scale-card-h);
+  max-height: var(--scale-card-h);
+
+  background-color: rgba(255, 255, 255, 0.52);
+  background-image: none;
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  border: 0.5px solid rgba(242, 226, 255, 0.65);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 5px 14px rgba(75, 74, 213, 0.06);
+}
+
+/* Anchor icon to the bottom-right corner and bleed it 6px outside
+   the card. overflow:hidden on .scale-stat-card crops the bleed so
+   only the top-left portion of the icon is visible, reads as a
+   subtle watermark anchored to the corner. */
+.scale-stat-icon-wrap {
+  position: absolute;
+  z-index: 0;
+  right: -18px;
+  bottom: -18px;
+  width: var(--scale-icon-size);
+  height: var(--scale-icon-size);
+}
+
+.scale-stat-icon-wrap svg,
+.scale-stat-icon-wrap img,
+.scale-stat-icon-wrap span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  object-fit: contain;
+}
+
+.scale-stat-copy {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(4px, 1cqw, 8px);
+  padding-left: clamp(14px, 7.2cqw, 56px);
+  padding-right: clamp(10px, 3.2cqw, 24px);
+}
+
+.scale-stat-count {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.scale-stat-label {
+  width: 100%;
+  min-width: 0;
+  text-align: left;
+}
+
+.scale-stat-count {
+  font-family: var(--font-sans);
+  font-size: clamp(18px, 6.2cqw, 26px);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.scale-stat-label {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 4.4cqw, 17px);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.scale-stat-card-shadow {
+  background: linear-gradient(
+    180deg,
+    rgba(100, 56, 141, 0.04) 0%,
+    rgba(75, 74, 213, 0.08) 100%
+  );
+  filter: blur(10px);
+  opacity: 0.42;
 }
 
 /* ───────────────────────── Motion utilities ─────────────────────────
@@ -99,6 +387,8 @@
 .reveal-scale-in {
   opacity: 0;
   transform: scale(0.96);
+  margin-top: 0;
+  margin-bottom: 0;
   transition: opacity 700ms ease-out,
               transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
@@ -121,7 +411,7 @@
 }
 .reveal-slide-right.is-visible { opacity: 1; transform: translateX(0); }
 
-/* On-load entrance — fires once on mount with a small delay so the page
+/* On-load entrance, fires once on mount with a small delay so the page
    feels like it "settles in" rather than slamming into view. */
 @keyframes load-rise {
   from { opacity: 0; transform: translateY(18px); }
@@ -130,18 +420,6 @@
 .load-rise {
   opacity: 0;
   animation: load-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* Side-beam sweep — used by <AnimatedBeam/> on the OurScale section.
-   Animates the strokeDashoffset along a curved path so the gradient
-   "trail" travels left↔right. Each beam has its own duration/delay. */
-@keyframes beam-sweep-left {
-  0%   { stroke-dashoffset: -440; }
-  100% { stroke-dashoffset: 0; }
-}
-@keyframes beam-sweep-right {
-  0%   { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -440; }
 }
 
 /* Continuous gentle floats for tooltips, dots, mockup images. */
@@ -161,7 +439,7 @@
 .float-soft-alt { animation: float-soft-alt 5s ease-in-out infinite; }
 .float-tilt     { animation: float-tilt 6s ease-in-out infinite; }
 
-/* Tab-panel content animations — bg/corners stay static, only text +
+/* Tab-panel content animations, bg/corners stay static, only text +
    mockup images animate when the tab swaps. Targets named children of
    each Figma-export variant.
 
@@ -182,7 +460,7 @@
 .panel-fade-up { animation: panel-fade-up 420ms cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 /* When `.tab-content-anim` is on the keyed wrapper, only specific named
-   children animate — the bg/corners do NOT. */
+   children animate, the bg/corners do NOT. */
 @keyframes mockup-slide-in-right {
   from { opacity: 0; transform: translateX(60px); }
   to   { opacity: 1; transform: translateX(0); }
@@ -215,7 +493,7 @@
   animation-delay: 120ms;
 }
 
-/* Animated diagonal sheen sweeping across glass surfaces — the "liquid"
+/* Animated diagonal sheen sweeping across glass surfaces, the "liquid"
    feel on lavender stat cards and tier cards. */
 @keyframes glass-sweep {
   0%   { transform: translateX(-150%) skewX(-22deg); opacity: 0; }
@@ -247,7 +525,7 @@
   mix-blend-mode: overlay;
 }
 
-/* Card resting shadow — drop into any card that should sit on a
+/* Card resting shadow, drop into any card that should sit on a
    subtle lifted shadow by default. The previous version added the
    shadow only on hover, which the design team felt was too quiet.
    The shadow now ships always-on with no hover state. */
@@ -278,20 +556,11 @@
   .glass-sweep::after { animation: none; opacity: 0; }
 }
 
-/* Scale-to-fit a fixed-design Figma widget so it fills the parent
-   container width. The widget's INTERNAL content height drives the
-   section height — we use `zoom` (not `transform: scale`) because
-   `zoom` participates in layout flow, so the parent reserves space
-   based on the actually-rendered scaled content. That means a
-   testimonial card whose quote text wraps to 5 lines pushes the
-   section taller; a card whose quote wraps to 3 lines lets the
-   section be shorter. No more `--design-h` guesswork getting the
-   bottom of cards clipped on the "Hear from Healthcare
-   Professionals" or "Our Scale" sections.
-
-   Override `--design-w` on the wrapper for different design canvas
-   widths. `--design-h` is kept as documentation only — it's no
-   longer used by the CSS. */
+/* Scale-to-fit a fixed-width design export to the parent column.
+   Uses `zoom` so layout height follows scaled content. Override
+   `--design-w` / `--design-h` per section; set `--fit-min-h: 0px`
+   when height should grow with content (e.g. testimonials). */
+.scaled-canvas,
 .tab-widget-fit {
   container-type: inline-size;
   width: 100%;
@@ -299,11 +568,11 @@
   --design-h: 430;
   /* Lower bound on the zoom factor. On phones (≤ ~640 px wide) the
      800–1041 px design canvases naturally need to shrink below 50%
-     to fit the viewport — clamping the floor at 0.7 caused horizontal
+     to fit the viewport, clamping the floor at 0.7 caused horizontal
      overflow on mobile. The floor stays modest (0.3 = 30%) so text
      doesn't get unreadable on extreme aspect ratios, but lets the
      content actually fit on real-world phones. We deliberately do
-     NOT clamp the UPPER bound — capping it left content sitting in
+     NOT clamp the UPPER bound, capping it left content sitting in
      empty side-margin on wide viewports. If specific elements feel
      oversized on big screens, cap them at the ELEMENT level with
      `clamp()` instead of strangling the whole layout. */
@@ -312,19 +581,22 @@
   display: flex;
   justify-content: center;
 }
-.tab-widget-fit > .tab-widget-fit-inner {
+.scaled-canvas > .scaled-canvas-inner,
+.tab-widget-fit > .tab-widget-fit-inner,
+.scaled-canvas > .tab-widget-fit-inner,
+.tab-widget-fit > .scaled-canvas-inner {
   width: calc(var(--design-w) * 1px);
-  /* `min-height` (not fixed `height`) — gives absolute-positioned
+  /* `min-height` (not fixed `height`), gives absolute-positioned
      children inside the Figma exports a real positioning context
      (BuiltInAI / EmrStreamlines tabs, Hero card, Practice Mgmt all
-     use `position: absolute` for their inner layers — without a
+     use `position: absolute` for their inner layers, without a
      fixed-height parent they collapse to 0 and the entire section
      renders blank). Using `min-height` instead of `height` lets
      flow-based content (Testimonials, Our Scale) extend beyond the
      design budget when their natural copy wraps wider.
      `--fit-min-h` defaults to the design height but can be set to 0
      on the wrapper for flow-only sections that DON'T need a height
-     floor (Why Doctors, Specialties grid) — otherwise the floor
+     floor (Why Doctors, Specialties grid), otherwise the floor
      creates dead space below the content. */
   min-height: var(--fit-min-h, calc(var(--design-h) * 1px));
   /* `zoom` resizes the element AND its layout box, so the parent
@@ -338,15 +610,19 @@
     calc(100cqw / (var(--design-w) * 1px))
   );
   /* Fallback for older Firefox / engines that don't honour `zoom`
-     properly — falls back to `transform: scale` (no layout flow),
+     properly, falls back to `transform: scale` (no layout flow),
      which clips like the original behaviour but at least renders. */
 }
 @supports not (zoom: 2) {
+  .scaled-canvas,
   .tab-widget-fit {
     aspect-ratio: var(--design-w) / var(--design-h);
     align-items: center;
   }
-  .tab-widget-fit > .tab-widget-fit-inner {
+  .scaled-canvas > .scaled-canvas-inner,
+  .tab-widget-fit > .tab-widget-fit-inner,
+  .scaled-canvas > .tab-widget-fit-inner,
+  .tab-widget-fit > .scaled-canvas-inner {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -363,7 +639,103 @@
   }
 }
 
-/* 3D card-flip primitives — apply .card-flip-perspective to the wrapper,
+/* Tab showcases: hide duplicate Figma tab bar; overlay bar is the only control */
+.tab-showcase-canvas [data-name="Tabs Container"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Clip product screenshots at card bottom (Figma) */
+.tab-showcase-canvas [data-name="Background Vectors"] {
+  overflow: hidden !important;
+  border-radius: 32px;
+}
+
+/* Homepage AI / EMR tab showcases, same Figma UI at every breakpoint */
+.tab-showcase-fit {
+  --design-w: 862;
+  --design-h: 430;
+}
+
+/* Subpage shared sections now render canonical responsive headings outside
+   the Figma canvas. Hide the duplicate exported heading block so typography
+   stays consistent with every other section heading. */
+.practice-mgmt-canvas .tab-widget-fit-inner > div > div:first-child,
+.specialties-canvas .tab-widget-fit-inner > div > div:first-child {
+  display: none !important;
+}
+
+@media (max-width: 639px) {
+  .tab-showcase-fit {
+    --fit-min: 0.28;
+  }
+}
+
+
+/* Why Doctors, equal-height cards in 2-col (mobile) / 3-col (desktop) grid */
+.why-doctors-grid {
+  align-items: stretch;
+}
+
+.why-doctors-grid > article {
+  min-height: 0;
+}
+
+/* Specialties, text block above decorative doctor panel */
+@media (max-width: 767px) {
+  .responsive-specialties {
+    --design-h: 620;
+  }
+
+  .responsive-specialties .tab-widget-fit-inner > div > div:last-child {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .responsive-specialties .tab-widget-fit-inner .h-\[400px\] {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .responsive-specialties .tab-widget-fit-inner .overflow-clip.relative.rounded-\[inherit\] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: clamp(16px, 4vw, 24px) !important;
+    padding: clamp(16px, 4vw, 22px) !important;
+    min-height: 0 !important;
+    background-image:
+      linear-gradient(45deg, rgba(72, 28, 127, 0.05) 25%, transparent 25%, transparent 75%, rgba(72, 28, 127, 0.05) 75%, rgba(72, 28, 127, 0.05)),
+      linear-gradient(45deg, rgba(72, 28, 127, 0.05) 25%, transparent 25%, transparent 75%, rgba(72, 28, 127, 0.05) 75%, rgba(72, 28, 127, 0.05));
+    background-size: 18px 18px;
+    background-position: 0 0, 9px 9px;
+  }
+
+  .responsive-specialties .tab-widget-fit-inner [class*="left-[41.5px]"] {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    order: 1 !important;
+    width: 100% !important;
+    opacity: 1 !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+
+  .responsive-specialties .tab-widget-fit-inner [class*="left-[456px]"] {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    order: 2 !important;
+    width: 100% !important;
+    height: clamp(220px, 52vw, 280px) !important;
+    min-height: 220px;
+  }
+}
+
+/* 3D card-flip primitives, apply .card-flip-perspective to the wrapper,
    .card-flip-inner to the rotating face container, and toggle .is-flipped
    to swap front ↔ back. */
 .card-flip-perspective {
@@ -424,7 +796,7 @@
   --font-display: var(--font-mulish), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Body is a very gentle off-white tinted base — each section then renders
+/* Body is a very gentle off-white tinted base, each section then renders
    its OWN radial wash + grid via <SectionBg/>, so the atmosphere is
    contained per-section and adjacent sections don't collide. */
 body {
@@ -433,14 +805,7 @@ body {
   font-family: var(--font-sans);
 }
 
-/* Animated gradient shimmer for headline accent text. The gradient is
-   ~3x wider than the element and slides horizontally so the lighter
-   magenta band sweeps across the deeper purple. */
-@keyframes text-shimmer {
-  0%   { background-position: 200% 50%; }
-  100% { background-position: -200% 50%; }
-}
-
+/* Static gradient for headline accent text */
 .text-shimmer {
   background-image: linear-gradient(
     90deg,
@@ -450,20 +815,13 @@ body {
     #6B17A8 75%,
     #410D6A 100%
   );
-  background-size: 200% 100%;
+  background-size: 100% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: text-shimmer 5s linear infinite;
 }
 
-/* Diagonal gloss sweep for the primary CTA. The pseudo-element rides
-   above the button background and is offset off-screen until hover. */
-@keyframes cta-shimmer {
-  0%   { transform: translateX(-120%) skewX(-20deg); }
-  100% { transform: translateX(220%)  skewX(-20deg); }
-}
-
+/* Primary CTA, clean lift + shadow on hover, no sweeping gloss */
 .cta-shimmer {
   position: relative;
   overflow: hidden;
@@ -475,22 +833,6 @@ body {
   box-shadow: 0 6px 18px rgba(39, 39, 111, 0.25);
 }
 
-.cta-shimmer::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.45) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: translateX(-120%) skewX(-20deg);
-  animation: cta-shimmer 3.2s ease-in-out infinite;
-  animation-delay: 1.2s;
-}
-
 .cta-shimmer:hover {
   transform: translateY(-2px);
   box-shadow:
@@ -499,15 +841,11 @@ body {
   filter: brightness(1.06) saturate(1.05);
 }
 
-.cta-shimmer:hover::before {
-  animation-duration: 1.1s;
-}
-
 .cta-shimmer:active {
   transform: translateY(0);
 }
 
-/* Secondary CTA — soft fill + lift on hover */
+/* Secondary CTA, soft fill + lift on hover */
 .cta-outline {
   transition:
     transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -549,3 +887,4 @@ body {
     transparent 100%
   );
 }
+/* rebuild 1779174970 */

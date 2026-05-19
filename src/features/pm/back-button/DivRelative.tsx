@@ -1,7 +1,20 @@
-// Back button — liquid-glass pill with a chevron-left arrow.
-export default function DivRelative() {
+"use client";
+
+import type { MouseEvent } from "react";
+
+type Props = {
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+};
+
+/** Liquid-glass back control for PM flip cards. */
+export default function BackButton({ onClick }: Props) {
   return (
-    <div
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.(e);
+      }}
       className="group relative flex items-center justify-center gap-1.5 overflow-hidden rounded-full px-4 py-2 transition-all"
       style={{
         background:
@@ -15,9 +28,9 @@ export default function DivRelative() {
           "0 10px 24px rgba(0,0,0,0.22)",
         ].join(", "),
       }}
+      aria-label="Back"
       data-name="Back Button"
     >
-      {/* Diagonal sheen — the glass gloss across the pill */}
       <span
         aria-hidden
         className="pointer-events-none absolute inset-0 rounded-full"
@@ -52,6 +65,6 @@ export default function DivRelative() {
       >
         Back
       </span>
-    </div>
+    </button>
   );
 }

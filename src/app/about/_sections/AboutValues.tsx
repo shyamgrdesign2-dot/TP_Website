@@ -10,16 +10,16 @@ type Value = {
 // Four core values that drive TatvaPractice. Mirrors the homepage's
 // 2×3 "Built for Every Practice Size" grid pattern but in a tighter
 // 2×2 layout. Each card has an eggplant header plaque (white text) +
-// a frosted-white body underneath — same eggplant gradient the rest of
+// a frosted-white body underneath, same eggplant gradient the rest of
 // the site uses for tags / plaques.
 const VALUES: Value[] = [
   {
     title: "Patient-Centered",
-    body: "Every feature we build is designed to give doctors more time with their patients — never less.",
+    body: "Every feature we build is designed to give doctors more time with their patients, never less.",
   },
   {
     title: "Innovation First",
-    body: "We don't add AI as an afterthought — we build from the ground up with AI at the core.",
+    body: "We don't add AI as an afterthought, we build from the ground up with AI at the core.",
   },
   {
     title: "Doctor-Driven",
@@ -45,7 +45,7 @@ function ValueCard({ value }: { value: Value }) {
           "0 1px 0 rgba(255,255,255,0.85) inset, 0 12px 32px rgba(33,32,119,0.10)",
       }}
     >
-      {/* Eggplant header plaque — matches the "Flagship Feature" tag
+      {/* Eggplant header plaque, matches the "Flagship Feature" tag
           on the homepage's PracticeManagement card. */}
       <div
         className="rounded-[14px] px-5 py-3.5"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import CtaButton from "@/components/ui/CtaButton";
 
 // Mobile-only sticky CTA bar pinned to the bottom of the viewport on
 // phones (hidden ≥ `sm`). Holds the same Book Demo / Start Free Trial
@@ -8,7 +9,7 @@ import { useEffect, useState } from "react";
 // the page is always one tap away from converting.
 //
 // Auto-hides whenever the in-page "Start Your Free 7-Day Trial"
-// (`FinalCTA`) section or the `Footer` is intersecting the viewport —
+// (`FinalCTA`) section or the `Footer` is intersecting the viewport 
 // at that point the page already has its own CTA / contact surface,
 // so a second sticky bar would just compete with the primary
 // conversion target and obstruct the footer links.
@@ -26,17 +27,21 @@ export default function MobileStickyCTA() {
     // Hide the bar whenever the page is already showing the same
     // Book Demo / Start Free Trial pair (so we don't compete with
     // the primary conversion target). Three surfaces qualify:
-    //   1. Homepage Hero — has the same CTAs visible above the fold.
+    //   1. Homepage Hero, has the same CTAs visible above the fold.
     //   2. FinalCTA "Start Your Free 7-Day Trial" card.
     //   3. Footer.
     const targets: HTMLElement[] = [];
     // Hero is the `<section>` with the headline H1 containing
-    // "Everything you need to" — i.e. the homepage hero.
+    // "Everything you need to", i.e. the homepage hero.
     const heroHeading = Array.from(
       document.querySelectorAll("h1"),
     ).find((h) => h.textContent?.toLowerCase().includes("everything you need"));
     const heroSection = heroHeading?.closest("section");
     if (heroSection) targets.push(heroSection as HTMLElement);
+
+    const subpageHero = document.querySelector(".subpage-hero-card");
+    const subpageHeroSection = subpageHero?.closest("section");
+    if (subpageHeroSection) targets.push(subpageHeroSection as HTMLElement);
 
     const finalCtaHeading = Array.from(
       document.querySelectorAll("h2"),
@@ -72,7 +77,7 @@ export default function MobileStickyCTA() {
     <div
       aria-label="Quick actions"
       aria-hidden={hidden}
-      className="fixed inset-x-0 bottom-0 z-40 flex items-stretch gap-2 border-t border-white/55 px-3 py-2.5 backdrop-blur-2xl backdrop-saturate-150 sm:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 flex items-stretch gap-2 border-t border-white/55 px-[var(--page-gutter)] py-2.5 backdrop-blur-2xl backdrop-saturate-150 sm:hidden"
       style={{
         background:
           "linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.72) 100%)",
@@ -89,23 +94,23 @@ export default function MobileStickyCTA() {
           "transform 240ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease",
       }}
     >
-      <a
-        href="#book-demo"
-        className="cta-outline flex h-12 flex-1 basis-0 items-center justify-center rounded-[12px] border border-[#4B4AD5] bg-white/70 text-sm font-semibold text-[#4B4AD5]"
+      <CtaButton
+        href="/contact"
+        variant="outline"
+        size="md"
+        className="flex-1 basis-0 bg-white/70"
       >
         Book Demo
-      </a>
-      <a
-        href="#"
-        className="cta-shimmer flex h-12 flex-1 basis-0 items-center justify-center rounded-[12px] text-sm font-semibold text-white"
-        style={{
-          backgroundImage:
-            "linear-gradient(101deg, #4B4AD5 0%, #27276F 131.58%)",
-          boxShadow: "0 8px 18px rgba(75,74,213,0.30)",
-        }}
+      </CtaButton>
+      <CtaButton
+        href="/pricing"
+        variant="primary"
+        size="md"
+        className="flex-1 basis-0"
+        style={{ boxShadow: "0 8px 18px rgba(75,74,213,0.30)" }}
       >
-        <span className="relative z-[1]">Start Free Trial</span>
-      </a>
+        Start Free Trial
+      </CtaButton>
     </div>
   );
 }

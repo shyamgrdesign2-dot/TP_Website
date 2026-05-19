@@ -6,9 +6,9 @@ import type { FeatureContent } from "./types";
 export const CLINICS_CONTENT: FeatureContent = {
   slug: "clinics",
   navLabel: "For Clinics",
-  metaTitle: "TatvaPractice for Clinics — More Time with Patients, Less on Paperwork",
+  metaTitle: "TatvaPractice for Clinics, More Time with Patients, Less on Paperwork",
   metaDescription:
-    "TatvaPractice streamlines your entire clinic — from faster notes to automated follow-ups — so you can grow your practice, not your workload. Built for Indian OPD.",
+    "TatvaPractice streamlines your entire clinic, from faster notes to automated follow-ups, so you can grow your practice, not your workload. Built for Indian OPD.",
 
   hero: {
     headlineLines: [
@@ -16,9 +16,9 @@ export const CLINICS_CONTENT: FeatureContent = {
       "Less on Paperwork",
     ],
     subhead:
-      "TatvaPractice streamlines your entire clinic — from faster notes to automated follow-ups — so you can grow your practice, not your workload.",
+      "TatvaPractice streamlines your entire clinic, from faster notes to automated follow-ups, so you can grow your practice, not your workload.",
     mainImage: {
-      src: "/features/clinics/main.png",
+      src: "/Assets/Clinics/main.png",
       alt: "Indian clinic team using TatvaPractice for OPD workflow",
     },
     // Single illustration: this hero ships without the floating overlay.
@@ -34,11 +34,11 @@ export const CLINICS_CONTENT: FeatureContent = {
       },
       {
         title: "Patient Follow-ups",
-        body: "Automated WhatsApp reminders, reschedules, and no-show recovery — no extra staff.",
+        body: "Automated WhatsApp reminders, reschedules, and no-show recovery, no extra staff.",
       },
       {
         title: "Mobile + Desktop",
-        body: "Run your clinic from anywhere — web, tablet, or phone, in sync at all times.",
+        body: "Run your clinic from anywhere, web, tablet, or phone, in sync at all times.",
       },
       {
         title: "ABDM-Ready",
@@ -46,7 +46,7 @@ export const CLINICS_CONTENT: FeatureContent = {
       },
       {
         title: "GST Billing & Reports",
-        body: "Tax-ready invoices and practice analytics built in — no separate accounting tool.",
+        body: "Tax-ready invoices and practice analytics built in, no separate accounting tool.",
       },
       {
         title: "DHIS Incentives",

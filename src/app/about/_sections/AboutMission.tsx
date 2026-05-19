@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import SectionBg from "@/components/SectionBg";
 import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
 
-// "Our Mission" — text column on the left, decorative image card on
+// "Our Mission", text column on the left, decorative image card on
 // the right, all inside one navy radial card. Uses the same `<Card
 // variant="navy" withCornerVectors />` primitive that powers the
 // homepage's "Complete AI-First Practice Management" section, so the
@@ -56,7 +56,7 @@ export default function AboutMission() {
                 >
                   TatvaPractice fits your flow, it doesn&rsquo;t fight it. Our
                   AI understands how doctors work and automates the tedious
-                  parts so you can focus on what matters — clinical excellence
+                  parts so you can focus on what matters, clinical excellence
                   and patient relationships, not paperwork.
                 </p>
               </div>

@@ -2,7 +2,7 @@
 // can import them directly (e.g. `app/page.tsx` builds the FAQPage
 // JSON-LD block from this array). FAQ.tsx is a `"use client"` boundary,
 // and named exports from client modules can't always be statically
-// imported by server components — a server-safe data file avoids that.
+// imported by server components, a server-safe data file avoids that.
 
 export type FaqItem = { q: string; a: string };
 
@@ -17,11 +17,11 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Can I import data from my existing EMR?",
-    a: "Yes. We migrate from most major EMR systems via CSV, FHIR, and direct database connectors. The TatvaPractice team owns the migration end to end — your records arrive ready to use.",
+    a: "Yes. We migrate from most major EMR systems via CSV, FHIR, and direct database connectors. The TatvaPractice team owns the migration end to end, your records arrive ready to use.",
   },
   {
     q: "Which Indian languages does Voice Rx support?",
-    a: "Voice Rx transcribes prescriptions in nine Indian languages: Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Punjabi, and English — including mid-sentence code-switching between any pair.",
+    a: "Voice Rx transcribes prescriptions in nine Indian languages: Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Punjabi, and English, including mid-sentence code-switching between any pair.",
   },
   {
     q: "Is patient data secure?",

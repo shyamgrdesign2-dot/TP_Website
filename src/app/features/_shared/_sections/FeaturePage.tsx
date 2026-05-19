@@ -1,6 +1,6 @@
+import MobileStickyCTA from "@/components/MobileStickyCTA";
 import Navbar from "@/sections/Navbar";
 import Testimonials from "@/sections/Testimonials";
-import FinalCTA from "@/sections/FinalCTA";
 import Footer from "@/sections/Footer";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/site";
 import {
@@ -15,7 +15,7 @@ import FeatureSpecialties from "./FeatureSpecialties";
 import SolutionHero from "../../../solutions/_shared/_sections/SolutionHero";
 
 // Shared shell used by every Features + Solutions subpage. Each
-// route's `page.tsx` passes its own `content` prop — the page layout
+// route's `page.tsx` passes its own `content` prop, the page layout
 // itself is identical. The shell also emits per-page JSON-LD
 // (SoftwareApplication + BreadcrumbList) so each route shows up
 // correctly in search. `section` defaults to "features" but solutions
@@ -48,10 +48,10 @@ export default function FeaturePage({
   ]);
 
   return (
-    <main className="relative">
+    <main className="relative pb-[88px] sm:pb-0">
       <Navbar />
       {/* Solutions subpages (Clinics, Hospitals) use a different hero
-          card composition (Figma Frame2147240057) — wider text column +
+          card composition (Figma Frame2147240057), wider text column +
           narrow inset image panel inside a single 32 px-padded content
           box, so nothing bleeds past the card edge. Feature subpages
           keep using the wide-overlay FeatureHero (Frame2147240061). */}
@@ -67,12 +67,21 @@ export default function FeaturePage({
       ) : (
         <FeatureHero content={content.hero} />
       )}
-      <FeaturePracticeMgmt />
       <FeatureWhyDoctors content={content.whyDoctors} />
       <FeatureSpecialties />
+      <FeaturePracticeMgmt
+        featureLabel={content.navLabel}
+        headline={
+          content.videoSection ?? {
+            line1: `How ${content.navLabel}`,
+            line2: "works.",
+          }
+        }
+      />
       <Testimonials />
-      <FinalCTA />
       <Footer />
+
+      <MobileStickyCTA />
 
       {/* Per-page structured data. Mounted at the bottom of <main> so
           it doesn't block above-the-fold paint. */}

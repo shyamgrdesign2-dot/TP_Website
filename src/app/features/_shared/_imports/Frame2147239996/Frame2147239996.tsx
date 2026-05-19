@@ -2,7 +2,7 @@ import * as React from "react";
 import svgPaths from "./svg-xtdwgleyj";
 
 export type WhyDoctorsCard = {
-  /** Plaque heading text — used when `titleLines` isn't provided. */
+  /** Plaque heading text, used when `titleLines` isn't provided. */
   title: string;
   /** Optional two-line title (renders with a <br> between lines). */
   titleLines?: [string, string];
@@ -35,7 +35,7 @@ function HeadingBlock({ heading }: { heading: string }) {
 }
 
 /**
- * Title plaque — eggplant radial gradient bg, white-shimmer title text,
+ * Title plaque, eggplant radial gradient bg, white-shimmer title text,
  * decorative 11-path tilted Vector watermark on the right. Verbatim
  * markup from the Figma reference; only the title text is dynamic.
  */
@@ -109,7 +109,7 @@ function TitlePlaque({ card }: { card: WhyDoctorsCard }) {
 }
 
 /**
- * Single card in the 2×3 grid — frosted glass wrapper + title plaque +
+ * Single card in the 2×3 grid, frosted glass wrapper + title plaque +
  * body paragraph. Verbatim wrapper markup; title + body come from props.
  */
 function WhyCard({ card }: { card: WhyDoctorsCard }) {
@@ -136,7 +136,7 @@ function CardRow({ cards }: { cards: WhyDoctorsCard[] }) {
   // Card wrappers use `self-stretch + h-full` so siblings in a row still
   // equalise to the tallest card.
   return (
-    <div className="content-stretch flex gap-[24px] min-h-[199px] items-stretch relative shrink-0 w-full">
+    <div className="why-doctors-row content-stretch flex gap-[24px] min-h-[199px] items-stretch relative shrink-0 w-full">
       {cards.map((card, i) => (
         <div
           key={i}

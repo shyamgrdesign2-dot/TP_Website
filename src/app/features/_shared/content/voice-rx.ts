@@ -3,14 +3,24 @@ import type { FeatureContent } from "./types";
 export const VOICE_RX_CONTENT: FeatureContent = {
   slug: "voice-rx",
   navLabel: "Voice Rx",
-  metaTitle: "Voice Rx — AI Voice Prescription for Indian Doctors",
+  metaTitle: "Voice Rx, AI Voice Prescription for Indian Doctors",
   metaDescription:
     "Dictate prescriptions in 9 Indian languages. Voice Rx turns speech into an audit-ready structured Rx in under 30 seconds. ABDM-certified, NHA-approved.",
 
   hero: {
-    headlineLines: ["VoiceRx — Speak, and", "your EMR documents itself"],
+    headlineLines: ["VoiceRx, Speak, and", "your EMR documents itself"],
     subhead:
       "Dictate prescriptions and notes naturally. Voice Rx transcribes in real-time with medical-grade accuracy across 9 Indian languages. Save 3+ hours a day.",
+    mainImage: {
+      src: "/Assets/AI/Voicerx.webp",
+      alt: "VoiceRx Rx Pad with dictated prescription",
+    },
+    overlayImage: null,
+  },
+
+  videoSection: {
+    line1: "Four steps.",
+    line2: "Twenty-eight seconds.",
   },
 
   whyDoctors: {
@@ -39,7 +49,7 @@ export const VOICE_RX_CONTENT: FeatureContent = {
       },
       {
         title: "Works Offline",
-        body: "Dictate through patchy internet — Voice Rx syncs the moment you reconnect.",
+        body: "Dictate through patchy internet, Voice Rx syncs the moment you reconnect.",
       },
     ],
   },

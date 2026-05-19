@@ -4,7 +4,7 @@ import type { FeatureContent } from "./types";
 export const HOSPITALS_CONTENT: FeatureContent = {
   slug: "hospitals",
   navLabel: "For Hospitals",
-  metaTitle: "TatvaPractice for Hospitals — One Platform for Every Department",
+  metaTitle: "TatvaPractice for Hospitals, One Platform for Every Department",
   metaDescription:
     "OPD, IPD, pharmacy, and labs in one system. Role-based access across locations, centralised reporting, ABDM hospital stack, and dedicated SLAs.",
 
@@ -14,9 +14,9 @@ export const HOSPITALS_CONTENT: FeatureContent = {
       "Department, Every Location",
     ],
     subhead:
-      "TatvaPractice unifies OPD, IPD, pharmacy, and labs into one system — with role-based access across locations, centralised reporting, and dedicated SLAs.",
+      "TatvaPractice unifies OPD, IPD, pharmacy, and labs into one system, with role-based access across locations, centralised reporting, and dedicated SLAs.",
     mainImage: {
-      src: "/features/hospitals/main.png",
+      src: "/Assets/Hospitals/main.png",
       alt: "Hospital team using TatvaPractice across OPD, IPD, pharmacy",
     },
     overlayImage: null,
@@ -31,7 +31,7 @@ export const HOSPITALS_CONTENT: FeatureContent = {
       },
       {
         title: "Role-Based Access",
-        body: "Doctors, nurses, billing, pharmacy — each role sees only the records they need.",
+        body: "Doctors, nurses, billing, pharmacy, each role sees only the records they need.",
       },
       {
         title: "Multi-Location",

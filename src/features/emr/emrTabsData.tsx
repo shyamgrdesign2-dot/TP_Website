@@ -1,8 +1,17 @@
-// Single source of truth for EMR tab content — consumed by both the
-// desktop tabbed interface (verbatim Figma exports) and the mobile
-// layout (MobileEmrTabs). Adding a tab means editing ONE array.
+// Single source of truth for EMR tab content, consumed by EmrTabs
+// (which handles both desktop and mobile layouts internally).
+// Adding a tab means editing ONE array.
 
 import type { ReactNode } from "react";
+import {
+  ClipboardText,
+  StethoscopePro,
+  DocumentFavorite,
+  Calendar1,
+  Chart1,
+  SecurityShield,
+  Global,
+} from "tp_icon/bulk";
 
 export type EmrTabId =
   | "clinical-care"
@@ -12,7 +21,7 @@ export type EmrTabId =
   | "digital-presence";
 
 export type EmrBullet = {
-  /** Inline icon — same 20×20 size used in the Figma mobile artboard. */
+  /** Inline icon, same 20×20 size used in the Figma mobile artboard. */
   icon: ReactNode;
   /** Plain copy or rich JSX (use <strong> for emphasis). */
   text: ReactNode;
@@ -24,7 +33,7 @@ export type EmrTab = {
   label: string;
   /** Two-line title shown above the bullets on mobile. */
   titleLines: [string, string];
-  /** 3 bullet rows — icon + text. */
+  /** 3 bullet rows, icon + text. */
   bullets: EmrBullet[];
   /** Right-side illustration at the bottom of the mobile card. */
   mainImage: { src: string; alt: string };
@@ -45,89 +54,43 @@ function Icon({ children }: { children: ReactNode }) {
 
 const ClipboardIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M8 5h8v3H8V5zm-2 1h2v3a1 1 0 001 1h6a1 1 0 001-1V6h2v15H6V6z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <ClipboardText width={18} height={18} />
   </Icon>
 );
 
 const StethIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M6 3v5a4 4 0 008 0V3M10 14v3a4 4 0 008 0v-2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-      <circle cx="18" cy="11" r="2" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
+    <StethoscopePro width={18} height={18} />
   </Icon>
 );
 
 const FaveDocIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M6 3h9l4 4v14H6V3z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M12 11l1.3 2.6 2.7.4-2 2 .4 2.7L12 17.5l-2.4 1.2.4-2.7-2-2 2.7-.4L12 11z"
-        fill="currentColor"
-        fillOpacity="0.9"
-      />
-    </svg>
+    <DocumentFavorite width={18} height={18} />
   </Icon>
 );
 
 const CalendarIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <rect
-        x="3"
-        y="5"
-        width="18"
-        height="16"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.6"
-      />
-      <path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
+    <Calendar1 width={18} height={18} />
   </Icon>
 );
 
 const ChartIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M4 19V5m0 14h16M8 16V9m4 7V6m4 10v-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
+    <Chart1 width={18} height={18} />
   </Icon>
 );
 
 const ShieldIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2l8 4v6c0 5-3.5 9.4-8 10-4.5-.6-8-5-8-10V6l8-4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    <SecurityShield width={18} height={18} />
   </Icon>
 );
 
 const GlobeIcon = (
   <Icon>
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
-      <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
+    <Global width={18} height={18} />
   </Icon>
 );
 
@@ -163,12 +126,8 @@ export const EMR_TABS: ReadonlyArray<EmrTab> = [
       },
     ],
     mainImage: {
-      src: "/figma/landing-ref/emr-clinic-care.png",
-      alt: "Clinic Care — Symptoms screen and Rx Pad",
-    },
-    overlayImage: {
-      src: "/figma/landing-ref/voicerx-modal.png",
-      alt: "Patient WhatsApp confirmation",
+      src: "/Assets/EMR/clinic-care.webp",
+      alt: "Clinic Care, Symptoms screen and Rx Pad",
     },
   },
   {
@@ -202,7 +161,7 @@ export const EMR_TABS: ReadonlyArray<EmrTab> = [
       },
     ],
     mainImage: {
-      src: "/features/receptionist-agent/main.png",
+      src: "/Assets/EMR/front-desk.webp",
       alt: "Receptionist front-desk queue management",
     },
   },
@@ -237,7 +196,7 @@ export const EMR_TABS: ReadonlyArray<EmrTab> = [
       },
     ],
     mainImage: {
-      src: "/features/snap-rx/main.png",
+      src: "/Assets/EMR/Analytics.webp",
       alt: "Analytics dashboard with patient + revenue charts",
     },
   },
@@ -272,7 +231,7 @@ export const EMR_TABS: ReadonlyArray<EmrTab> = [
       },
     ],
     mainImage: {
-      src: "/features/doctor-agent/main.png",
+      src: "/Assets/EMR/Abdm.webp",
       alt: "ABDM compliance summary with ABHA records",
     },
   },
@@ -307,7 +266,7 @@ export const EMR_TABS: ReadonlyArray<EmrTab> = [
       },
     ],
     mainImage: {
-      src: "/features/smart-sync/main.png",
+      src: "/Assets/EMR/digital-presence.webp",
       alt: "Practice website + Google profile preview",
     },
   },

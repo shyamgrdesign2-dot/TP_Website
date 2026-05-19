@@ -10,7 +10,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/site";
 import { breadcrumbsJsonLd } from "@/lib/json-ld";
 
-// /about — company story page. Uses the Solutions hero pattern
+// /about, company story page. Uses the Solutions hero pattern
 // (Frame2147240057): violet radial card with text column on the left
 // + narrow 324×356 inset image panel on the right. Same visual
 // language as /solutions/clinics and /solutions/hospitals, so the
@@ -26,7 +26,7 @@ const ABOUT_HERO = {
     "One Practice at a Time",
   ] as [string, string],
   subhead:
-    "TatvaCare was founded with a simple mission: give doctors their time back so they can focus on what matters most — their patients.",
+    "TatvaCare was founded with a simple mission: give doctors their time back so they can focus on what matters most, their patients.",
   mainImage: {
     src: "/about/hero.png",
     alt: "TatvaPractice team working with Indian clinicians",
@@ -34,9 +34,9 @@ const ABOUT_HERO = {
 };
 
 export const metadata: Metadata = buildPageMetadata({
-  title: `About ${SITE_NAME} — Transforming Healthcare in India`,
+  title: `About ${SITE_NAME}, Transforming Healthcare in India`,
   description:
-    "TatvaCare was founded with a simple mission: give doctors their time back so they can focus on what matters most — their patients. Meet the team building India's AI-first EMR.",
+    "TatvaCare was founded with a simple mission: give doctors their time back so they can focus on what matters most, their patients. Meet the team building India's AI-first EMR.",
   path: "/about",
 });
 

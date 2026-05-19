@@ -12,7 +12,7 @@ type Member = {
 // Founding / leadership team. Each card has a square portrait, name,
 // role label, one-line bio, and a LinkedIn icon. The portraits are
 // rendered as a simple monogram circle placeholder until proper
-// headshots are uploaded — same approach the testimonial cards on the
+// headshots are uploaded, same approach the testimonial cards on the
 // homepage use for missing avatars. Once headshots are dropped into
 // `/public/about/team/<slug>.jpg` they'll get picked up automatically.
 const TEAM: Member[] = [
@@ -37,7 +37,7 @@ const TEAM: Member[] = [
 ];
 
 function Portrait({ name }: { name: string }) {
-  // Monogram fallback — first letters of given + family name.
+  // Monogram fallback, first letters of given + family name.
   const initials = name
     .replace(/^Dr\.?\s*/i, "")
     .split(/\s+/)
@@ -165,7 +165,7 @@ export default function AboutTeam() {
               }}
             >
               A team of 50+ including practicing physicians, healthcare
-              veterans, and AI technologists — working together to solve
+              veterans, and AI technologists, working together to solve
               healthcare&rsquo;s toughest workflow challenges.
             </p>
           </ScrollReveal>

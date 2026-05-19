@@ -1,11 +1,11 @@
-// Verbatim Figma export for the Solutions hero card (1040×420) — kept
+// Verbatim Figma export for the Solutions hero card (1040×420), kept
 // in sync with the original Figma "Frame2147240057" composition that
 // Clinics + Hospitals share. The only changes from the raw export are:
 //   • Image asset path renamed to a stable filename.
 //   • The text block + the right-hand image are sourced from props so
 //     this one component powers both /solutions/clinics and
 //     /solutions/hospitals (and any future Solutions subpage).
-//   • The card never scales itself — its parent (`tab-widget-fit` in
+//   • The card never scales itself, its parent (`tab-widget-fit` in
 //     SolutionHero) handles uniform downscale.
 import Image from "next/image";
 import svgPaths from "./svg-o7nvvhkyvk";
@@ -1017,7 +1017,7 @@ function ImagePanel({ image }: { image?: { src: string; alt: string } }) {
             priority
           />
         ) : (
-          /* eslint-disable-next-line @next/next/no-img-element */
+           
           <img
             alt=""
             aria-hidden
@@ -1043,7 +1043,7 @@ function ContentLayer({
 }) {
   // 976 × 356 inner content box, inset 32 px from every edge of the
   // 1040 × 420 outer card. THIS is the wrapper the user called out as
-  // missing — everything (eyebrow / headline / subhead / CTAs / image
+  // missing, everything (eyebrow / headline / subhead / CTAs / image
   // panel) lives INSIDE it, so nothing bleeds past the card boundary.
   return (
     <div className="absolute flex h-[356px] items-center justify-between left-[32px] top-[32px] w-[976px]">
@@ -1060,7 +1060,7 @@ function ContentLayer({
 export default function SolutionsHeroFrame({
   eyebrowLabel = "For Independent Doctors & Clinics",
   headlineLines = ["Spend More Time with Patients,", "Less on Paperwork"],
-  subhead = "TatvaPractice streamlines your entire clinic — from faster notes to automated follow-ups — so you can grow your practice, not your workload.",
+  subhead = "TatvaPractice streamlines your entire clinic, from faster notes to automated follow-ups, so you can grow your practice, not your workload.",
   mainImage,
 }: SolutionsHeroFrameContent = {}) {
   return (

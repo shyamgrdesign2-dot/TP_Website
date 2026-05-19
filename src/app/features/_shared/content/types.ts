@@ -1,6 +1,6 @@
 // Per-feature content. The page structure (hero card → practice-mgmt
 // callout → why doctors grid → specialty card → testimonials → final
-// CTA → footer) is identical across all five Features subpages — only
+// CTA → footer) is identical across all five Features subpages, only
 // these strings change per route.
 
 export type FeatureCard = {
@@ -33,7 +33,7 @@ export type FeatureContent = {
      */
     eyebrowLabel?: string;
     /**
-     * The headline as rendered in the Figma frame — two lines with a
+     * The headline as rendered in the Figma frame, two lines with a
      * <br> between them.
      */
     headlineLines: [string, string];
@@ -51,6 +51,10 @@ export type FeatureContent = {
      */
     overlayImage?: { src: string; alt: string } | null;
   };
+
+  /** Optional override for the video showcase headline. Defaults to
+   *  `"${navLabel}, in motion." / "See it work in 60 seconds."` */
+  videoSection?: { line1: string; line2: string };
 
   whyDoctors: {
     /** Section heading above the 2×3 card grid. */

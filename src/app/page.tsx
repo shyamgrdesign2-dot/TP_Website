@@ -11,19 +11,20 @@ import FAQ from "@/sections/FAQ";
 import { FAQ_ITEMS } from "@/sections/faq-data";
 import FinalCTA from "@/sections/FinalCTA";
 import Footer from "@/sections/Footer";
+import LandingProductBand from "@/components/LandingProductBand";
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import { buildPageMetadata } from "@/lib/metadata";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 import { faqPageJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+  title: `${SITE_NAME}, ${SITE_TAGLINE}`,
   description: SITE_DESCRIPTION,
   path: "/",
 });
 
 export default function Home() {
-  // No global page pattern — every section now renders its own contained
+  // No global page pattern, every section now renders its own contained
   // grid + radial wash via SectionBg, so they don't collide at boundaries.
   const faqLd = faqPageJsonLd(FAQ_ITEMS);
 
@@ -35,14 +36,16 @@ export default function Home() {
     <main className="relative pb-[88px] sm:pb-0">
       <Navbar />
       <Hero />
-      <PracticeManagement />
-      <OurScale />
-      <BuiltInAI />
-      <EmrStreamlines />
-      <BuiltForEverySize />
-      <Testimonials />
-      <FAQ />
-      <FinalCTA />
+      <LandingProductBand>
+        <PracticeManagement />
+        <OurScale />
+        <BuiltInAI />
+        <EmrStreamlines />
+        <BuiltForEverySize />
+        <Testimonials />
+        <FAQ />
+        <FinalCTA />
+      </LandingProductBand>
       <Footer />
 
       {/* Mobile-only sticky CTA bar pinned to the viewport bottom.

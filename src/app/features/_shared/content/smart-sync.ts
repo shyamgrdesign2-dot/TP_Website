@@ -3,22 +3,24 @@ import type { FeatureContent } from "./types";
 export const SMART_SYNC_CONTENT: FeatureContent = {
   slug: "smart-sync",
   navLabel: "SmartSync",
-  metaTitle: "SmartSync — Handwriting-to-Digital Rx for Indian Clinics",
+  metaTitle: "SmartSync, Handwriting-to-Digital Rx for Indian Clinics",
   metaDescription:
     "Write naturally with a digital pen. SmartSync turns handwritten prescriptions into ABDM-ready structured records in real time. Offline-first, multi-branch sync.",
 
   hero: {
     headlineLines: ["SmartSync – Write", "Naturally, Save Digitally"],
     subhead:
-      "Use a digital pen to write as you always do. Every stroke syncs instantly to your EMR in real-time — ABDM-ready, offline-first, zero learning curve.",
+      "Use a digital pen to write as you always do. Every stroke syncs instantly to your EMR in real-time, ABDM-ready, offline-first, zero learning curve.",
     mainImage: {
-      src: "/features/smart-sync/main.png",
+      src: "/Assets/AI/Smartsync.webp",
       alt: "Handwritten prescription captured by SmartSync digital pen",
     },
-    overlayImage: {
-      src: "/features/smart-sync/overlay.png",
-      alt: "Doctor's digital ID card paired with SmartSync handwriting",
-    },
+    overlayImage: null,
+  },
+
+  videoSection: {
+    line1: "Write.",
+    line2: "We sync.",
   },
 
   whyDoctors: {
@@ -42,7 +44,7 @@ export const SMART_SYNC_CONTENT: FeatureContent = {
       },
       {
         title: "Zero Learning Curve",
-        body: "No new shortcuts, no menus to learn — just pen on tablet, as you always have.",
+        body: "No new shortcuts, no menus to learn, just pen on tablet, as you always have.",
       },
       {
         title: "ABDM-Certified Output",

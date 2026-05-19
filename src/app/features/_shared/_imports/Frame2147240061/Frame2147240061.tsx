@@ -7,7 +7,7 @@ function DivRelative() {
     <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[420px] left-1/2 top-1/2 w-[1040px]" data-name="div.relative">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 1040 420">
         {/* feTurbulence noise + speckle vector both removed per
-            design feedback — kept only the smooth navy radial. */}
+            design feedback, kept only the smooth navy radial. */}
         <g id="div.relative">
           <g clipPath="url(#clip0_1_44)">
             <rect fill="white" height="420" width="1040" />
@@ -935,7 +935,7 @@ function Frame({
     alt: "TatvaPractice consultation screen with structured Rx pad",
   };
   // Distinguish "not provided" (undefined → use the default Voice Rx
-  // popup) from "explicitly null" (hide the overlay entirely — used
+  // popup) from "explicitly null" (hide the overlay entirely, used
   // by single-illustration heros like Clinics + Hospitals).
   const overlay =
     overlayImage === null
@@ -987,7 +987,7 @@ export type HeroFrameImage = {
 export type HeroFrameContent = {
   /**
    * Glass eyebrow chip rendered above the headline. Defaults to
-   * "Flagship Feature" when omitted — About Us / Solutions pages
+   * "Flagship Feature" when omitted, About Us / Solutions pages
    * override it to "About Us", "For Clinics", etc.
    */
   eyebrowLabel?: string;

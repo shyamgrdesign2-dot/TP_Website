@@ -39,12 +39,12 @@ const CLOSE_DELAY = 150;
 // Glass tokens cloned from the Navbar surface so the dropdown panel
 // reads as a continuation of the bar itself.
 const PANEL_BG =
-  "linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.38) 100%)";
+  "linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(255,255,255,0.68) 100%)";
 const PANEL_SHADOW = [
-  "0 1px 0 rgba(255,255,255,0.95) inset",
-  "0 -1px 0 rgba(75,74,213,0.08) inset",
-  "0 0 0 1px rgba(255,255,255,0.20) inset",
-  "0 18px 48px rgba(33,32,119,0.22)",
+  "0 1px 0 rgba(255,255,255,0.6) inset",
+  "0 -1px 0 rgba(75,74,213,0.12) inset",
+  "0 0 0 1px rgba(255,255,255,0.14) inset",
+  "0 20px 52px rgba(33,32,119,0.26)",
 ].join(", ");
 
 export default function NavDropdown(props: Props) {
@@ -135,7 +135,7 @@ function DesktopDropdown({ label, items }: DesktopProps) {
           clearTimers();
           setOpen(true);
         }}
-        className="inline-flex items-center gap-1 rounded-lg px-4 py-2 text-sm capitalize text-black tracking-wide transition hover:bg-white/50"
+        className="inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[13px] font-medium capitalize tracking-wide text-[#1F1F1F]/90 transition hover:bg-white/55 lg:px-4 lg:text-sm"
       >
         <span>{label}</span>
         <svg
@@ -170,7 +170,7 @@ function DesktopDropdown({ label, items }: DesktopProps) {
       {/*
         Centering note: we anchor the panel with `left:50%` then translate
         it `-50%` of its OWN width. We deliberately do NOT use Tailwind's
-        `-translate-x-1/2` class here — Tailwind v4 emits the new CSS
+        `-translate-x-1/2` class here, Tailwind v4 emits the new CSS
         `translate` property, and combining that with our inline
         `transform: translate(-50%, …)` for the open/close anim would
         STACK both translations and shift the panel a second time
@@ -182,7 +182,7 @@ function DesktopDropdown({ label, items }: DesktopProps) {
         ref={panelRef}
         role="menu"
         aria-label={label}
-        className="absolute rounded-[18px] border border-white/50 backdrop-blur-2xl backdrop-saturate-150"
+        className="absolute rounded-[18px] border border-white/55 backdrop-blur-[34px] backdrop-saturate-[190%]"
         style={{
           top: "calc(100% + 10px)",
           left: "50%",

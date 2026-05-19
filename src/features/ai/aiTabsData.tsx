@@ -1,11 +1,15 @@
-// Single source of truth for AI tab content — consumed by both the
-// desktop tabbed interface (verbatim Figma exports) and the mobile
-// layout (MobileAiTabs). Adding a tab means editing ONE array.
-//
-// We keep this co-located with the rest of `features/ai/*` so the
-// data + every layout that uses it live next to each other.
+// Single source of truth for AI tab content, consumed by AiTabs
+// (which handles both desktop and mobile layouts internally).
+// Adding a tab means editing ONE array.
 
 import type { ReactNode } from "react";
+import {
+  Microphone2Free as Microphone2,
+  Pen,
+  Scan,
+  Chat,
+  StethoscopePro,
+} from "tp_icon/bulk";
 
 export type AiTabId =
   | "voicerx"
@@ -56,71 +60,31 @@ function IconBox({ children }: { children: ReactNode }) {
 
 const MicIcon = (
   <IconBox>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M12 14a3 3 0 003-3V6a3 3 0 00-6 0v5a3 3 0 003 3z"
-        fill="currentColor"
-        fillOpacity="0.95"
-      />
-      <path
-        d="M19 11a7 7 0 01-14 0M12 18v4M8 22h8"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
+    <Microphone2 width={16} height={16} />
   </IconBox>
 );
 
 const PenIcon = (
   <IconBox>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M16 3l5 5-11 11H5v-5L16 3z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <Pen width={16} height={16} />
   </IconBox>
 );
 
 const CameraIcon = (
   <IconBox>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M4 7h3l2-2h6l2 2h3a2 2 0 012 2v9a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-      <circle cx="12" cy="13" r="4" stroke="currentColor" strokeWidth="1.8" />
-    </svg>
+    <Scan width={16} height={16} />
   </IconBox>
 );
 
 const ChatIcon = (
   <IconBox>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-    </svg>
+    <Chat width={16} height={16} />
   </IconBox>
 );
 
 const StethIcon = (
   <IconBox>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-      <path
-        d="M6 3v5a4 4 0 008 0V3M10 14v3a4 4 0 008 0v-2"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <circle cx="18" cy="11" r="2" stroke="currentColor" strokeWidth="1.8" />
-    </svg>
+    <StethoscopePro width={16} height={16} />
   </IconBox>
 );
 
@@ -140,12 +104,8 @@ export const AI_TABS: ReadonlyArray<AiTab> = [
     ),
     learnMoreHref: "/features/voice-rx",
     mainImage: {
-      src: "/figma/landing-ref/voicerx-ui.png",
+      src: "/Assets/AI/Voicerx.webp",
       alt: "VoiceRx Rx Pad with dictated prescription",
-    },
-    overlayImage: {
-      src: "/figma/landing-ref/voicerx-modal.png",
-      alt: "VoiceRx start consultation dialog",
     },
   },
   {
@@ -157,13 +117,13 @@ export const AI_TABS: ReadonlyArray<AiTab> = [
       <>
         Write on paper as you always do. <strong>SmartSync</strong> reads your
         handwriting and{" "}
-        <strong>syncs every stroke straight into the EMR</strong> — no
+        <strong>syncs every stroke straight into the EMR</strong>, no
         retyping, no learning curve.
       </>
     ),
     learnMoreHref: "/features/smart-sync",
     mainImage: {
-      src: "/features/smart-sync/main.png",
+      src: "/Assets/AI/Smartsync.webp",
       alt: "SmartSync converting handwritten Rx into a digital record",
     },
   },
@@ -175,13 +135,13 @@ export const AI_TABS: ReadonlyArray<AiTab> = [
     description: (
       <>
         Snap a photo of a handwritten Rx. <strong>SnapRx OCRs</strong> it into
-        a structured digital record in seconds —{" "}
+        a structured digital record in seconds {" "}
         <strong>searchable, editable, and ready to share.</strong>
       </>
     ),
     learnMoreHref: "/features/snap-rx",
     mainImage: {
-      src: "/features/snap-rx/main.png",
+      src: "/Assets/AI/Snaprx.webp",
       alt: "SnapRx converting a paper prescription to a digital record",
     },
   },
@@ -194,12 +154,12 @@ export const AI_TABS: ReadonlyArray<AiTab> = [
       <>
         AI front-desk that{" "}
         <strong>handles bookings, reminders, and intake</strong> on WhatsApp +
-        voice — 24/7 in any language your patients prefer.
+        voice, 24/7 in any language your patients prefer.
       </>
     ),
     learnMoreHref: "/features/receptionist-agent",
     mainImage: {
-      src: "/features/receptionist-agent/main.png",
+      src: "/Assets/AI/Receptionist-Agent.webp",
       alt: "Receptionist Agent confirming a WhatsApp appointment",
     },
   },
@@ -211,13 +171,13 @@ export const AI_TABS: ReadonlyArray<AiTab> = [
     description: (
       <>
         <strong>Differentials, drug-interaction alerts, and lab insights</strong>{" "}
-        powered by AI — like having a specialist on call, grounded in ICMR +
+        powered by AI, like having a specialist on call, grounded in ICMR +
         NHM guidelines.
       </>
     ),
     learnMoreHref: "/features/doctor-agent",
     mainImage: {
-      src: "/features/doctor-agent/main.png",
+      src: "/Assets/AI/Doctor-Agent.webp",
       alt: "Doctor Agent surfacing differentials and clinical guidance",
     },
   },

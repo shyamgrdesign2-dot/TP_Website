@@ -15,14 +15,15 @@ export default function SectionHeading({
     <h2
       className={[
         "font-bold [text-wrap:balance]",
-        align === "center" ? "text-center" : "text-left",
-        tone === "dark" ? "text-[#1f1f1f]" : "text-white",
+        align === "center" ? "mx-auto text-center" : "text-left",
+        tone === "dark" ? "text-[#454551]" : "text-white",
       ].join(" ")}
       style={{
         fontFamily: "var(--font-display)",
-        fontSize: "clamp(24px, 3.5vw, 42px)",
-        lineHeight: 1.12,
-        letterSpacing: "-0.02em",
+        fontSize: "clamp(26px, 4.1vw, 48px)",
+        lineHeight: 1.18,
+        letterSpacing: "-0.03em",
+        maxWidth: "min(100%, 22em)",
       }}
     >
       {children}
@@ -30,7 +31,7 @@ export default function SectionHeading({
   );
 }
 
-// Inline span with the brand purple gradient — wrap a portion of the heading.
+// Inline span with the brand purple gradient, wrap a portion of the heading.
 export function GradientSpan({
   children,
   variant = "purple",

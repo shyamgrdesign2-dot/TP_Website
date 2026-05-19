@@ -3,7 +3,7 @@ import imgImage2309 from "./image.png";
 function Frame() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-[755px]">
-      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[30px] text-center tracking-[-0.84px] w-full">
+      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[clamp(26px,4.1vw,48px)] text-center tracking-[-0.03em] w-full">
         <p className="leading-[normal] whitespace-pre-wrap">
           {`Complete AI-First `}
           <br aria-hidden="true" />
@@ -25,11 +25,11 @@ function DivRelative() {
   );
 }
 
-// Glossy circular play button — clean div-based implementation that
+// Glossy circular play button, clean div-based implementation that
 // replaces the original verbatim Figma `foreignObject + backdrop-blur
 // + circle stroke` block. Reads as a polished glass disk with a soft
 // drop shadow and a crisp white play triangle. Clicking would open a
-// YouTube modal — handler is wired through `onPlay` so the parent
+// YouTube modal, handler is wired through `onPlay` so the parent
 // section can mount its own player.
 function PlayButton({ onPlay }: { onPlay?: () => void }) {
   return (
@@ -39,19 +39,16 @@ function PlayButton({ onPlay }: { onPlay?: () => void }) {
       aria-label="Play Practice Management overview"
       className="-translate-x-1/2 -translate-y-1/2 absolute left-1/2 top-1/2 group flex items-center justify-center rounded-full transition-transform duration-200 hover:scale-[1.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
       style={{
-        width: "112px",
-        height: "112px",
-        background:
-          "radial-gradient(120% 120% at 28% 20%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.42) 45%, rgba(255,255,255,0.18) 100%)",
-        backdropFilter: "blur(22px) saturate(160%)",
-        WebkitBackdropFilter: "blur(22px) saturate(160%)",
-        border: "1px solid rgba(255,255,255,0.55)",
+        width: "88px",
+        height: "88px",
+        background: "rgba(255,255,255,0.14)",
+        backdropFilter: "blur(14px) saturate(140%)",
+        WebkitBackdropFilter: "blur(14px) saturate(140%)",
+        border: "1px solid rgba(255,255,255,0.35)",
         boxShadow: [
-          "0 1px 0 rgba(255,255,255,0.95) inset",
-          "0 -1px 0 rgba(255,255,255,0.20) inset",
-          "0 0 0 1px rgba(255,255,255,0.18)",
-          "0 18px 48px rgba(0,0,0,0.40)",
-          "0 6px 18px rgba(0,0,0,0.28)",
+          "0 1px 0 rgba(255,255,255,0.45) inset",
+          "0 -1px 0 rgba(255,255,255,0.10) inset",
+          "0 10px 28px rgba(0,0,0,0.28)",
         ].join(", "),
       }}
     >
@@ -61,20 +58,20 @@ function PlayButton({ onPlay }: { onPlay?: () => void }) {
         className="pointer-events-none absolute inset-0 rounded-full"
         style={{
           background:
-            "linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 55%)",
+            "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 55%)",
         }}
       />
-      {/* Play triangle — translated 3px right so it visually centres in
+      {/* Play triangle, translated 3px right so it visually centres in
           the circle (the triangle's optical centre sits left of its
           geometric centre). */}
       <svg
-        width="40"
-        height="40"
+        width="44"
+        height="44"
         viewBox="0 0 24 24"
         fill="none"
         aria-hidden
         className="relative z-[1]"
-        style={{ transform: "translateX(2.5px)", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.25))" }}
+        style={{ transform: "translateX(3px)", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.25))" }}
       >
         <path d="M8 5v14l11-7L8 5z" fill="#ffffff" />
       </svg>
@@ -96,14 +93,14 @@ function Frame1() {
           <img alt="TatvaPractice AI-first practice management workflow" className="block max-w-none size-full" height="340.25" src={imgImage2309.src} width="554" />
         </div>
       </div>
-      <div className="-translate-y-1/2 absolute bg-clip-text flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] left-[32.78px] text-[30px] text-[transparent] top-[216.47px] w-[483.43px]" style={{ backgroundImage: "linear-gradient(93.0076deg, rgb(255, 255, 255) 0.84936%, rgba(255, 255, 255, 0.8) 100%)" }}>
+      <div className="-translate-y-1/2 absolute bg-clip-text flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] left-[32.78px] text-[clamp(26px,4.1vw,48px)] text-[transparent] top-[216.47px] tracking-[-0.03em] w-[483.43px]" style={{ backgroundImage: "linear-gradient(93.0076deg, rgb(255, 255, 255) 0.84936%, rgba(255, 255, 255, 0.8) 100%)" }}>
         <p className="leading-[normal] whitespace-pre-wrap">
           {`Complete AI-First `}
           <br aria-hidden="true" />
           Practice Management in One System
         </p>
       </div>
-      {/* Glossy circular play button — centred on the card; the
+      {/* Glossy circular play button, centred on the card; the
           parent's onPlay handler (passed through props) opens the
           YouTube modal. */}
       <PlayButton />

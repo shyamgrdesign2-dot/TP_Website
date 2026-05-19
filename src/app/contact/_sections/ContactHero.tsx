@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 
 // Compact hero for /contact. We don't use the full FeatureHero shell
 // here (h-screen, trust badges, scroll arrow) because the page's
-// star is the contact FORM directly below — pulling the user down to
+// star is the contact FORM directly below, pulling the user down to
 // the form is more important than dominating the viewport with the
 // hero. So the hero stays generous but short.
 export default function ContactHero() {
@@ -67,7 +67,7 @@ export default function ContactHero() {
             }}
           >
             Whether you want to book a demo, ask about pricing, or just say
-            hi — drop us a note and we&rsquo;ll respond within one business
+            hi, drop us a note and we&rsquo;ll respond within one business
             day. Built by clinicians, supported by humans.
           </p>
         </ScrollReveal>

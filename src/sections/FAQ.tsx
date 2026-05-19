@@ -1,62 +1,51 @@
 "use client";
 
 import { useState } from "react";
-import SectionHeading from "../components/SectionHeading";
-import ScrollReveal from "../components/ScrollReveal";
-import SectionBg from "../components/SectionBg";
+import { ArrowDown02 } from "tp_icon/linear";
+import SectionHeading from "@/components/SectionHeading";
+import ScrollReveal from "@/components/ScrollReveal";
+import { SectionContent, SectionShell } from "@/components/SectionShell";
 import { FAQ_ITEMS, type FaqItem } from "./faq-data";
 
-type Item = FaqItem;
 const ITEMS = FAQ_ITEMS;
 
 export default function FAQ() {
   return (
-    <section className="relative w-full overflow-hidden">
-      <SectionBg variant="lavender" />
-      <div
-        className="relative z-10 mx-auto flex flex-col items-center"
-        style={{
-          maxWidth: "var(--section-w)",
-          paddingTop: "clamp(36px, 3.6vw, 56px)",
-          paddingBottom: "clamp(36px, 3.8vw, 56px)",
-          gap: "clamp(28px, 3vw, 40px)",
-        }}
-      >
+    <SectionShell bg="none" className="w-full">
+      <SectionContent padding="none" className="gap-7 sm:gap-10">
         <ScrollReveal variant="fade-up">
           <SectionHeading>FAQ</SectionHeading>
         </ScrollReveal>
-        <div className="flex w-full flex-col" style={{ gap: 12 }}>
+        <div className="flex w-full flex-col gap-3">
           {ITEMS.map((it, i) => (
             <ScrollReveal key={i} variant="fade-up" delay={80 + i * 60}>
               <FaqRow item={it} />
             </ScrollReveal>
           ))}
         </div>
-      </div>
-    </section>
+      </SectionContent>
+    </SectionShell>
   );
 }
 
-function FaqRow({ item }: { item: Item }) {
+function FaqRow({ item }: { item: FaqItem }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-[16px] glass-surface" style={{ overflow: "hidden" }}>
+    <div className="overflow-hidden rounded-[16px] border border-[rgba(226,226,234,0.5)] bg-[rgba(255,255,255,0.5)] backdrop-blur-[5px]">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         className="flex w-full items-center justify-between gap-4 text-left"
         style={{
           padding: "clamp(14px, 1.4vw, 22px) clamp(18px, 1.8vw, 26px)",
-          color: "#454551",
         }}
         aria-expanded={open}
       >
         <span
-          className="font-semibold"
+          className="font-semibold text-[#1f1f1f]"
           style={{
             fontFamily: "var(--font-display)",
             fontSize: "clamp(14px, 1.15vw, 17px)",
-            color: "#1f1f1f",
           }}
         >
           {item.q}
@@ -65,7 +54,7 @@ function FaqRow({ item }: { item: Item }) {
       </button>
       <div
         style={{
-          maxHeight: open ? 240 : 0,
+          maxHeight: open ? 400 : 0,
           opacity: open ? 1 : 0,
           transition: "max-height 280ms ease, opacity 220ms ease",
           overflow: "hidden",
@@ -88,17 +77,16 @@ function FaqRow({ item }: { item: Item }) {
 
 function Chevron({ open }: { open: boolean }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      width="20"
-      height="20"
-      fill="none"
+    <ArrowDown02
+      width={20}
+      height={20}
+      color="#334155"
+      aria-hidden
       style={{
         transform: open ? "rotate(180deg)" : "rotate(0deg)",
         transition: "transform 220ms ease",
+        flexShrink: 0,
       }}
-    >
-      <path d="M6 9l6 6 6-6" stroke="#4B4AD5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
+    />
   );
 }

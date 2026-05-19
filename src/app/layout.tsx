@@ -22,14 +22,14 @@ const mulish = Mulish({
 });
 
 // Root-level SEO defaults. Per-route `page.tsx` files extend these via
-// their own `export const metadata` — Next.js only overrides the fields
+// their own `export const metadata`, Next.js only overrides the fields
 // they explicitly set, so global OG/Twitter settings (siteName, locale,
 // fallback image, robots) keep applying everywhere.
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
-    template: `%s — ${SITE_NAME}`,
+    default: `${SITE_NAME}, ${SITE_TAGLINE}`,
+    template: `%s, ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
@@ -59,22 +59,22 @@ export const metadata: Metadata = {
     locale: "en_IN",
     siteName: SITE_NAME,
     url: SITE_URL,
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    title: `${SITE_NAME}, ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/figma/hero-bg.png",
+        url: "/hero-bg.png",
         width: 1200,
         height: 630,
-        alt: `${SITE_NAME} — AI-first EMR for Indian clinics`,
+        alt: `${SITE_NAME}, AI-first EMR for Indian clinics`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    title: `${SITE_NAME}, ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
-    images: ["/figma/hero-bg.png"],
+    images: ["/hero-bg.png"],
   },
   robots: {
     index: true,

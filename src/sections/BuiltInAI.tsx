@@ -1,8 +1,7 @@
-import SectionHeading, { GradientSpan } from "../components/SectionHeading";
-import AiTabbedInterface from "../features/ai/AiTabbedInterface";
-import MobileAiTabs from "../features/ai/MobileAiTabs";
-import ScrollReveal from "../components/ScrollReveal";
-import SectionBg from "../components/SectionBg";
+import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
+import ScrollReveal from "@/components/ScrollReveal";
+import SectionBg from "@/components/SectionBg";
+import AiTabs from "@/features/ai/AiTabs";
 
 export default function BuiltInAI() {
   return (
@@ -26,24 +25,9 @@ export default function BuiltInAI() {
           </SectionHeading>
         </ScrollReveal>
 
-        {/* Desktop layout (≥ sm) — verbatim Figma tab interface. */}
-        <ScrollReveal
-          variant="scale-in"
-          delay={120}
-          className="hidden w-full sm:block"
-        >
-          <div className="tab-widget-fit w-full">
-            <div className="tab-widget-fit-inner">
-              <AiTabbedInterface />
-            </div>
-          </div>
+        <ScrollReveal variant="scale-in" delay={120} className="w-full">
+          <AiTabs />
         </ScrollReveal>
-
-        {/* Mobile layout (< sm) — tab pills above a vertical card with
-            text on top + illustration at the bottom. Matches Figma
-            mobile artboard 2116-9359. Pulls from the same
-            `aiTabsData.tsx` array the desktop interface will consume. */}
-        <MobileAiTabs />
       </div>
     </section>
   );

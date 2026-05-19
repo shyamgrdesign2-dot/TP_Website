@@ -1,4 +1,4 @@
-import svgPaths from "../features/ai/tabs/voice/svg-vms9olr1ti";
+import svgPaths from "./cornerVectorPaths";
 
 type Variant = "tl" | "tr" | "bl" | "br";
 

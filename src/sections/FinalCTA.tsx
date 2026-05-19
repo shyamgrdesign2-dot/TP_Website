@@ -1,25 +1,17 @@
-import ScrollReveal from "../components/ScrollReveal";
-import SectionBg from "../components/SectionBg";
+import ScrollReveal from "@/components/ScrollReveal";
+import { SectionContent, SectionShell } from "@/components/SectionShell";
+import CtaButton from "@/components/ui/CtaButton";
 
 export default function FinalCTA() {
   return (
-    <section className="relative w-full overflow-hidden">
-      <SectionBg variant="pink" />
-      <ScrollReveal
-        variant="scale-in"
-        className="relative mx-auto"
-        style={{
-          maxWidth: "var(--section-w)",
-          paddingTop: "clamp(28px, 2.8vw, 40px)",
-          paddingBottom: "clamp(28px, 2.8vw, 40px)",
-          paddingInline: "16px",
-        }}
-      >
+    <SectionShell bg="none" className="w-full">
+      <SectionContent padding="default">
+        <ScrollReveal variant="scale-in" className="w-full">
         {/*
           Final-CTA card. The previous version used the shared
           `<RadialGradientBg variant="navy" />`, which paints a centred
           radial gradient that darkens the top + bottom edges of the
-          card and read visually as an inset shadow — distracting on a
+          card and read visually as an inset shadow, distracting on a
           short, simple CTA panel. We replace it with a clean linear
           navy → indigo gradient + a subtle violet glow centred behind
           the heading so the card stays "lifted" without the edge
@@ -33,7 +25,7 @@ export default function FinalCTA() {
               "linear-gradient(180deg, #1F1F6E 0%, #2A1F75 55%, #1A1A56 100%)",
           }}
         >
-          {/* Soft violet glow centred behind the heading — adds depth
+          {/* Soft violet glow centred behind the heading, adds depth
               without darkening the edges. */}
           <div
             aria-hidden
@@ -90,7 +82,7 @@ export default function FinalCTA() {
                 (capped by `max-w` so they don't run edge-to-edge on
                 ultra-wide viewports). */}
             {/* Mobile (< sm): stack vertically so each CTA gets its
-                own full-width row — fits the narrow 375 px viewport.
+                own full-width row, fits the narrow 375 px viewport.
                 Desktop (≥ sm): side-by-side row inside a 640 px cap. */}
             <div
               className="mt-1 flex w-full flex-col items-stretch justify-center sm:flex-row"
@@ -99,35 +91,27 @@ export default function FinalCTA() {
                 maxWidth: "min(640px, 90%)",
               }}
             >
-              <a
-                href="#"
-                className="cta-outline flex w-full items-center justify-center rounded-[10px] border border-white/45 font-semibold text-white transition hover:bg-white/15 sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0 sm:rounded-[14px]"
-                style={{
-                  height: "clamp(42px, 4.2vw, 68px)",
-                  fontSize: "clamp(14px, 1.15vw, 18px)",
-                  background:
-                    "linear-gradient(90deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06))",
-                }}
+              <CtaButton
+                href="/contact"
+                variant="outlineOnGradient"
+                size="md"
+                className="w-full sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0"
               >
                 Book Demo
-              </a>
-              <a
-                href="#"
-                className="cta-shimmer flex w-full items-center justify-center rounded-[10px] font-semibold text-[#1f1f1f] sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0 sm:rounded-[14px]"
-                style={{
-                  height: "clamp(42px, 4.2vw, 68px)",
-                  fontSize: "clamp(14px, 1.15vw, 18px)",
-                  backgroundImage:
-                    "linear-gradient(180deg, #ffffff 0%, #ECEAFF 100%)",
-                  boxShadow: "0 8px 22px rgba(0,0,0,0.28)",
-                }}
+              </CtaButton>
+              <CtaButton
+                href="/pricing"
+                variant="primaryOnGradient"
+                size="md"
+                className="w-full sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0"
               >
-                <span className="relative z-[1]">Start Free Trial</span>
-              </a>
+                Start Free Trial
+              </CtaButton>
             </div>
           </div>
         </div>
-      </ScrollReveal>
-    </section>
+        </ScrollReveal>
+      </SectionContent>
+    </SectionShell>
   );
 }

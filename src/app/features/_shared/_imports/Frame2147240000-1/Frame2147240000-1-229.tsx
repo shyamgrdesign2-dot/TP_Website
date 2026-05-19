@@ -3,7 +3,7 @@ import imgProfessionalYoungDoctorHeadshot1 from "./headshot.png";
 function Frame2() {
   return (
     <div className="content-stretch flex flex-col items-center relative shrink-0 w-[755px]">
-      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[30px] text-center tracking-[-2px] w-[635.262px]">
+      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[clamp(26px,4.1vw,48px)] text-center tracking-[-0.03em] w-[635.262px]">
         <p className="leading-[normal]">Designed for Every Specialty</p>
       </div>
     </div>
@@ -258,8 +258,8 @@ function Frame33() {
 function Frame12() {
   // The decorative image panel sits inside the 840-px-wide "Designed
   // for Every Specialty" card. The Figma export originally placed it
-  // at `left-[497px]`, which made its right edge land at x=839 — just
-  // 1 px from the card's right edge — while the text column on the
+  // at `left-[497px]`, which made its right edge land at x=839, just
+  // 1 px from the card's right edge, while the text column on the
   // left has a 41-px gutter from the card's left edge. We shift the
   // panel ~41 px to the left so the image's right padding visually
   // matches the text's left padding. The panel keeps its width and
@@ -271,7 +271,7 @@ function Frame12() {
       <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[358.784px] left-1/2 opacity-40 top-[calc(50%+1.56px)] w-[404.164px]" data-name="div.absolute" />
       <div className="-translate-x-1/2 absolute bottom-[-1.56px] h-[365.214px] left-1/2 w-[353.27px]" data-name="Professional young doctor headshot 1">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="Indian doctor using TatvaPractice across specialties" className="absolute h-[106.44%] left-[1.15%] max-w-none top-[3.46%] w-[96.29%]" src={imgProfessionalYoungDoctorHeadshot1.src} />
+          <img alt="Indian doctor using TatvaPractice across specialties" className="absolute inset-x-0 top-0 h-full w-full object-cover object-top" src={imgProfessionalYoungDoctorHeadshot1.src} />
         </div>
       </div>
     </div>
@@ -281,7 +281,7 @@ function Frame12() {
 function Frame6() {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start leading-[0] relative shrink-0 text-[#454551] w-full">
-      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center relative shrink-0 text-[32px] w-full">
+      <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center relative shrink-0 text-[clamp(24px,3.2vw,32px)] tracking-[-0.02em] w-full">
         <p className="leading-[normal]">Built for Your Specialty</p>
       </div>
       <div className="flex flex-col font-['Inter:Regular',sans-serif] font-normal justify-center not-italic relative shrink-0 text-[14px] tracking-[-0.16px] w-full">
