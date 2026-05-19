@@ -53,7 +53,8 @@ export default function AboutHero() {
 
         <ScrollReveal variant="fade-up" delay={80}>
           <SectionHeading>
-            Transforming Healthcare,{" "}
+            Transforming Healthcare,
+            <br />
             <GradientSpan>one practice at a time.</GradientSpan>
           </SectionHeading>
         </ScrollReveal>

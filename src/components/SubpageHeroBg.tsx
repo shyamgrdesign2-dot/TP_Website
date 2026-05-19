@@ -48,15 +48,16 @@ export default function SubpageHeroBg() {
         <AnimatedGrid className="h-full w-full" />
       </div>
 
-      {/* Bottom fade, eases the dome out to white before content */}
+      {/* Bottom fade, eases the dome out through a faint lavender tint
+          so it blends with the next section's wash instead of slamming
+          to pure white. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 z-[2]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2]"
         style={{
-          top: "clamp(220px, 32vh, 380px)",
-          height: "clamp(100px, 14vh, 180px)",
+          height: "clamp(180px, 28vh, 320px)",
           background:
-            "linear-gradient(to bottom, transparent, var(--background, #FBF8FF))",
+            "linear-gradient(to bottom, rgba(248,237,255,0) 0%, rgba(248,237,255,0.55) 55%, rgba(248,237,255,0.9) 100%)",
         }}
       />
     </>

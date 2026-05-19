@@ -63,7 +63,7 @@ export default function ContactHero() {
             style={{
               fontSize: "clamp(14px, 1.15vw, 18px)",
               lineHeight: 1.6,
-              maxWidth: "62ch",
+              maxWidth: "min(820px, 90vw)",
             }}
           >
             Whether you want to book a demo, ask about pricing, or just say

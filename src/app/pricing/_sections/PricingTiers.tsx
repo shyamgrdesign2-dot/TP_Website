@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionContent, SectionShell } from "@/components/SectionShell";
+import svgPaths from "@/features/practice-size/svg-cazyfuvy64";
 
 type Tier = {
   name: string;
@@ -96,35 +97,40 @@ function Check() {
   );
 }
 
-/** Decorative diamond polygon cluster sitting on the right side of the
- *  card header. Mirrors the SVG used in BuiltForEverySize. */
+/** Decorative polygon cluster, exact paths reused from the
+ *  BuiltForEverySize card (svg-cazyfuvy64.ts). */
 function DiamondPattern() {
   return (
-    <svg
-      aria-hidden
-      className="pointer-events-none absolute -right-2 top-1/2 h-[160%] w-[120px] -translate-y-1/2 opacity-60"
-      viewBox="0 0 134 162"
-      fill="none"
-    >
-      {[
-        "M67 12L92 38L67 64L42 38z",
-        "M97 38L114 56L97 74L80 56z",
-        "M37 38L54 56L37 74L20 56z",
-        "M67 70L92 96L67 122L42 96z",
-        "M97 96L114 114L97 132L80 114z",
-        "M37 96L54 114L37 132L20 114z",
-        "M67 128L84 146L67 164L50 146z",
-      ].map((d, i) => (
-        <path key={i} d={d} fill="white" fillOpacity="0.18" />
-      ))}
-    </svg>
+    <div className="pointer-events-none absolute bottom-[-34px] right-[-20px] h-[136px] w-[112px]">
+      <svg
+        className="absolute inset-0 block size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 134.939 162.543"
+        aria-hidden
+      >
+        <g>
+          <path d={svgPaths.p3aeb9340} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p18487670} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p2783da00} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p1b2a2872} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p396c3680} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.pc2cc240} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p32948170} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p23e88100} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p26919600} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.p3b614f70} fill="white" fillOpacity="0.18" />
+          <path d={svgPaths.pda4e980} fill="white" fillOpacity="0.18" />
+        </g>
+      </svg>
+    </div>
   );
 }
 
 function TierCard({ tier }: { tier: Tier }) {
   return (
     <div
-      className={`relative flex flex-col overflow-hidden rounded-[24px] border bg-white ${
+      className={`tier-card group relative flex flex-col rounded-[24px] border bg-white transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1.5 ${
         tier.featured ? "border-[#4B4AD5]" : "border-[#E8E0F0]"
       }`}
       style={
@@ -138,10 +144,11 @@ function TierCard({ tier }: { tier: Tier }) {
     >
       {tier.featured && (
         <span
-          className="absolute -top-3 left-6 z-10 inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white"
+          className="absolute -top-3 left-6 z-30 inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white"
           style={{
             backgroundImage:
               "linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)",
+            boxShadow: "0 6px 16px rgba(75,74,213,0.32)",
           }}
         >
           {tier.badge}
@@ -149,7 +156,7 @@ function TierCard({ tier }: { tier: Tier }) {
       )}
 
       {/* Header strip, eggplant radial gradient + diamond decoration */}
-      <div className="relative m-3 mt-3 h-[112px] overflow-hidden rounded-[16px]">
+      <div className="tier-card__header relative m-3 mt-3 h-[112px] rounded-[16px]">
         <div
           aria-hidden
           className="absolute inset-0 rounded-[16px]"

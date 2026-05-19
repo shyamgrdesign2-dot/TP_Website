@@ -907,3 +907,50 @@ body {
   );
 }
 /* rebuild 1779174970 */
+
+/* Pricing tier card hover: lift + diagonal shimmer across the
+   header strip. Animation kicks in on hover, plays once, resets. */
+.tier-card {
+  isolation: isolate;
+}
+
+.tier-card:hover {
+  box-shadow:
+    0 32px 72px rgba(75, 74, 213, 0.22),
+    0 8px 20px rgba(33, 32, 119, 0.10) !important;
+}
+
+.tier-card .tier-card__header {
+  position: relative;
+  overflow: hidden;
+}
+
+.tier-card .tier-card__header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tier-card:hover .tier-card__header::after {
+  animation: tier-card-shimmer 900ms ease-out forwards;
+}
+
+@keyframes tier-card-shimmer {
+  from { transform: translateX(-120%); }
+  to   { transform: translateX(120%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tier-card,
+  .tier-card:hover { transition: none; transform: none !important; }
+  .tier-card:hover .tier-card__header::after { animation: none; }
+}

@@ -61,7 +61,7 @@ export default function SectionBg({
           className="pointer-events-none absolute inset-0 z-0"
           style={{
             backgroundImage:
-              "linear-gradient(to right, rgba(75,74,213,0.16) 1px, transparent 1px), linear-gradient(to bottom, rgba(75,74,213,0.16) 1px, transparent 1px)",
+              "linear-gradient(to right, rgba(75,74,213,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(75,74,213,0.06) 1px, transparent 1px)",
             backgroundSize:
               "clamp(40px, 4.5vw, 64px) clamp(40px, 4.5vw, 64px)",
             backgroundPosition: "center center",
