@@ -74,21 +74,6 @@ const TIERS: Tier[] = [
   },
 ];
 
-function Badge({ label, style }: { label: string; style: Tier["badgeStyle"] }) {
-  const styles: Record<Tier["badgeStyle"], string> = {
-    blue: "border-[#E8E0F0] bg-white text-[#4B4AD5]",
-    neutral: "border-[#E5E5EA] bg-white text-[#454551]",
-    featured: "border-transparent bg-[#4B4AD5] text-white",
-  };
-  return (
-    <span
-      className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.06em] ${styles[style]}`}
-    >
-      {label}
-    </span>
-  );
-}
-
 function Check() {
   return (
     <svg
@@ -111,13 +96,36 @@ function Check() {
   );
 }
 
+/** Decorative diamond polygon cluster sitting on the right side of the
+ *  card header. Mirrors the SVG used in BuiltForEverySize. */
+function DiamondPattern() {
+  return (
+    <svg
+      aria-hidden
+      className="pointer-events-none absolute -right-2 top-1/2 h-[160%] w-[120px] -translate-y-1/2 opacity-60"
+      viewBox="0 0 134 162"
+      fill="none"
+    >
+      {[
+        "M67 12L92 38L67 64L42 38z",
+        "M97 38L114 56L97 74L80 56z",
+        "M37 38L54 56L37 74L20 56z",
+        "M67 70L92 96L67 122L42 96z",
+        "M97 96L114 114L97 132L80 114z",
+        "M37 96L54 114L37 132L20 114z",
+        "M67 128L84 146L67 164L50 146z",
+      ].map((d, i) => (
+        <path key={i} d={d} fill="white" fillOpacity="0.18" />
+      ))}
+    </svg>
+  );
+}
+
 function TierCard({ tier }: { tier: Tier }) {
   return (
     <div
-      className={`relative flex flex-col gap-4 rounded-[24px] border bg-white p-7 sm:p-8 ${
-        tier.featured
-          ? "border-[#4B4AD5]"
-          : "border-[#E8E0F0]"
+      className={`relative flex flex-col overflow-hidden rounded-[24px] border bg-white ${
+        tier.featured ? "border-[#4B4AD5]" : "border-[#E8E0F0]"
       }`}
       style={
         tier.featured
@@ -130,7 +138,7 @@ function TierCard({ tier }: { tier: Tier }) {
     >
       {tier.featured && (
         <span
-          className="absolute -top-3 left-7 inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white"
+          className="absolute -top-3 left-6 z-10 inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white"
           style={{
             backgroundImage:
               "linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)",
@@ -140,64 +148,106 @@ function TierCard({ tier }: { tier: Tier }) {
         </span>
       )}
 
-      <div className="flex flex-col gap-2">
-        {!tier.featured && <Badge label={tier.badge} style={tier.badgeStyle} />}
-        <h3
-          className="font-bold text-[#1F1F1F]"
+      {/* Header strip, eggplant radial gradient + diamond decoration */}
+      <div className="relative m-3 mt-3 h-[112px] overflow-hidden rounded-[16px]">
+        <div
+          aria-hidden
+          className="absolute inset-0 rounded-[16px]"
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(22px, 2.4vw, 30px)",
+            background:
+              tier.featured
+                ? "radial-gradient(99% 60% at 50% 55%, #4443BA 0%, #101056 39%, #252578 78%, #4443BA 100%)"
+                : "radial-gradient(99% 60% at 50% 55%, #46286C 0%, #25113E 39%, #372153 78%, #6C4F90 100%)",
           }}
-        >
-          {tier.name}
-        </h3>
-        <p className="text-[14px] text-[#454551]">{tier.description}</p>
-      </div>
-
-      <div>
-        <span
-          className="font-extrabold text-[#1F1F1F]"
+        />
+        <DiamondPattern />
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.06]"
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "44px",
-            lineHeight: 1,
+            backgroundImage: "var(--noise-svg)",
+            backgroundSize: "220px 220px",
           }}
-        >
-          {tier.priceLabel}
-        </span>
-        <div className="mt-1 text-[13px] text-[#7A7A82]">{tier.priceNote}</div>
-      </div>
+        />
 
-      <ul className="flex flex-col gap-2.5">
-        {tier.features.map((feature, i) => (
-          <li
-            key={i}
-            className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-[#1F1F1F]"
+        <div className="relative z-[1] flex h-full flex-col justify-center gap-1 px-5">
+          {!tier.featured && (
+            <span
+              className="w-fit text-[10px] font-semibold uppercase tracking-[0.08em] text-white/75"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              {tier.badge}
+            </span>
+          )}
+          <h3
+            className="bg-clip-text font-bold text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #FFFFFF 0%, #E5D6FD 100%)",
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(24px, 2.6vw, 32px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.01em",
+            }}
           >
-            <Check />
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
+            {tier.name}
+          </h3>
+          <p
+            className="text-[13px] text-white/80"
+            style={{ fontFamily: "var(--font-sans)" }}
+          >
+            {tier.description}
+          </p>
+        </div>
+      </div>
 
-      <Link
-        href="/contact"
-        className={`mt-auto flex h-[48px] items-center justify-center rounded-[12px] text-sm font-semibold transition ${
-          tier.ctaVariant === "primary"
-            ? "cta-shimmer text-white"
-            : "cta-outline border border-[#4B4AD5] bg-white text-[#4B4AD5]"
-        }`}
-        style={
-          tier.ctaVariant === "primary"
-            ? {
-                backgroundImage:
-                  "linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)",
-              }
-            : undefined
-        }
-      >
-        <span className="relative z-[1]">{tier.ctaLabel} →</span>
-      </Link>
+      {/* Body */}
+      <div className="flex flex-1 flex-col gap-5 px-6 pb-6 pt-2 sm:px-7 sm:pb-7">
+        <div>
+          <span
+            className="font-extrabold text-[#1F1F1F]"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "44px",
+              lineHeight: 1,
+            }}
+          >
+            {tier.priceLabel}
+          </span>
+          <div className="mt-1 text-[13px] text-[#7A7A82]">{tier.priceNote}</div>
+        </div>
+
+        <ul className="flex flex-col gap-2.5">
+          {tier.features.map((feature, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-2.5 text-[14px] leading-[1.5] text-[#1F1F1F]"
+            >
+              <Check />
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        <Link
+          href="/contact"
+          className={`mt-auto flex h-[48px] items-center justify-center rounded-[12px] text-sm font-semibold transition ${
+            tier.ctaVariant === "primary"
+              ? "cta-shimmer text-white"
+              : "cta-outline border border-[#4B4AD5] bg-white text-[#4B4AD5]"
+          }`}
+          style={
+            tier.ctaVariant === "primary"
+              ? {
+                  backgroundImage:
+                    "linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)",
+                }
+              : undefined
+          }
+        >
+          <span className="relative z-[1]">{tier.ctaLabel} →</span>
+        </Link>
+      </div>
     </div>
   );
 }

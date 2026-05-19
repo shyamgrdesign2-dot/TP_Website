@@ -14,13 +14,45 @@ const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 // on the right. Form posts to `/api/contact`, which delivers via
 // Resend when `RESEND_API_KEY` is set and logs to the server console
 // otherwise (so local dev keeps working without secrets).
+type FieldName =
+  | "first_name"
+  | "last_name"
+  | "email"
+  | "phone"
+  | "message";
+
+type FieldErrors = Partial<Record<FieldName, string>>;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Generous phone validation: 10-15 digits, optional + and separators.
+const PHONE_RE = /^\+?[\d\s\-()]{10,18}$/;
+
+function validatePayload(payload: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  message: string;
+}): FieldErrors {
+  const errors: FieldErrors = {};
+  if (!payload.firstName) errors.first_name = "First name is required.";
+  if (!payload.lastName) errors.last_name = "Last name is required.";
+  if (!payload.email) errors.email = "Work email is required.";
+  else if (!EMAIL_RE.test(payload.email))
+    errors.email = "Please enter a valid email address.";
+  if (payload.phone && !PHONE_RE.test(payload.phone))
+    errors.phone = "Please enter a valid phone number.";
+  if (!payload.message) errors.message = "Please tell us a little about your needs.";
+  return errors;
+}
+
 export default function ContactFormSection() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("submitting");
     setErrorMsg(null);
 
     const form = e.currentTarget;
@@ -33,6 +65,18 @@ export default function ContactFormSection() {
       phone: String(fd.get("phone") ?? "").trim() || undefined,
       message: String(fd.get("message") ?? "").trim(),
     };
+
+    // Inline client-side validation, surface per-field errors instead
+    // of one banner at the top.
+    const errors = validatePayload(payload);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setStatus("idle");
+      return;
+    }
+
+    setFieldErrors({});
+    setStatus("submitting");
 
     try {
       const res = await fetch("/api/contact", {
@@ -53,6 +97,15 @@ export default function ContactFormSection() {
       setStatus("error");
     }
   }
+
+  const clearFieldError = (name: FieldName) => {
+    setFieldErrors((prev) => {
+      if (!prev[name]) return prev;
+      const next = { ...prev };
+      delete next[name];
+      return next;
+    });
+  };
 
   return (
     <section className="relative w-full overflow-hidden">
@@ -87,6 +140,8 @@ export default function ContactFormSection() {
                     "0 1px 0 rgba(255,255,255,0.85) inset, 0 16px 36px rgba(33,32,119,0.10)",
                 }}
               >
+                {/* Top-level error reserved for network/server failures only.
+                    All field-level errors render inline below their input. */}
                 {status === "error" && errorMsg && (
                   <div
                     role="alert"
@@ -97,8 +152,20 @@ export default function ContactFormSection() {
                 )}
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <Field label="First name" name="first_name" required />
-                  <Field label="Last name" name="last_name" required />
+                  <Field
+                    label="First name"
+                    name="first_name"
+                    required
+                    error={fieldErrors.first_name}
+                    onChange={() => clearFieldError("first_name")}
+                  />
+                  <Field
+                    label="Last name"
+                    name="last_name"
+                    required
+                    error={fieldErrors.last_name}
+                    onChange={() => clearFieldError("last_name")}
+                  />
                 </div>
                 <Field
                   label="Work email"
@@ -106,6 +173,8 @@ export default function ContactFormSection() {
                   type="email"
                   required
                   placeholder="doctor@clinic.com"
+                  error={fieldErrors.email}
+                  onChange={() => clearFieldError("email")}
                 />
                 <Field
                   label="Clinic / Hospital"
@@ -117,6 +186,8 @@ export default function ContactFormSection() {
                   name="phone"
                   type="tel"
                   placeholder="+91 99999 99999"
+                  error={fieldErrors.phone}
+                  onChange={() => clearFieldError("phone")}
                 />
 
                 <div className="flex flex-col gap-1.5">
@@ -126,21 +197,34 @@ export default function ContactFormSection() {
                     style={{ fontSize: "clamp(12px, 0.95vw, 14px)" }}
                   >
                     How can we help?
-                    <span className="text-[#A41BF0]"> *</span>
+                    <span className="text-[#DC2626]"> *</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     rows={4}
-                    required
                     placeholder="Tell us a bit about your practice and what you're looking for…"
-                    className="w-full rounded-[12px] border border-[#D6D5E0] bg-white px-4 py-3 text-[#1F1F38] outline-none transition placeholder:text-[#9B9AA7] hover:border-[#B9B7C7] focus:border-[#4B4AD5] focus:ring-2 focus:ring-[#4B4AD5]/15"
+                    onChange={() => clearFieldError("message")}
+                    aria-invalid={Boolean(fieldErrors.message)}
+                    className={`w-full rounded-[12px] border bg-white px-4 py-3 text-[#1F1F38] outline-none transition placeholder:text-[#9B9AA7] focus:ring-2 focus:ring-[#4B4AD5]/15 ${
+                      fieldErrors.message
+                        ? "border-[#DC2626] focus:border-[#DC2626]"
+                        : "border-[#D6D5E0] hover:border-[#B9B7C7] focus:border-[#4B4AD5]"
+                    }`}
                     style={{
                       fontSize: "clamp(13px, 1vw, 15px)",
                       lineHeight: 1.55,
                       resize: "vertical",
                     }}
                   />
+                  {fieldErrors.message && (
+                    <p
+                      role="alert"
+                      className="text-[12px] font-medium text-[#DC2626]"
+                    >
+                      {fieldErrors.message}
+                    </p>
+                  )}
                 </div>
 
                 <CtaButton
@@ -164,18 +248,32 @@ export default function ContactFormSection() {
           {/* Info panel */}
           <ScrollReveal variant="fade-up" delay={120}>
             <aside
-              className="flex h-full flex-col gap-5 rounded-[22px] p-6 sm:p-8"
+              className="relative flex h-full flex-col gap-5 overflow-hidden rounded-[22px] p-6 sm:p-8"
               style={{
                 background:
-                  "linear-gradient(180deg, #1F1F6E 0%, #2A1F75 55%, #1A1A56 100%)",
+                  "radial-gradient(99% 60% at 50% 55%, #4443BA 0%, #101056 39%, #252578 78%, #4443BA 100%)",
                 boxShadow:
                   "0 1px 0 rgba(255,255,255,0.08) inset, 0 16px 36px rgba(33,32,119,0.20)",
               }}
             >
-              <div className="flex flex-col gap-1.5">
+              {/* Decorative diamond cluster, top-right */}
+              <ContactDiamondPattern />
+              {/* Subtle noise texture */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 opacity-[0.06]"
+                style={{
+                  backgroundImage: "var(--noise-svg)",
+                  backgroundSize: "220px 220px",
+                }}
+              />
+
+              <div className="relative z-[1] flex flex-col gap-1.5">
                 <h3
-                  className="font-bold text-white"
+                  className="bg-clip-text font-bold text-transparent"
                   style={{
+                    backgroundImage:
+                      "linear-gradient(90deg, #FFFFFF 0%, #E5D6FD 100%)",
                     fontFamily: "var(--font-display)",
                     fontSize: "clamp(18px, 1.6vw, 24px)",
                     letterSpacing: "-0.01em",
@@ -184,24 +282,26 @@ export default function ContactFormSection() {
                   Reach us directly
                 </h3>
                 <p
-                  className="text-white/75"
+                  className="text-white/80"
                   style={{
                     fontSize: "clamp(13px, 1vw, 15px)",
                     lineHeight: 1.55,
                   }}
                 >
-                  Prefer email or phone? Either route lands with the same team
-                 , pick whichever feels easiest.
+                  Prefer email or phone? Either route lands with the same team,
+                  pick whichever feels easiest.
                 </p>
               </div>
 
-              <ContactRow label="Email" value={SUPPORT_EMAIL} href={`mailto:${SUPPORT_EMAIL}`} />
-              <ContactRow label="Phone" value={SUPPORT_PHONE} href={`tel:${SUPPORT_PHONE.replace(/\s+/g, "")}`} />
-              <ContactRow label="Hours" value="Mon – Sat · 9 AM – 7 PM IST" />
-              <ContactRow
-                label="HQ"
-                value="Incubex HSR27, 1500, 19th Main Rd, 1st Sector, HSR Layout, Bengaluru, 560102"
-              />
+              <div className="relative z-[1] flex flex-col gap-4">
+                <ContactRow label="Email" value={SUPPORT_EMAIL} href={`mailto:${SUPPORT_EMAIL}`} />
+                <ContactRow label="Phone" value={SUPPORT_PHONE} href={`tel:${SUPPORT_PHONE.replace(/\s+/g, "")}`} />
+                <ContactRow label="Hours" value="Mon – Sat · 9 AM – 7 PM IST" />
+                <ContactRow
+                  label="HQ"
+                  value="Incubex HSR27, 1500, 19th Main Rd, 1st Sector, HSR Layout, Bengaluru, 560102"
+                />
+              </div>
             </aside>
           </ScrollReveal>
         </div>
@@ -216,13 +316,18 @@ function Field({
   type = "text",
   required = false,
   placeholder,
+  error,
+  onChange,
 }: {
   label: string;
   name: string;
   type?: "text" | "email" | "tel";
   required?: boolean;
   placeholder?: string;
+  error?: string;
+  onChange?: () => void;
 }) {
+  const hasError = Boolean(error);
   return (
     <div className="flex flex-col gap-1.5">
       <label
@@ -231,20 +336,35 @@ function Field({
         style={{ fontSize: "clamp(12px, 0.95vw, 14px)" }}
       >
         {label}
-        {required && <span className="text-[#A41BF0]"> *</span>}
+        {required && <span className="text-[#DC2626]"> *</span>}
       </label>
       <input
         id={name}
         name={name}
         type={type}
-        required={required}
         placeholder={placeholder}
-        className="w-full rounded-[12px] border border-[#D6D5E0] bg-white px-4 py-3 text-[#1F1F38] outline-none transition placeholder:text-[#9B9AA7] hover:border-[#B9B7C7] focus:border-[#4B4AD5] focus:ring-2 focus:ring-[#4B4AD5]/15"
+        aria-invalid={hasError}
+        aria-describedby={hasError ? `${name}-error` : undefined}
+        onChange={onChange}
+        className={`w-full rounded-[12px] border bg-white px-4 py-3 text-[#1F1F38] outline-none transition placeholder:text-[#9B9AA7] focus:ring-2 focus:ring-[#4B4AD5]/15 ${
+          hasError
+            ? "border-[#DC2626] focus:border-[#DC2626]"
+            : "border-[#D6D5E0] hover:border-[#B9B7C7] focus:border-[#4B4AD5]"
+        }`}
         style={{
           fontSize: "clamp(13px, 1vw, 15px)",
           lineHeight: 1.55,
         }}
       />
+      {hasError && (
+        <p
+          id={`${name}-error`}
+          role="alert"
+          className="text-[12px] font-medium text-[#DC2626]"
+        >
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -382,5 +502,30 @@ function SuccessPanel({ onReset }: { onReset: () => void }) {
         Send another message
       </button>
     </div>
+  );
+}
+
+/** Diamond polygon cluster, sits in the top-right corner of the navy
+ *  "Reach us directly" panel as a subtle pattern. */
+function ContactDiamondPattern() {
+  return (
+    <svg
+      aria-hidden
+      className="pointer-events-none absolute -right-6 -top-6 h-[200px] w-[160px] opacity-50"
+      viewBox="0 0 134 162"
+      fill="none"
+    >
+      {[
+        "M67 12L92 38L67 64L42 38z",
+        "M97 38L114 56L97 74L80 56z",
+        "M37 38L54 56L37 74L20 56z",
+        "M67 70L92 96L67 122L42 96z",
+        "M97 96L114 114L97 132L80 114z",
+        "M37 96L54 114L37 132L20 114z",
+        "M67 128L84 146L67 164L50 146z",
+      ].map((d, i) => (
+        <path key={i} d={d} fill="white" fillOpacity="0.16" />
+      ))}
+    </svg>
   );
 }
