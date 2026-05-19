@@ -6,6 +6,7 @@ import SectionBg from "@/components/SectionBg";
 import ScrollReveal from "@/components/ScrollReveal";
 import CtaButton from "@/components/ui/CtaButton";
 import { SUPPORT_EMAIL, SUPPORT_PHONE } from "@/lib/site";
+import svgPaths from "@/features/practice-size/svg-cazyfuvy64";
 
 // Lottie ships with `document` references, lazy-load client-side only.
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
@@ -505,27 +506,34 @@ function SuccessPanel({ onReset }: { onReset: () => void }) {
   );
 }
 
-/** Diamond polygon cluster, sits in the top-right corner of the navy
- *  "Reach us directly" panel as a subtle pattern. */
+/** Polygon cluster, exact paths reused from the BuiltForEverySize +
+ *  pricing tier card (svg-cazyfuvy64.ts) so the navy "Reach us
+ *  directly" panel uses the same decorative pattern as every other
+ *  card on the site. */
 function ContactDiamondPattern() {
   return (
-    <svg
-      aria-hidden
-      className="pointer-events-none absolute -right-6 -top-6 h-[200px] w-[160px] opacity-50"
-      viewBox="0 0 134 162"
-      fill="none"
-    >
-      {[
-        "M67 12L92 38L67 64L42 38z",
-        "M97 38L114 56L97 74L80 56z",
-        "M37 38L54 56L37 74L20 56z",
-        "M67 70L92 96L67 122L42 96z",
-        "M97 96L114 114L97 132L80 114z",
-        "M37 96L54 114L37 132L20 114z",
-        "M67 128L84 146L67 164L50 146z",
-      ].map((d, i) => (
-        <path key={i} d={d} fill="white" fillOpacity="0.16" />
-      ))}
-    </svg>
+    <div className="pointer-events-none absolute -right-6 -top-6 h-[200px] w-[160px] opacity-50">
+      <svg
+        className="absolute inset-0 block size-full"
+        fill="none"
+        preserveAspectRatio="none"
+        viewBox="0 0 134.939 162.543"
+        aria-hidden
+      >
+        <g>
+          <path d={svgPaths.p3aeb9340} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p18487670} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p2783da00} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p1b2a2872} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p396c3680} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.pc2cc240} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p32948170} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p23e88100} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p26919600} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.p3b614f70} fill="white" fillOpacity="0.2" />
+          <path d={svgPaths.pda4e980} fill="white" fillOpacity="0.2" />
+        </g>
+      </svg>
+    </div>
   );
 }

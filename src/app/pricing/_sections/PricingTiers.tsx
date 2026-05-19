@@ -142,19 +142,6 @@ function TierCard({ tier }: { tier: Tier }) {
           : { boxShadow: "0 8px 28px rgba(33,32,119,0.06)" }
       }
     >
-      {tier.featured && (
-        <span
-          className="absolute -top-3 left-6 z-30 inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-white"
-          style={{
-            backgroundImage:
-              "linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)",
-            boxShadow: "0 6px 16px rgba(75,74,213,0.32)",
-          }}
-        >
-          {tier.badge}
-        </span>
-      )}
-
       {/* Header strip, eggplant radial gradient + diamond decoration */}
       <div className="tier-card__header relative m-3 mt-3 h-[112px] rounded-[16px]">
         <div
@@ -177,8 +164,15 @@ function TierCard({ tier }: { tier: Tier }) {
           }}
         />
 
-        <div className="relative z-[1] flex h-full flex-col justify-center gap-1 px-5">
-          {!tier.featured && (
+        <div className="relative z-[1] flex h-full flex-col justify-center gap-1.5 px-5">
+          {tier.featured ? (
+            <span
+              className="inline-flex w-fit items-center rounded-full border border-white/35 bg-white/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white backdrop-blur-[4px]"
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              {tier.badge}
+            </span>
+          ) : (
             <span
               className="w-fit text-[10px] font-semibold uppercase tracking-[0.08em] text-white/75"
               style={{ fontFamily: "var(--font-sans)" }}
