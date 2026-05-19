@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/sections/Navbar";
 import FinalCTA from "@/sections/FinalCTA";
 import Footer from "@/sections/Footer";
-import SolutionHero from "../solutions/_shared/_sections/SolutionHero";
+import AboutHero from "./_sections/AboutHero";
 import AboutMission from "./_sections/AboutMission";
 import AboutValues from "./_sections/AboutValues";
 import AboutTeam from "./_sections/AboutTeam";
@@ -18,20 +18,6 @@ import { breadcrumbsJsonLd } from "@/lib/json-ld";
 // of using the wide-overlay Feature hero variant.
 // Body sections (Our Mission / What Drives Us / Meet Our Team)
 // follow below, then the shared FinalCTA + Footer.
-
-const ABOUT_HERO = {
-  eyebrowLabel: "About Us",
-  headlineLines: [
-    "Transforming Healthcare,",
-    "One Practice at a Time",
-  ] as [string, string],
-  subhead:
-    "TatvaCare was founded with a simple mission: give doctors their time back so they can focus on what matters most, their patients.",
-  mainImage: {
-    src: "/about/hero.png",
-    alt: "TatvaPractice team working with Indian clinicians",
-  },
-};
 
 export const metadata: Metadata = buildPageMetadata({
   title: `About ${SITE_NAME}, Transforming Healthcare in India`,
@@ -49,7 +35,7 @@ export default function AboutPage() {
   return (
     <main className="relative">
       <Navbar />
-      <SolutionHero content={ABOUT_HERO} />
+      <AboutHero />
       <AboutMission />
       <AboutValues />
       <AboutTeam />

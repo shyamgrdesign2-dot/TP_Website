@@ -1,13 +1,22 @@
-import { SectionContent, SectionShell } from "@/components/SectionShell";
+import SubpageHeroBg from "@/components/SubpageHeroBg";
 
 export default function PricingHero() {
   return (
-    <SectionShell
-      bg="lavender"
-      className="w-full"
-      style={{ paddingTop: "clamp(72px, 8vw, 140px)" }}
+    <section
+      className="relative w-full overflow-hidden"
+      aria-label="Pricing"
     >
-      <SectionContent padding="loose" className="items-center gap-5 text-center">
+      <SubpageHeroBg />
+
+      <div
+        className="relative z-10 mx-auto flex flex-col items-center text-center"
+        style={{
+          maxWidth: "var(--section-w)",
+          paddingTop: "clamp(140px, 14vh, 200px)",
+          paddingBottom: "clamp(40px, 4.4vw, 72px)",
+          gap: "clamp(16px, 1.6vw, 24px)",
+        }}
+      >
         <div
           className="load-rise relative overflow-hidden rounded-full border border-[#E8E0F0] bg-white/80"
           style={{
@@ -48,8 +57,8 @@ export default function PricingHero() {
             lineHeight: 1.6,
           }}
         >
-          Pay monthly or annually. Start with a 7-day free trial. No credit card
-          required.
+          Pay monthly or annually. Start with a 7-day free trial. No credit
+          card required.
         </p>
 
         <div
@@ -75,7 +84,7 @@ export default function PricingHero() {
             <span className="font-bold text-[#27276F]">· save 2 months</span>
           </span>
         </div>
-      </SectionContent>
-    </SectionShell>
+      </div>
+    </section>
   );
 }

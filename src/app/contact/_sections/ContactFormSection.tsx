@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import dynamic from "next/dynamic";
 import SectionBg from "@/components/SectionBg";
 import ScrollReveal from "@/components/ScrollReveal";
 import CtaButton from "@/components/ui/CtaButton";
 import { SUPPORT_EMAIL, SUPPORT_PHONE } from "@/lib/site";
+
+// Lottie ships with `document` references, lazy-load client-side only.
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 // Two-column contact section: form on the left, contact-info panel
 // on the right. Form posts to `/api/contact`, which delivers via
@@ -67,50 +71,7 @@ export default function ContactFormSection() {
           {/* Form card */}
           <ScrollReveal variant="fade-up">
             {status === "success" ? (
-              <div
-                className="flex flex-col items-center gap-3 rounded-[22px] p-10 text-center"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.6) 100%)",
-                  backdropFilter: "blur(12px) saturate(140%)",
-                  WebkitBackdropFilter: "blur(12px) saturate(140%)",
-                  border: "1px solid rgba(255,255,255,0.55)",
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.85) inset, 0 16px 36px rgba(33,32,119,0.10)",
-                }}
-              >
-                <div
-                  className="flex h-12 w-12 items-center justify-center rounded-full"
-                  style={{ background: "rgba(75,74,213,0.12)" }}
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <path
-                      d="M5 12.5l4.5 4.5L19 7.5"
-                      stroke="#4B4AD5"
-                      strokeWidth="2.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
-                <h3
-                  className="font-bold text-[#1F1F1F]"
-                  style={{ fontFamily: "var(--font-display)", fontSize: "clamp(20px, 1.8vw, 26px)" }}
-                >
-                  Message sent!
-                </h3>
-                <p className="text-[#454551]" style={{ fontSize: 15, lineHeight: 1.55 }}>
-                  We&apos;ll be in touch within one business day. No call centre 
-                  you&apos;ll hear from a real product specialist.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setStatus("idle")}
-                  className="mt-3 text-sm font-semibold text-[#4B4AD5] underline-offset-4 hover:underline"
-                >
-                  Send another message
-                </button>
-              </div>
+              <SuccessPanel onReset={() => setStatus("idle")} />
             ) : (
               <form
                 onSubmit={handleSubmit}
@@ -326,6 +287,100 @@ function ContactRow({
           {value}
         </span>
       )}
+    </div>
+  );
+}
+
+/**
+ * Success card shown after the contact form posts. Stretches to match
+ * the right-hand "Reach us directly" navy panel via `h-full`, centres
+ * the message + Lottie animation, plays the Lottie exactly once.
+ */
+function SuccessPanel({ onReset }: { onReset: () => void }) {
+  const [animationData, setAnimationData] = useState<unknown | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/lottie/success.json")
+      .then((r) => r.json())
+      .then((data) => {
+        if (!cancelled) setAnimationData(data);
+      })
+      .catch(() => {
+        /* graceful fallback, keeps the static check icon */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <div
+      className="flex h-full min-h-[420px] flex-col items-center justify-center gap-4 rounded-[22px] p-8 text-center sm:p-10"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.6) 100%)",
+        backdropFilter: "blur(12px) saturate(140%)",
+        WebkitBackdropFilter: "blur(12px) saturate(140%)",
+        border: "1px solid rgba(255,255,255,0.55)",
+        boxShadow:
+          "0 1px 0 rgba(255,255,255,0.85) inset, 0 16px 36px rgba(33,32,119,0.10)",
+      }}
+    >
+      <div className="h-[140px] w-[140px] sm:h-[180px] sm:w-[180px]">
+        {animationData ? (
+          <Lottie
+            animationData={animationData}
+            loop={false}
+            autoplay
+            style={{ width: "100%", height: "100%" }}
+          />
+        ) : (
+          // Static fallback while the Lottie JSON loads
+          <div
+            className="flex h-full w-full items-center justify-center rounded-full"
+            style={{ background: "rgba(75,74,213,0.12)" }}
+          >
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path
+                d="M5 12.5l4.5 4.5L19 7.5"
+                stroke="#4B4AD5"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      <h3
+        className="font-bold text-[#1F1F1F]"
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(22px, 2vw, 28px)",
+        }}
+      >
+        Message sent!
+      </h3>
+      <p
+        className="text-[#454551]"
+        style={{
+          fontSize: "clamp(14px, 1.05vw, 16px)",
+          lineHeight: 1.6,
+          maxWidth: "44ch",
+        }}
+      >
+        We&apos;ll be in touch within one business day. No call centre,
+        you&apos;ll hear from a real product specialist.
+      </p>
+      <button
+        type="button"
+        onClick={onReset}
+        className="mt-2 text-sm font-semibold text-[#4B4AD5] underline-offset-4 hover:underline"
+      >
+        Send another message
+      </button>
     </div>
   );
 }

@@ -2,16 +2,17 @@ import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
 import SubpageHeroBg from "@/components/SubpageHeroBg";
 import ScrollReveal from "@/components/ScrollReveal";
 
-// Compact hero for /contact. We don't use the full FeatureHero shell
-// here (h-screen, trust badges, scroll arrow) because the page's
-// star is the contact FORM directly below, pulling the user down to
-// the form is more important than dominating the viewport with the
-// hero. So the hero stays generous but short.
-export default function ContactHero() {
+/**
+ * Compact hero for /about. Mirrors /contact + /pricing: dome +
+ * animated grid backdrop, eyebrow pill, gradient hook line, and a
+ * supporting paragraph. Team photos live in the AboutTeam section
+ * below so the hero stays calm and the page identity reads as text.
+ */
+export default function AboutHero() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      aria-label="Contact TatvaPractice"
+      aria-label="About TatvaPractice"
     >
       <SubpageHeroBg />
 
@@ -45,15 +46,15 @@ export default function ContactHero() {
                 letterSpacing: "0.4px",
               }}
             >
-              Get in Touch
+              About Us
             </span>
           </div>
         </ScrollReveal>
 
         <ScrollReveal variant="fade-up" delay={80}>
           <SectionHeading>
-            We&rsquo;d love to{" "}
-            <GradientSpan>hear from you.</GradientSpan>
+            Transforming Healthcare,{" "}
+            <GradientSpan>one practice at a time.</GradientSpan>
           </SectionHeading>
         </ScrollReveal>
 
@@ -66,9 +67,8 @@ export default function ContactHero() {
               maxWidth: "62ch",
             }}
           >
-            Whether you want to book a demo, ask about pricing, or just say
-            hi, drop us a note and we&rsquo;ll respond within one business
-            day. Built by clinicians, supported by humans.
+            TatvaCare was founded with a simple mission: give doctors their
+            time back so they can focus on what matters most, their patients.
           </p>
         </ScrollReveal>
       </div>
