@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
+  /* Page background, a very faint lavender so every section's wash
+     blends into the same base. Avoids the hard-cut white band between
+     a hero dome and the section below it. Solid sections (navy mission
+     card, contact info panel, footer) paint over this on their own. */
+  --background: #FAF6FF;
   --foreground: #1f1f1f;
 
   /* Single shared content width used by EVERY section on every page
@@ -800,7 +804,7 @@
    its OWN radial wash + grid via <SectionBg/>, so the atmosphere is
    contained per-section and adjacent sections don't collide. */
 body {
-  background: #FBF8FF;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
 }

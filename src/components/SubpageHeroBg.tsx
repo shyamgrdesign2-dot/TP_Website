@@ -48,16 +48,16 @@ export default function SubpageHeroBg() {
         <AnimatedGrid className="h-full w-full" />
       </div>
 
-      {/* Bottom fade, eases the dome out through a faint lavender tint
-          so it blends with the next section's wash instead of slamming
-          to pure white. */}
+      {/* Bottom fade, the dome blends into the page's lavender base
+          (var(--background)) so the section below opens on the same
+          tint instead of a stark white seam. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 z-[2]"
         style={{
           height: "clamp(180px, 28vh, 320px)",
           background:
-            "linear-gradient(to bottom, rgba(248,237,255,0) 0%, rgba(248,237,255,0.55) 55%, rgba(248,237,255,0.9) 100%)",
+            "linear-gradient(to bottom, rgba(250,246,255,0) 0%, rgba(250,246,255,0.6) 50%, var(--background) 100%)",
         }}
       />
     </>

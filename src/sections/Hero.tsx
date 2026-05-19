@@ -6,7 +6,7 @@ import ScrollArrow from "./ScrollArrow";
 export default function Hero() {
   return (
     <section
-      className="relative grid min-h-[640px] w-full overflow-hidden bg-white"
+      className="relative grid min-h-[640px] w-full overflow-hidden"
       style={{
         minHeight: "100dvh",
         gridTemplateRows:
