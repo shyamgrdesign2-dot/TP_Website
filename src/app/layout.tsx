@@ -53,6 +53,10 @@ export const metadata: Metadata = {
   formatDetection: { email: false, address: false, telephone: false },
   alternates: {
     canonical: "/",
+    languages: {
+      "en-IN": "/",
+      "x-default": "/",
+    },
   },
   openGraph: {
     type: "website",
@@ -63,7 +67,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/hero-bg.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: `${SITE_NAME}, AI-first EMR for Indian clinics`,
@@ -72,15 +76,23 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@TatvaPractice",
+    creator: "@TatvaPractice",
     title: `${SITE_NAME}, ${SITE_TAGLINE}`,
     description: SITE_DESCRIPTION,
-    images: ["/hero-bg.png"],
+    images: ["/og-image.png"],
   },
   robots: {
-    index: true,
+    // Block indexing on Vercel preview deployments, only the
+    // canonical production domain should appear in search results.
+    index:
+      process.env.VERCEL_ENV === "production" ||
+      process.env.NODE_ENV !== "production",
     follow: true,
     googleBot: {
-      index: true,
+      index:
+        process.env.VERCEL_ENV === "production" ||
+        process.env.NODE_ENV !== "production",
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
@@ -88,7 +100,10 @@ export const metadata: Metadata = {
     },
   },
   category: "healthcare",
-  icons: { icon: "/favicon.ico" },
+  verification: {
+    // Wire these env vars in Vercel once you have the verification codes.
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export const viewport: Viewport = {

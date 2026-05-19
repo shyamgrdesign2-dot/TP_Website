@@ -48,9 +48,11 @@ export const SITEMAP_ROUTES: ReadonlyArray<{
     | "never";
 }> = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
+  // Conversion routes
+  { path: "/pricing", priority: 0.95, changeFrequency: "monthly" },
   // Company
   { path: "/about", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/contact", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/contact", priority: 0.7, changeFrequency: "monthly" },
   // Solutions
   { path: "/solutions/clinics", priority: 0.9, changeFrequency: "monthly" },
   { path: "/solutions/hospitals", priority: 0.9, changeFrequency: "monthly" },
