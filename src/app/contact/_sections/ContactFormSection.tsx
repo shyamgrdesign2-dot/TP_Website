@@ -512,7 +512,7 @@ function SuccessPanel({ onReset }: { onReset: () => void }) {
  *  card on the site. */
 function ContactDiamondPattern() {
   return (
-    <div className="pointer-events-none absolute -right-6 -top-6 h-[200px] w-[160px] opacity-50">
+    <div className="pointer-events-none absolute -bottom-6 -right-6 h-[200px] w-[160px] opacity-50">
       <svg
         className="absolute inset-0 block size-full"
         fill="none"
