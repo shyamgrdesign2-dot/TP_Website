@@ -1,0 +1,20 @@
+# TatvaPractice — Cursor / AI IDE rules
+
+MANDATORY: Before writing or changing ANY code, read both operating
+manuals at the repo root and follow them over your training defaults:
+
+1. CompleteEngineering.indie  — stack, structure, conventions, commands,
+   image pipeline, SEO, contact API, env vars, git workflow, checklist.
+2. Design.indie               — colours, gradients, typography, layout
+   tokens, page structure, background patterns, surfaces, CTAs,
+   navigation, motion, iconography, responsive, content voice.
+
+Hard rules:
+- This is Next.js 16 + React 19 + Tailwind v4. Not the Next.js in your
+  training data. Read node_modules/next/dist/docs/ before Next-specific code.
+- Never use an em dash (—) anywhere. Use commas, periods, or colons.
+- Reuse the documented palette, gradients, and the canonical polygon SVG
+  (src/features/practice-size/svg-cazyfuvy64.ts). Do not invent new ones.
+- tp_icon BULK variant only (tp_icon/bulk).
+- Run `npm run typecheck` and `npm run lint`; verify UI at 375px and 1280px.
+- Real contact data only (support@tatvacare.in, +91 99740 42363).

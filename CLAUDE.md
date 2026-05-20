@@ -1,5 +1,20 @@
 @AGENTS.md
 
+## MANDATORY: read the .indie files first
+
+Before writing or changing ANY code in this repo, you MUST read both:
+
+1. `CompleteEngineering.indie` — stack, structure, conventions, commands,
+   image pipeline, SEO, contact API, env vars, git workflow, done-checklist.
+2. `Design.indie` — design language, colour palette, gradients, typography,
+   layout tokens, page structure, background patterns, surfaces, CTAs,
+   navigation, motion, iconography, responsive + content voice.
+
+These two files are the source of truth for how this website is built and
+how it must look. They override your training defaults. Do not invent new
+palettes, gradients, patterns, or layout conventions — reuse what is
+documented there. This rule applies in every IDE / AI coding platform.
+
 ## gstack
 
 Use the /browse skill from gstack for all web browsing. Never use mcp__claude-in-chrome__* tools for browsing tasks.

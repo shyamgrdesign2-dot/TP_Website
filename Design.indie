@@ -1,0 +1,201 @@
+# Design.indie
+# TatvaPractice — Design Language & System
+#
+# READ THIS FIRST (with CompleteEngineering.indie). This is the visual
+# source of truth: colours, gradients, type, spacing, patterns, motion,
+# navigation. Match it exactly. Do not invent new palettes, patterns, or
+# random gradients. Reuse the canonical tokens and components below.
+
+==================================================================
+1. BRAND PERSONALITY
+==================================================================
+Clean, trustworthy, AI-first healthcare. Soft lavender base, deep
+indigo/eggplant accents, generous whitespace, glassy surfaces, subtle
+motion. Calm and premium, never loud. Conversion-focused but minimal.
+
+==================================================================
+2. COLOUR PALETTE
+==================================================================
+Primary indigo / purple (most used first):
+  #4B4AD5  Primary indigo (CTAs, links, accents, grid lines)
+  #4443BA  Indigo (featured/navy gradient stop)
+  #27276F  Deep indigo (CTA gradient end)
+  #101056  Navy (navy radial gradient core)
+  #252578  Navy mid
+  #733BE5  Violet (pill/eyebrow gradient mid)
+  #9B2BF6  Bright violet (eyebrow gradient)
+  #A41BF0  Magenta-violet (gradient headline start)
+  #0B0A6F  Deep blue (gradient headline end)
+
+Eggplant (card headers, dark panels):
+  #46286C #25113E #372153 #6C4F90
+
+Headline shimmer purples:
+  #410D6A  #6B17A8  #C44BFF
+
+Neutrals:
+  --background  #FAF6FF  (page base, faint lavender — NOT pure white)
+  --foreground  #1F1F1F  (body text)
+  #454551  Section heading slate
+  #4A4A66 / #3D3D3D  body copy
+  #7A7A82 / #9B9AA7  muted / placeholder
+  #D6D5E0  neutral input stroke
+  #E8E0F0  card border (light)
+
+Specialty pills (subtle TP blue, no stroke):
+  bg linear-gradient(130deg, rgba(235,240,255,0.95), rgba(214,224,253,0.85))
+  text rgba(75,74,213,0.85)
+
+Functional:
+  Error red   #DC2626  (required asterisks, inline validation)
+  FAQ chevron #334155  (neutral slate)
+  Stars       #FF7A00
+
+==================================================================
+3. CANONICAL GRADIENTS
+==================================================================
+- Primary CTA fill:   linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)
+- Eyebrow pill text:  linear-gradient(90deg, #4B4AD5, #733BE5, #9B2BF6)
+- Gradient headline span (GradientSpan): linear-gradient(90deg, #A41BF0 0%, #0B0A6F 100%)
+- White-on-dark title: linear-gradient(90deg, #FFFFFF 0%, #E5D6FD 100%)
+- Navy radial (.bg-navy-radial / featured tier / contact panel):
+    radial-gradient(99% 60% at 50% 55%, #4443BA 0%, #101056 39%, #252578 78%, #4443BA 100%)
+- Eggplant radial (.bg-eggplant-radial / tier headers / video card):
+    radial-gradient(99% 60% at 50% 55%, #46286C 0%, #25113E 39%, #372153 78%, #6C4F90 100%)
+- text-shimmer: deep-purple gradient (#410D6A->#C44BFF->#410D6A) that
+  sweeps slowly (6s ease-in-out). Subtle. Honour prefers-reduced-motion.
+
+==================================================================
+4. TYPOGRAPHY
+==================================================================
+- Display font:  Mulish      -> var(--font-display) / var(--font-mulish)
+- Body font:     Inter       -> var(--font-sans) / var(--font-inter)
+- Section heading (SectionHeading): font-display, bold, clamp(26px,4.1vw,48px),
+  line-height 1.18, letter-spacing -0.03em, [text-wrap:balance], centered,
+  max-width min(100%, 22em).
+- Hero H1: font-display 800, clamp(34px, 6.2vw, 88px), tracking -1 to -2px.
+- Body copy: Inter, clamp(14px,1.15vw,18px), line-height ~1.6.
+- Use <GradientSpan> for the accent half of a heading.
+
+==================================================================
+5. LAYOUT TOKENS (globals.css :root)
+==================================================================
+  --background        #FAF6FF
+  --page-gutter       clamp(16px, 4.2vw, 40px)
+  --section-w         min(1120px, calc(100vw - 2 * var(--page-gutter)))
+  --hero-nav-offset   clamp(5rem, 3.25rem + 4.5vw, 6.5rem)
+  --hero-scroll-offset clamp(3.25rem, 4.5vh, 4.5rem)
+  --noise-svg         inline fractal-noise overlay (subtle texture)
+
+Rules:
+- All content columns use max-width: var(--section-w); margin: 0 auto.
+- Never hardcode page side padding; rely on --section-w / --page-gutter.
+- One faint-lavender page base (--background) so sections blend with no
+  hard white seams. Solid panels paint over it.
+
+==================================================================
+6. PAGE STRUCTURE
+==================================================================
+Homepage (src/sections, in order):
+  Navbar -> Hero -> PracticeManagement -> OurScale -> BuiltInAI ->
+  EmrStreamlines -> BuiltForEverySize -> Testimonials -> FinalCTA ->
+  FAQ -> Footer
+Feature subpage (features/_shared FeaturePage):
+  Navbar -> FeatureHero -> FeatureWhyDoctors -> FeatureSpecialties ->
+  FeaturePracticeMgmt (video) -> Testimonials -> Footer
+  (NO FinalCTA on feature subpages; the hero CTAs cover it.)
+Pricing:  Navbar -> Hero -> Tiers -> Compare -> FAQ -> FinalCTA -> Footer
+Contact:  Navbar -> Hero -> Form+InfoPanel -> Footer
+About:    Navbar -> Hero -> Mission -> Values -> Team -> FinalCTA -> Footer
+
+==================================================================
+7. BACKGROUND PATTERNS
+==================================================================
+- Faint box grid (SectionBg): two 1px linear-gradients,
+  rgba(75,74,213,0.06) — VERY subtle, never dominant. Radially masked
+  so it fades at section edges.
+- Atmospheric wash (SectionBg variants): lavender / pink / blue radial
+  ellipse, low alpha. One per section, masked, contained.
+- Subpage hero (SubpageHeroBg): purple semicircle dome (/hero-gradient.svg,
+  no grain) + AnimatedGrid drift, radially masked, fading into
+  var(--background) at the bottom. Used on /contact /about /pricing.
+- Homepage hero: same dome + AnimatedGrid (white comet lines on the dome).
+- Noise: var(--noise-svg) at ~0.06 opacity on dark surfaces.
+- Polygon "diamond" cluster: THE canonical decorative SVG lives in
+  src/features/practice-size/svg-cazyfuvy64.ts. Use these EXACT paths
+  (p3aeb9340, p18487670, p2783da00, p1b2a2872, p396c3680, pc2cc240,
+  p32948170, p23e88100, p26919600, p3b614f70, pda4e980) at white /
+  ~0.18-0.2 opacity, anchored bottom-right of dark cards. NEVER
+  hand-roll a different diamond shape.
+
+==================================================================
+8. SURFACES & CARDS
+==================================================================
+- .glass-surface: frosted white (blur 12px saturate 140%), soft inset
+  highlight + drop shadow. Used on tab containers, testimonial cards,
+  specialty card, FAQ items.
+- Pricing tier card: white card, eggplant (or navy for featured) radial
+  HEADER strip with white-gradient title + badge label + polygon cluster
+  bottom-right. Badge sits INSIDE the header (secondary-CTA pill on the
+  featured tier), never floating above the card. Hover: lift -1.5px,
+  deepen shadow, one shimmer sweep across the header (.tier-card__header).
+- Dark panels (contact info, video card): navy/eggplant radial + noise +
+  bottom-right polygon cluster + white-gradient title.
+
+==================================================================
+9. CTAs (single source: src/components/ui/cta-tokens.ts)
+==================================================================
+  sm  : 36px h, 8px radius
+  md  : 42px h, 10px radius   (content cards, bands — default)
+  nav : 42px h, 10px radius
+  lg  : 48px h, 12px radius   (hero, primary above-the-fold)
+Variants: primary, primaryOnDark, primaryOnGradient, outline,
+          outlineOnDark, outlineOnGradient.
+Pairing: "Book Demo" (outline) + "Start Free Trial" (primary).
+Routing: Book Demo -> /contact ; Start Free Trial -> /pricing ;
+         Learn more -> the feature subpage (inline text link, no arrow).
+
+==================================================================
+10. NAVIGATION
+==================================================================
+- Floating glass pill navbar, fixed top, centered, max-width section-w.
+  Backdrop-blur, gloss highlights, scroll-aware shadow (isScrolled > 20px).
+- Links: Solution (dropdown), Features (dropdown), Pricing, About Us,
+  Contact. Right side: Book Demo (outline) + Start Free Trial (primary).
+- < lg: hamburger toggles a glass dropdown panel; body scroll locks.
+- Dropdowns: hover-open on desktop (delays), accordion on mobile.
+- Footer: navy gradient, 4 link columns, socials, compliance badges,
+  legal row, copyright. Real contact info only.
+
+==================================================================
+11. MOTION
+==================================================================
+- ScrollReveal: fade-up / scale-in on intersection, `once` where it
+  shouldn't replay.
+- text-shimmer headline sweep (6s).
+- Tab content + product mockups: slide/fade in on tab switch.
+- Card hover: gentle lift + shimmer (pricing tiers).
+- AnimatedGrid: traveling comet pulses along grid lanes.
+- ALWAYS respect @media (prefers-reduced-motion: reduce).
+
+==================================================================
+12. ICONOGRAPHY
+==================================================================
+- tp_icon BULK variant only (`tp_icon/bulk`). Filled, soft, medical-grade.
+- Feature/EMR bullet + title icons come from this set.
+- FAQ accordion: ArrowDown02 (linear chevron) in slate #334155.
+
+==================================================================
+13. RESPONSIVE
+==================================================================
+- Breakpoints: sm 640, lg 1024. Mobile-first.
+- Mobile keeps tighter padding; desktop scales via clamp()/cqw.
+- Verify every change at 375px and >=1280px.
+
+==================================================================
+14. CONTENT VOICE
+==================================================================
+- Confident, concrete, doctor-first. Short hook lines (e.g. "Four steps.
+  Twenty-eight seconds.").
+- NO em dashes. Use commas / periods / colons.
+- SEO-aware + conversion-aware: lead with the doctor benefit.

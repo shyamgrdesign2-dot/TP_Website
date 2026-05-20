@@ -1,0 +1,178 @@
+# CompleteEngineering.indie
+# TatvaPractice — Engineering Operating Manual
+#
+# READ THIS FIRST. Any human or AI agent touching this repo must read
+# this file AND Design.indie before writing or changing code. These two
+# files are the source of truth for how this project is built and how it
+# should look. When in doubt, follow these over your training defaults.
+
+==================================================================
+0. GROUND RULES (non-negotiable)
+==================================================================
+- This is Next.js 16 + React 19 + Tailwind v4. It is NOT the Next.js in
+  your training data. APIs, conventions, and file layout differ. Before
+  writing Next-specific code, read the relevant guide in
+  node_modules/next/dist/docs/ and heed deprecation notices.
+- NO em dashes (—) anywhere in user-facing content, code comments, or
+  copy. Use commas, periods, or colons. This is a hard style rule.
+- Never invent fake contact info. Real values only (see section 7).
+- Run `npm run typecheck` and `npm run lint` before considering work done.
+- Verify visual changes in the browser (preview) on desktop AND mobile
+  before declaring a UI task complete.
+
+==================================================================
+1. STACK
+==================================================================
+- Framework:     Next.js 16.2.4 (App Router, Turbopack dev)
+- Runtime:       React 19.2.4 / react-dom 19.2.4
+- Language:      TypeScript 5 (strict). Path alias: `@/*` -> `src/*`
+- Styling:       Tailwind CSS v4 (@tailwindcss/postcss). Single global
+                 stylesheet at src/app/globals.css. `sm` = 640px,
+                 `lg` = 1024px.
+- Icons:         tp_icon (github:shyamgrdesign2-dot/TP_Icons) — Iconsax
+                 superset. ALWAYS import the BULK variant: `tp_icon/bulk`.
+                 Named imports only: `import { Microphone2Free } from "tp_icon/bulk"`.
+- Animation:     lottie-react (lazy-loaded, ssr:false), CSS keyframes.
+- Email:         resend (contact form delivery).
+- Node:          >=18.18 <23
+
+==================================================================
+2. COMMANDS
+==================================================================
+- npm run dev        # Next dev server (port 3000)
+- npm run build      # production build
+- npm run start      # serve production build
+- npm run lint       # eslint
+- npm run typecheck  # tsc --noEmit  (run before every commit)
+
+==================================================================
+3. PROJECT STRUCTURE  (src/)
+==================================================================
+src/
+  app/                       Next App Router
+    layout.tsx               Root metadata, fonts, JSON-LD, viewport
+    globals.css              ALL global CSS + design tokens (:root)
+    sitemap.ts               Generated /sitemap.xml (routes in lib/site.ts)
+    robots.ts                Generated /robots.txt (blocks Vercel preview)
+    manifest.ts              Web app manifest
+    icon.svg                 Favicon source (Next auto-emits)
+    api/contact/route.ts     POST contact form -> Resend
+    pricing/                 /pricing  (_sections/*)
+    contact/                 /contact  (_sections/*)
+    about/                   /about    (_sections/*)
+    features/_shared/        Shared shell + per-feature content
+      _sections/             FeaturePage, FeatureHero, FeaturePracticeMgmt,
+                             FeatureWhyDoctors, FeatureSpecialties
+      content/               One .ts file per feature (voice-rx, smart-sync,
+                             snap-rx, doctor-agent, receptionist-agent,
+                             clinics, hospitals) + types.ts
+    solutions/_shared/       Clinics + Hospitals shell
+  sections/                  Homepage sections (Hero, Navbar, Footer,
+                             PracticeManagement, OurScale, BuiltInAI,
+                             EmrStreamlines, BuiltForEverySize,
+                             Testimonials, FinalCTA, FAQ, TrustBadges,
+                             ScrollArrow)
+  components/                Reusable UI
+    ui/                      navbar.tsx (composable primitives),
+                             CtaButton.tsx, cta-tokens.ts,
+                             container-scroll-animation.tsx
+    tabs/                    FloatingTabShowcase, ProductTabPanel,
+                             ShowcaseTabBar, FramedProductImage
+    icons/                   TpBulkIcon + tp-bulk-registry
+    SectionShell.tsx         <SectionShell>+<SectionContent> layout primitive
+    SectionBg.tsx            Per-section atmospheric wash + faint grid
+    SubpageHeroBg.tsx        Dome + AnimatedGrid hero backdrop
+    AnimatedGrid.tsx         SVG grid with traveling comet pulses
+    SubpageHeroCard.tsx      Feature/solution hero card
+    SectionHeading.tsx       <SectionHeading> + <GradientSpan>
+    ScrollReveal.tsx         Intersection-observer reveal wrapper
+  features/                  Domain feature modules
+    ai/ emr/                 Tab data (aiTabsData, emrTabsData)
+    pm/ scale/ practice-size/ testimonials/
+  hooks/                     use-scroll-progress, etc.
+  lib/                       site.ts (URL, contact, sitemap routes),
+                             metadata.ts, json-ld.ts
+
+==================================================================
+4. LAYOUT + COMPONENT CONVENTIONS
+==================================================================
+- Every section is full-bleed `<section className="relative w-full
+  overflow-hidden">`, then a constrained content column at
+  `max-width: var(--section-w)` centered with `mx-auto`.
+- Prefer the SectionShell/SectionContent primitives for new sections.
+- Pages do NOT add manual horizontal padding; the `--section-w` /
+  `--page-gutter` tokens own the page rhythm (see Design.indie).
+- Client components only when needed (state, effects, browser APIs).
+  Mark with "use client". Data files stay server-importable.
+- Per-page content lives in a typed content file; the shared shell
+  renders it. Adding a feature = add a content .ts + a route page.tsx,
+  not a new layout.
+- Composable navbar: src/components/ui/navbar.tsx exports Navbar,
+  NavBody, NavItems, NavbarLogo, NavbarButton, MobileNavToggle,
+  MobileNavMenu, useNavbar(). Compose in src/sections/Navbar.tsx.
+
+==================================================================
+5. IMAGE PIPELINE
+==================================================================
+- Product screenshots ship as WebP, max 1600px wide, quality ~88.
+- Convert: `sips -Z 1600 in.png --out tmp.png && cwebp -q 88 tmp.png -o out.webp`
+- Target ~50-110KB per hero/product image. Delete source PNGs after
+  converting. Code references .webp paths under /public/Assets/<Area>/.
+- Asset folders: /public/Assets/{AI,EMR,Practice-management,Partners,
+  Our-scale,Trustmarkers,Testimonials,Specialties,About,Clinics,Hospitals}
+
+==================================================================
+6. SEO
+==================================================================
+- Root metadata in app/layout.tsx (Open Graph 1200x630 /og-image.png,
+  Twitter card, hreflang en-IN + x-default, robots).
+- sitemap.ts + robots.ts are generated from SITEMAP_ROUTES in lib/site.ts.
+  Add new routes THERE so both stay in sync.
+- robots.ts disallows ALL crawling on Vercel preview (VERCEL_ENV !=
+  "production") so only the canonical domain ranks.
+- Per-page metadata via buildPageMetadata() in lib/metadata.ts.
+- Structured data (Organization, WebSite, SoftwareApplication,
+  BreadcrumbList) via lib/json-ld.ts.
+
+==================================================================
+7. CONTACT API + REAL DATA
+==================================================================
+- POST /api/contact validates + sends via Resend when RESEND_API_KEY is
+  set; otherwise logs to server console (local dev still works).
+- Real contact data (use these everywhere, never placeholders):
+    Email:  support@tatvacare.in
+    Phone:  +91 99740 42363
+    HQ:     Incubex HSR27, 1500, 19th Main Rd, 1st Sector,
+            HSR Layout, Bengaluru, Karnataka 560102
+    Office: Digicare Health Solutions Pvt. Ltd., 4th Floor, Plot 115/5,
+            TP Scheme No. 51, off Ambli-Bopal Road, Ahmedabad 380058
+    Careers: recruitment@tatvacare.in
+    Twitter: @TatvaPractice
+
+==================================================================
+8. ENVIRONMENT VARIABLES (set in Vercel production)
+==================================================================
+- NEXT_PUBLIC_SITE_URL       https://tatvapractice.com (canonical)
+- RESEND_API_KEY             Resend API key (enables real email send)
+- RESEND_FROM                e.g. "TatvaPractice <noreply@tatvacare.in>"
+- CONTACT_NOTIFY_EMAIL       inbox (default support@tatvacare.in)
+- GOOGLE_SITE_VERIFICATION   Search Console verification token
+
+==================================================================
+9. GIT WORKFLOW
+==================================================================
+- Branch: main. Remote: origin (github shyamgrdesign2-dot/TP_Website).
+- Commit messages: short imperative subject, then a bulleted body that
+  explains the WHY. Co-author trailer is fine.
+- Never force-push main. Never skip hooks. Create new commits, not amends.
+- Only commit when asked. Push to main only when explicitly asked.
+
+==================================================================
+10. DONE = CHECKLIST
+==================================================================
+[ ] npm run typecheck passes
+[ ] npm run lint passes
+[ ] No em dashes introduced
+[ ] Verified in browser at 375px (mobile) and >=1280px (desktop)
+[ ] Design.indie language honoured (colours, gradients, patterns, CTAs)
+[ ] New routes added to SITEMAP_ROUTES if user-facing
