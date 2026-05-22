@@ -1,4 +1,5 @@
 import CtaButton from "@/components/ui/CtaButton";
+import { TRIAL_URL } from "@/lib/site";
 import SubpageHeroBg from "@/components/SubpageHeroBg";
 import TrustBadges from "./TrustBadges";
 import ScrollArrow from "./ScrollArrow";
@@ -95,7 +96,7 @@ export default function Hero() {
               }}
             >
               <CtaButton
-                href="/contact"
+                href="/contact#contact"
                 variant="outline"
                 size="lg"
                 className="w-full min-w-0 sm:min-w-[200px] sm:flex-1 sm:basis-0"
@@ -103,7 +104,7 @@ export default function Hero() {
                 Book Demo
               </CtaButton>
               <CtaButton
-                href="/pricing"
+                href={TRIAL_URL}
                 variant="primary"
                 size="lg"
                 className="w-full min-w-0 sm:min-w-[200px] sm:flex-1 sm:basis-0"

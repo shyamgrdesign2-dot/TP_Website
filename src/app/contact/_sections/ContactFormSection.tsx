@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { Sms, Call, Clock2, Building } from "tp_icon/bulk";
 import SectionBg from "@/components/SectionBg";
@@ -52,6 +52,19 @@ export default function ContactFormSection() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const firstFieldRef = useRef<HTMLInputElement>(null);
+
+  // On open, surface the form: scroll it under the navbar and drop the
+  // cursor in the first field so the visitor can start typing right away.
+  // The short delay lets the fade-up reveal settle before we move focus.
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      firstFieldRef.current?.focus({ preventScroll: true });
+    }, 400);
+    return () => window.clearTimeout(t);
+  }, []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -115,11 +128,13 @@ export default function ContactFormSection() {
 
       <div
         id="contact"
+        ref={sectionRef}
         className="relative z-10 mx-auto"
         style={{
           maxWidth: "var(--section-w)",
           paddingTop: "clamp(28px, 2.8vw, 48px)",
           paddingBottom: "clamp(56px, 5vw, 96px)",
+          scrollMarginTop: "90px",
         }}
       >
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.5fr_1fr] lg:gap-8">
@@ -129,6 +144,7 @@ export default function ContactFormSection() {
               <SuccessPanel onReset={() => setStatus("idle")} />
             ) : (
               <form
+                id="contact-form"
                 onSubmit={handleSubmit}
                 noValidate
                 className="flex flex-col gap-5 rounded-[22px] p-6 sm:p-8"
@@ -158,6 +174,7 @@ export default function ContactFormSection() {
                     label="First name"
                     name="first_name"
                     required
+                    inputRef={firstFieldRef}
                     error={fieldErrors.first_name}
                     onChange={() => clearFieldError("first_name")}
                   />
@@ -181,7 +198,7 @@ export default function ContactFormSection() {
                 <Field
                   label="Clinic / Hospital"
                   name="organization"
-                  placeholder="Optional"
+                  placeholder="e.g. Apollo Clinic"
                 />
                 <Field
                   label="Phone"
@@ -229,20 +246,23 @@ export default function ContactFormSection() {
                   )}
                 </div>
 
-                <CtaButton
-                  as="button"
-                  type="submit"
-                  variant="primary"
-                  size="lg"
-                  className="mt-1 w-full sm:w-fit sm:min-w-[180px]"
-                  style={{
-                    boxShadow: "0 8px 22px rgba(75,74,213,0.28)",
-                    opacity: status === "submitting" ? 0.7 : 1,
-                    pointerEvents: status === "submitting" ? "none" : "auto",
-                  }}
-                >
-                  {status === "submitting" ? "Sending…" : "Send Message"}
-                </CtaButton>
+                {/* Desktop submit. On mobile the sticky bottom bar takes over. */}
+                <div className="mt-1 hidden sm:block">
+                  <CtaButton
+                    as="button"
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    className="w-full sm:w-fit sm:min-w-[180px]"
+                    style={{
+                      boxShadow: "0 8px 22px rgba(75,74,213,0.28)",
+                      opacity: status === "submitting" ? 0.7 : 1,
+                      pointerEvents: status === "submitting" ? "none" : "auto",
+                    }}
+                  >
+                    {status === "submitting" ? "Sending…" : "Send Message"}
+                  </CtaButton>
+                </div>
               </form>
             )}
           </ScrollReveal>
@@ -308,7 +328,36 @@ export default function ContactFormSection() {
             </aside>
           </ScrollReveal>
         </div>
+
+        {/* Spacer so the last fields clear the mobile sticky submit bar. */}
+        {status !== "success" && <div aria-hidden className="h-[76px] sm:hidden" />}
       </div>
+
+      {/* Mobile-only sticky submit, pinned to the bottom while the form is
+          active. Bound to the form via the `form` attribute so it submits
+          the same handler as the desktop button. */}
+      {status !== "success" && (
+        <div
+          className="fixed inset-x-0 bottom-0 z-40 border-t border-white/50 bg-white/80 px-4 pt-3 backdrop-blur-md sm:hidden"
+          style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 12px)" }}
+        >
+          <button
+            form="contact-form"
+            type="submit"
+            disabled={status === "submitting"}
+            className="cta-shimmer flex h-[52px] w-full items-center justify-center rounded-[12px] font-semibold text-white"
+            style={{
+              backgroundImage: "linear-gradient(101deg, #4B4AD5 0%, #27276F 131.58%)",
+              boxShadow: "0 8px 22px rgba(75,74,213,0.28)",
+              opacity: status === "submitting" ? 0.7 : 1,
+            }}
+          >
+            <span className="relative z-[1]">
+              {status === "submitting" ? "Sending…" : "Send Message"}
+            </span>
+          </button>
+        </div>
+      )}
     </section>
   );
 }
@@ -321,6 +370,7 @@ function Field({
   placeholder,
   error,
   onChange,
+  inputRef,
 }: {
   label: string;
   name: string;
@@ -329,6 +379,7 @@ function Field({
   placeholder?: string;
   error?: string;
   onChange?: () => void;
+  inputRef?: React.Ref<HTMLInputElement>;
 }) {
   const hasError = Boolean(error);
   return (
@@ -342,6 +393,7 @@ function Field({
         {required && <span className="text-[#DC2626]"> *</span>}
       </label>
       <input
+        ref={inputRef}
         id={name}
         name={name}
         type={type}

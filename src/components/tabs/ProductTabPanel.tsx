@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CtaButton from "@/components/ui/CtaButton";
+import { TRIAL_URL } from "@/lib/site";
 import type { AiTab } from "@/features/ai/aiTabsData";
 import type { EmrTab } from "@/features/emr/emrTabsData";
 import FramedProductImage from "./FramedProductImage";
@@ -116,7 +117,7 @@ function TabCtaPair() {
   return (
     <div className="flex w-full flex-col items-stretch gap-3 pt-2 sm:flex-row sm:gap-4 sm:pt-1">
       <CtaButton
-        href="/contact"
+        href="/contact#contact"
         variant="outlineOnGradient"
         size="md"
         className="w-full sm:w-auto sm:min-w-[160px] sm:flex-1 sm:basis-0"
@@ -124,7 +125,7 @@ function TabCtaPair() {
         Book Demo
       </CtaButton>
       <CtaButton
-        href="/pricing"
+        href={TRIAL_URL}
         variant="primaryOnGradient"
         size="md"
         className="w-full sm:w-auto sm:min-w-[160px] sm:flex-1 sm:basis-0"

@@ -18,6 +18,9 @@ export const SITE_TAGLINE = "AI-first EMR for Indian OPD";
 export const SITE_DESCRIPTION =
   "TatvaPractice is the AI-first EMR built for Indian OPD reality. Voice-driven Rx, ABDM-certified, NHA-approved, and trusted by 10,000+ doctors across 200+ cities.";
 
+/** External app login / sign-up where "Start Free Trial" CTAs point. */
+export const TRIAL_URL = "https://tatvapractice.tatvacare.in/login";
+
 /** Parent company info (for Organization JSON-LD). */
 export const PARENT_ORG_NAME = "TatvaCare";
 export const SUPPORT_EMAIL = "support@tatvacare.in";

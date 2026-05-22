@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import CtaButton from "@/components/ui/CtaButton";
+import { TRIAL_URL } from "@/lib/site";
 
 // Mobile-only sticky CTA bar pinned to the bottom of the viewport on
 // phones (hidden ≥ `sm`). Holds the same Book Demo / Start Free Trial
@@ -95,7 +96,7 @@ export default function MobileStickyCTA() {
       }}
     >
       <CtaButton
-        href="/contact"
+        href="/contact#contact"
         variant="outline"
         size="md"
         className="flex-1 basis-0 bg-white/70"
@@ -103,7 +104,7 @@ export default function MobileStickyCTA() {
         Book Demo
       </CtaButton>
       <CtaButton
-        href="/pricing"
+        href={TRIAL_URL}
         variant="primary"
         size="md"
         className="flex-1 basis-0"

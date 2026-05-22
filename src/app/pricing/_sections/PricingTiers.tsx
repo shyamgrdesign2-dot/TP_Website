@@ -32,7 +32,7 @@ const TIERS: Tier[] = [
       "Email + chat support",
     ],
     ctaLabel: "Talk to sales",
-    ctaVariant: "outline",
+    ctaVariant: "primary",
   },
   {
     name: "Clinic",

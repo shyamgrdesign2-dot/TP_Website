@@ -1,6 +1,7 @@
 import Image from "next/image";
 import FramedProductImage from "@/components/tabs/FramedProductImage";
 import CtaButton from "@/components/ui/CtaButton";
+import { TRIAL_URL } from "@/lib/site";
 
 export type SubpageHeroImage = {
   src: string;
@@ -93,7 +94,7 @@ export default function SubpageHeroCard({
 
           <div className="flex w-full flex-col gap-3.5 md:w-[506px] md:flex-row md:gap-6">
             <CtaButton
-              href="/pricing"
+              href={TRIAL_URL}
               variant="primaryOnGradient"
               size="lg"
               className="w-full md:w-[241px]"
@@ -102,7 +103,7 @@ export default function SubpageHeroCard({
               Start Free Trial
             </CtaButton>
             <CtaButton
-              href="/contact"
+              href="/contact#contact"
               variant="outlineOnGradient"
               size="lg"
               className="w-full md:w-[241px]"

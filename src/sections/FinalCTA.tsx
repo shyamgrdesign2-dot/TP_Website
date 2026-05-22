@@ -1,6 +1,7 @@
 import ScrollReveal from "@/components/ScrollReveal";
 import { SectionContent, SectionShell } from "@/components/SectionShell";
 import CtaButton from "@/components/ui/CtaButton";
+import { TRIAL_URL } from "@/lib/site";
 
 export default function FinalCTA() {
   return (
@@ -92,7 +93,7 @@ export default function FinalCTA() {
               }}
             >
               <CtaButton
-                href="/contact"
+                href="/contact#contact"
                 variant="outlineOnGradient"
                 size="md"
                 className="w-full sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0"
@@ -100,7 +101,7 @@ export default function FinalCTA() {
                 Book Demo
               </CtaButton>
               <CtaButton
-                href="/pricing"
+                href={TRIAL_URL}
                 variant="primaryOnGradient"
                 size="md"
                 className="w-full sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0"

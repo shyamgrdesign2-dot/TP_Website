@@ -42,13 +42,13 @@ const PARTNERS: Partner[] = [
   {
     name: "PillUp",
     body: "Modern pharmacy delivering personalised, pre-sorted medicines. Partners with TatvaCare for medication adherence and chronic care.",
-    href: "https://www.pillup.in",
+    href: "https://pillup.com/",
     cta: "Visit PillUp",
   },
   {
     name: "Visit Health",
     body: "Corporate healthcare benefits platform serving 400+ companies and 4,500+ SMEs. Partners with TatvaCare to expand cashless OPD and wellness.",
-    href: "https://www.visit.health",
+    href: "https://getvisitapp.com/",
     cta: "Visit Visit Health",
   },
 ];

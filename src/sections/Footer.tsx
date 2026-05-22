@@ -10,17 +10,16 @@ const LINK_GROUPS: Array<{
     items: [
       { label: "For Clinics", href: "/solutions/clinics" },
       { label: "For Hospitals", href: "/solutions/hospitals" },
-      { label: "Pricing", href: "/pricing" },
     ],
   },
   {
     heading: "Features",
     items: [
       { label: "VoiceRx", href: "/features/voice-rx" },
-      { label: "SmartSync" },
-      { label: "SnapRx" },
-      { label: "AI Assistant" },
-      { label: "Integrations" },
+      { label: "SmartSync", href: "/features/smart-sync" },
+      { label: "SnapRx", href: "/features/snap-rx" },
+      { label: "Doctor Agent", href: "/features/doctor-agent" },
+      { label: "Receptionist Agent", href: "/features/receptionist-agent" },
     ],
   },
   {
@@ -28,8 +27,8 @@ const LINK_GROUPS: Array<{
     items: [
       { label: "About Us", href: "/about" },
       { label: "Contact", href: "/contact" },
-      { label: "Careers" },
-      { label: "Blog" },
+      { label: "Careers", href: "https://www.tatvacare.in/careers/" },
+      { label: "Pricing", href: "/pricing" },
     ],
   },
   {
@@ -52,6 +51,7 @@ const LEGAL = [
 const SOCIALS = [
   {
     label: "Twitter",
+    href: "https://x.com/Tatvacare_in",
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
         <path d="M18.244 2H21.5l-7.5 8.57L23 22h-6.844l-5.358-7.012L4.5 22H1.244l8.04-9.187L1 2h6.961l4.84 6.4L18.244 2Zm-1.2 18h1.86L7.06 4H5.06l11.984 16Z" />
@@ -60,6 +60,7 @@ const SOCIALS = [
   },
   {
     label: "LinkedIn",
+    href: "https://www.linkedin.com/company/tatvacare-in/posts/?feedView=all",
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
         <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.5 1s2.48 1.12 2.48 2.5ZM.18 8h4.66v14H.18V8Zm7.43 0h4.46v1.92h.06c.62-1.17 2.13-2.4 4.39-2.4 4.69 0 5.56 3.08 5.56 7.09V22h-4.66v-6.59c0-1.57-.03-3.6-2.19-3.6-2.2 0-2.53 1.72-2.53 3.49V22H7.61V8Z" />
@@ -68,6 +69,7 @@ const SOCIALS = [
   },
   {
     label: "Instagram",
+    href: "https://www.instagram.com/tatvacare.in/",
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
         <rect x="3" y="3" width="18" height="18" rx="5" />
@@ -78,6 +80,7 @@ const SOCIALS = [
   },
   {
     label: "YouTube",
+    href: "https://www.youtube.com/TatvaCare",
     icon: (
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
         <path d="M23.5 6.5a3 3 0 0 0-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4A3 3 0 0 0 .5 6.5C.1 8.4.1 12 .1 12s0 3.6.4 5.5a3 3 0 0 0 2.1 2.1C4.5 20 12 20 12 20s7.5 0 9.4-.4a3 3 0 0 0 2.1-2.1c.4-1.9.4-5.5.4-5.5s0-3.6-.4-5.5ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z" />
@@ -88,14 +91,18 @@ const SOCIALS = [
 
 function SocialIcon({
   label,
+  href,
   children,
 }: {
   label: string;
+  href: string;
   children: React.ReactNode;
 }) {
   return (
     <a
-      href="#"
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
       className="flex h-8 w-8 items-center justify-center rounded-[6px] border border-white/25 text-white/75 transition hover:border-white/50 hover:text-white"
     >
@@ -107,17 +114,30 @@ function SocialIcon({
 function FooterLink({ item }: { item: { label: string; href?: string } }) {
   const cls = "text-white/80 hover:text-white transition";
   const style = { fontSize: "clamp(12px, 1vw, 14px)", lineHeight: 1.4 };
-  if (item.href) {
+  if (!item.href) {
     return (
-      <Link href={item.href} className={cls} style={style}>
+      <span className="text-white/80" style={style}>
         {item.label}
-      </Link>
+      </span>
+    );
+  }
+  if (item.href.startsWith("http")) {
+    return (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cls}
+        style={style}
+      >
+        {item.label}
+      </a>
     );
   }
   return (
-    <span className="text-white/80" style={style}>
+    <Link href={item.href} className={cls} style={style}>
       {item.label}
-    </span>
+    </Link>
   );
 }
 
@@ -161,7 +181,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               {SOCIALS.map((s) => (
-                <SocialIcon key={s.label} label={s.label}>
+                <SocialIcon key={s.label} label={s.label} href={s.href}>
                   {s.icon}
                 </SocialIcon>
               ))}
