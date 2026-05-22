@@ -1,6 +1,6 @@
 "use client";
 
-import SectionHeading from "@/components/SectionHeading";
+import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
 import ScaleStatCard, { type ScaleStat } from "@/features/scale/ScaleStatCard";
 import {
@@ -64,7 +64,9 @@ export default function OurScale() {
     <SectionShell bg="lavender" withGrid={false} className="w-full" id="our-scale">
       <SectionContent className="gap-6 sm:gap-6" padding="default">
         <ScrollReveal variant="fade-up" once>
-          <SectionHeading>Our Scale</SectionHeading>
+          <SectionHeading>
+            Our <GradientSpan>Scale</GradientSpan>
+          </SectionHeading>
         </ScrollReveal>
         <div className="scale-stats-grid grid w-full max-w-[var(--section-w)] grid-cols-2 gap-[clamp(12px,2vw,19px)] sm:grid-cols-3">
           {STATS.map((stat) => (

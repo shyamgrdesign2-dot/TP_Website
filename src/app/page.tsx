@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Navbar from "@/sections/Navbar";
 import Hero from "@/sections/Hero";
-import PracticeManagement from "@/sections/PracticeManagement";
+import ImmersiveScrollVideo from "@/sections/ImmersiveScrollVideo";
+import TrustedBy from "@/sections/TrustedBy";
 import OurScale from "@/sections/OurScale";
 import BuiltInAI from "@/sections/BuiltInAI";
 import EmrStreamlines from "@/sections/EmrStreamlines";
@@ -36,8 +37,9 @@ export default function Home() {
     <main className="relative pb-[88px] sm:pb-0">
       <Navbar />
       <Hero />
+      <ImmersiveScrollVideo />
       <LandingProductBand>
-        <PracticeManagement />
+        <TrustedBy />
         <OurScale />
         <BuiltInAI />
         <EmrStreamlines />

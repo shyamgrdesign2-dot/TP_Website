@@ -23,29 +23,31 @@ export const VOICE_RX_CONTENT: FeatureContent = {
     line2: "Twenty-eight seconds.",
   },
 
+  videoId: "Su3malwthR4",
+
   whyDoctors: {
     heading: "Why Indian doctors choose VoiceRx",
     cards: [
       {
         title: "30-Second Audit-Ready Rx",
         titleLines: ["30-Second", "Audit-Ready Rx"],
-        body: "From speech to a signable, structured prescription in under 30 seconds.",
+        body: "Dictate notes or just talk with your patient, VoiceRx turns either into a signable, structured Rx in under 30 seconds.",
       },
       {
         title: "9 Indian Languages",
         body: "Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Punjabi, English.",
       },
       {
-        title: "Drug Interaction Alerts",
-        body: "Catches interactions across the patient's full med list as you dictate.",
+        title: "Edit Before You Sign",
+        body: "Review and fine-tune the structured Rx on screen, then sign off in a single tap.",
       },
       {
         title: "Specialty-Aware Structure",
         body: "BD, TDS, OD, SOS, HS handled. ICD-10 tagging is baked in.",
       },
       {
-        title: "Hands-Free Consultation",
-        body: "Keep eye contact with patients while notes are captured in the background.",
+        title: "Conversation Mode",
+        body: "VoiceRx listens to your natural doctor-patient conversation and writes the notes in the background, hands-free.",
       },
       {
         title: "Works Offline",

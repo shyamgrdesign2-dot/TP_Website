@@ -1,4 +1,5 @@
 import SubpageHeroBg from "@/components/SubpageHeroBg";
+import TrustBadges from "@/sections/TrustBadges";
 
 export default function PricingHero() {
   return (
@@ -52,8 +53,8 @@ export default function PricingHero() {
         <p
           className="text-[#3D3D3D]"
           style={{
-            maxWidth: "min(640px, 90vw)",
-            fontSize: "clamp(14px, 1.15vw, 20px)",
+            maxWidth: "min(680px, 90vw)",
+            fontSize: "clamp(15px, 1.3vw, 21px)",
             lineHeight: 1.6,
           }}
         >
@@ -83,6 +84,10 @@ export default function PricingHero() {
             Annual{" "}
             <span className="font-bold text-[#27276F]">· save 2 months</span>
           </span>
+        </div>
+
+        <div className="mt-2 flex w-full justify-center">
+          <TrustBadges />
         </div>
       </div>
     </section>

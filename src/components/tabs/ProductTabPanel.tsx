@@ -17,7 +17,7 @@ function TabMedia({
   overlayImage?: { src: string; alt: string };
 }) {
   return (
-    <div className="feature-tab-card__media relative h-[clamp(220px,52vw,340px)] w-full flex items-start justify-center p-0 text-transparent lg:h-auto lg:absolute lg:inset-y-0 lg:right-0 lg:w-[50%] lg:pl-[46px] lg:pr-0 lg:pt-6 lg:pb-0">
+    <div className="feature-tab-card__media relative h-[clamp(220px,52vw,340px)] w-full flex items-start justify-center p-0 text-transparent lg:h-auto lg:absolute lg:inset-y-0 lg:right-0 lg:w-[47%] lg:pl-[58px] lg:pr-0 lg:pt-6 lg:pb-0">
       <img
         src={mainImage.src}
         alt={mainImage.alt}
@@ -43,7 +43,7 @@ function TabMedia({
 
 function AiContent({ tab }: { tab: AiTab }) {
   return (
-    <div className="feature-tab-card__text flex h-auto min-h-0 flex-col gap-3 px-8 lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-[min(48%,430px)] lg:justify-center lg:gap-[10px] lg:px-6 lg:pl-8 xl:pl-10">
+    <div className="feature-tab-card__text flex h-auto min-h-0 flex-col gap-3 px-8 lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-[min(53%,470px)] lg:justify-center lg:gap-[10px] lg:px-6 lg:pl-8 xl:pl-10">
       <div className="flex items-center gap-3">
         <span className="feature-tab-card__title-icon shrink-0 [&_span]:!size-7 lg:[&_span]:!size-8">
           {tab.icon}
@@ -57,7 +57,7 @@ function AiContent({ tab }: { tab: AiTab }) {
       </div>
 
       <div
-        className="feature-tab-card__description text-[14px] leading-[1.55] tracking-[-0.16px] text-white/85 lg:text-base lg:leading-7"
+        className="feature-tab-card__description text-[14px] leading-[1.55] tracking-[-0.16px] text-white/85 [-webkit-box-orient:vertical] [-webkit-line-clamp:4] [display:-webkit-box] overflow-hidden lg:text-base lg:leading-7"
         style={{ fontFamily: "var(--font-sans)" }}
       >
         {tab.description}{" "}
@@ -76,7 +76,7 @@ function AiContent({ tab }: { tab: AiTab }) {
 
 function EmrContent({ tab }: { tab: EmrTab }) {
   return (
-    <div className="feature-tab-card__text flex min-h-0 flex-col gap-4 px-8 lg:absolute lg:inset-y-0 lg:left-0 lg:w-[min(48%,430px)] lg:justify-center lg:gap-[18px] lg:px-6 lg:pl-8 xl:pl-10">
+    <div className="feature-tab-card__text flex min-h-0 flex-col gap-4 px-8 lg:absolute lg:inset-y-0 lg:left-0 lg:w-[min(53%,470px)] lg:justify-center lg:gap-[18px] lg:px-6 lg:pl-8 xl:pl-10">
       <h2
         className="feature-tab-card__heading text-[clamp(26px,7.2vw,29px)] font-bold leading-[1.1] text-white lg:text-[32px] lg:leading-none"
         style={{ fontFamily: "var(--font-display)" }}
@@ -96,7 +96,9 @@ function EmrContent({ tab }: { tab: EmrTab }) {
             <span className="feature-tab-card__point-icon shrink-0 [&_span]:!size-[23.68px] lg:[&_span]:!size-[26px]">
               {bullet.icon}
             </span>
-            <span className="min-w-0 flex-1">{bullet.text}</span>
+            <span className="min-w-0 flex-1 truncate whitespace-nowrap">
+              {bullet.text}
+            </span>
           </li>
         ))}
       </ul>

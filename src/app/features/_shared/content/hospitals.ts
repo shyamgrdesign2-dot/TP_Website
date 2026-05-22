@@ -16,7 +16,7 @@ export const HOSPITALS_CONTENT: FeatureContent = {
     subhead:
       "TatvaPractice unifies OPD, IPD, pharmacy, and labs into one system, with role-based access across locations, centralised reporting, and dedicated SLAs.",
     mainImage: {
-      src: "/Assets/Hospitals/main.png",
+      src: "/Assets/Hospitals/main.webp",
       alt: "Hospital team using TatvaPractice across OPD, IPD, pharmacy",
     },
     overlayImage: null,

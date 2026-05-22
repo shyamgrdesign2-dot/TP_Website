@@ -18,7 +18,7 @@ export const CLINICS_CONTENT: FeatureContent = {
     subhead:
       "TatvaPractice streamlines your entire clinic, from faster notes to automated follow-ups, so you can grow your practice, not your workload.",
     mainImage: {
-      src: "/Assets/Clinics/main.png",
+      src: "/Assets/Clinics/main.webp",
       alt: "Indian clinic team using TatvaPractice for OPD workflow",
     },
     // Single illustration: this hero ships without the floating overlay.

@@ -1,5 +1,5 @@
 import CtaButton from "@/components/ui/CtaButton";
-import AnimatedGrid from "../components/AnimatedGrid";
+import SubpageHeroBg from "@/components/SubpageHeroBg";
 import TrustBadges from "./TrustBadges";
 import ScrollArrow from "./ScrollArrow";
 
@@ -14,43 +14,9 @@ export default function Hero() {
       }}
       aria-label="TatvaPractice, AI-first EMR for Indian clinics"
     >
-      {/* Purple gradient dome, taller, nudged slightly right at the top */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute z-[1]"
-        style={{
-          left: "calc(50% + clamp(8px, 1.2vw, 20px))",
-          top: "clamp(-760px, -64vh, -88px)",
-          width: "max(980px, 172vw)",
-          height: "clamp(620px, 102vh, 1420px)",
-          transform: "translateX(-50%)",
-        }}
-      >
-        { }
-        <img
-          src="/hero-gradient.svg"
-          alt=""
-          className="h-full w-full"
-          style={{ objectFit: "fill" }}
-        />
-      </div>
-
-      {/* Animated grid, top-aligned, original top-edge fade only */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute z-[2] h-[min(360px,52vw)] w-[min(500px,72vw)] sm:h-[700px] sm:w-[940px]"
-        style={{
-          left: "calc(50% + clamp(6px, 0.8vw, 14px))",
-          top: "clamp(-300px, -28vh, -28px)",
-          transform: "translateX(-50%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(0,0,0,0.35) 38%, black 52%, black 100%)",
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, transparent 24%, rgba(0,0,0,0.35) 38%, black 52%, black 100%)",
-        }}
-      >
-        <AnimatedGrid className="h-full w-full" />
-      </div>
+      {/* Same dome + animated-grid backdrop the subpage heroes use, so the
+          homepage hero reads consistently with /about, /pricing, /contact. */}
+      <SubpageHeroBg />
 
       {/* Content row, box grid centered here only */}
       <div className="relative row-start-2 min-h-0">
@@ -110,9 +76,9 @@ export default function Hero() {
                 className="load-rise text-[#3D3D3D]"
                 style={{
                   animationDelay: "420ms",
-                  maxWidth: "clamp(420px, 60vw, 960px)",
-                  fontSize: "18px",
-                  lineHeight: 1.65,
+                  maxWidth: "clamp(300px, 60vw, 960px)",
+                  fontSize: "clamp(15px, 1.3vw, 18px)",
+                  lineHeight: 1.6,
                 }}
               >
                 TatvaPractice automates your clinical workflow so you can focus

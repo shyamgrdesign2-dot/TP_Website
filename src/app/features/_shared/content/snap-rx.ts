@@ -23,6 +23,8 @@ export const SNAP_RX_CONTENT: FeatureContent = {
     line2: "Done.",
   },
 
+  videoId: "xXPsyTPSNHA",
+
   whyDoctors: {
     heading: "Why doctors choose SnapRx",
     cards: [

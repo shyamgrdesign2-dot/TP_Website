@@ -14,6 +14,9 @@ import CtaButton from "./CtaButton";
 
 type NavbarCtx = {
   isScrolled: boolean;
+  /** True when the bar currently sits over a dark section (so the logo +
+   *  links should flip to a light treatment). */
+  onDark: boolean;
   isMobileOpen: boolean;
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>;
   openDropdown: string | null;
@@ -35,6 +38,28 @@ export function Navbar({ children }: { children: ReactNode }) {
   const [isMobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(false);
+
+  // Flip to the light treatment whenever a section flagged
+  // `data-navbar-dark` sits behind the bar (e.g. the immersive video).
+  useEffect(() => {
+    const check = () => {
+      const els = document.querySelectorAll("[data-navbar-dark]");
+      let dark = false;
+      els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= 64 && r.bottom >= 8) dark = true;
+      });
+      setOnDark(dark);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+  }, []);
 
   useEffect(() => {
     if (isMobileOpen) {
@@ -62,6 +87,7 @@ export function Navbar({ children }: { children: ReactNode }) {
     <Ctx.Provider
       value={{
         isScrolled,
+        onDark,
         isMobileOpen,
         setMobileOpen,
         openDropdown,
@@ -148,6 +174,7 @@ export function NavItems({ children }: { children: ReactNode }) {
 // ─── NavbarLogo ────────────────────────────────────────────────────
 
 export function NavbarLogo() {
+  const { onDark } = useNavbar();
   return (
     <div className="relative z-[1] flex min-w-0 items-center pl-1 sm:pl-2">
       <Link href="/" className="flex items-center" aria-label="TatvaPractice">
@@ -158,6 +185,10 @@ export function NavbarLogo() {
           width={145}
           height={32}
           className="h-[26px] w-auto max-w-[min(132px,34vw)] sm:h-7 lg:h-8"
+          style={{
+            filter: onDark ? "brightness(0) invert(1)" : undefined,
+            transition: "filter 220ms ease",
+          }}
         />
       </Link>
     </div>
@@ -167,7 +198,7 @@ export function NavbarLogo() {
 // ─── MobileNavToggle ───────────────────────────────────────────────
 
 export function MobileNavToggle() {
-  const { isMobileOpen, setMobileOpen, setOpenDropdown } = useNavbar();
+  const { isMobileOpen, setMobileOpen, setOpenDropdown, onDark } = useNavbar();
 
   return (
     <button
@@ -180,7 +211,9 @@ export function MobileNavToggle() {
           return !v;
         })
       }
-      className="inline-flex h-10 w-10 shrink-0 items-center justify-center text-[#1F1F1F] transition-opacity hover:opacity-70 lg:hidden"
+      className={`inline-flex h-10 w-10 shrink-0 items-center justify-center transition-[color,opacity] duration-200 hover:opacity-70 lg:hidden ${
+        onDark && !isMobileOpen ? "text-white" : "text-[#1F1F1F]"
+      }`}
     >
       {isMobileOpen ? (
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>

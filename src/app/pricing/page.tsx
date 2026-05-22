@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/sections/Navbar";
 import Footer from "@/sections/Footer";
 import PricingHero from "./_sections/PricingHero";
+import TrustedBy from "@/sections/TrustedBy";
 import PricingTiers from "./_sections/PricingTiers";
 import PricingCompare from "./_sections/PricingCompare";
 import PricingFAQ from "./_sections/PricingFAQ";
@@ -20,6 +21,7 @@ export default function PricingPage() {
     <main className="relative pb-[88px] sm:pb-0">
       <Navbar />
       <PricingHero />
+      <TrustedBy />
       <PricingTiers />
       <PricingCompare />
       <PricingFAQ />

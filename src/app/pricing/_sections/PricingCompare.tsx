@@ -1,4 +1,4 @@
-import SectionHeading from "@/components/SectionHeading";
+import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
 import { SectionContent, SectionShell } from "@/components/SectionShell";
 
 type FeatureRow = {
@@ -69,7 +69,9 @@ export default function PricingCompare() {
     <SectionShell bg="none" className="w-full">
       <SectionContent padding="loose" className="items-center gap-8">
         <div className="flex flex-col items-center gap-3 text-center">
-          <SectionHeading>Compare every feature</SectionHeading>
+          <SectionHeading>
+            Compare every <GradientSpan>feature</GradientSpan>
+          </SectionHeading>
           <p
             className="text-[#454551]"
             style={{

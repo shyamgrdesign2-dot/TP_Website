@@ -56,6 +56,10 @@ export type FeatureContent = {
    *  `"${navLabel}, in motion." / "See it work in 60 seconds."` */
   videoSection?: { line1: string; line2: string };
 
+  /** YouTube video ID for the showcase embed. When set, clicking the
+   *  thumbnail loads the player inline. */
+  videoId?: string;
+
   whyDoctors: {
     /** Section heading above the 2×3 card grid. */
     heading: string;

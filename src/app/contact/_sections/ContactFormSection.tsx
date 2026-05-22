@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import dynamic from "next/dynamic";
+import { Sms, Call, Clock2, Building } from "tp_icon/bulk";
 import SectionBg from "@/components/SectionBg";
 import ScrollReveal from "@/components/ScrollReveal";
 import CtaButton from "@/components/ui/CtaButton";
@@ -249,7 +250,7 @@ export default function ContactFormSection() {
           {/* Info panel */}
           <ScrollReveal variant="fade-up" delay={120}>
             <aside
-              className="relative flex h-full flex-col gap-5 overflow-hidden rounded-[22px] p-6 sm:p-8"
+              className="relative flex h-full flex-col justify-center gap-5 overflow-hidden rounded-[22px] p-6 sm:p-8"
               style={{
                 background:
                   "radial-gradient(99% 60% at 50% 55%, #4443BA 0%, #101056 39%, #252578 78%, #4443BA 100%)",
@@ -269,14 +270,14 @@ export default function ContactFormSection() {
                 }}
               />
 
-              <div className="relative z-[1] flex flex-col gap-1.5">
+              <div className="relative z-[1] flex flex-col gap-2.5">
                 <h3
                   className="bg-clip-text font-bold text-transparent"
                   style={{
                     backgroundImage:
                       "linear-gradient(90deg, #FFFFFF 0%, #E5D6FD 100%)",
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(18px, 1.6vw, 24px)",
+                    fontSize: "clamp(22px, 2.2vw, 32px)",
                     letterSpacing: "-0.01em",
                   }}
                 >
@@ -285,8 +286,8 @@ export default function ContactFormSection() {
                 <p
                   className="text-white/80"
                   style={{
-                    fontSize: "clamp(13px, 1vw, 15px)",
-                    lineHeight: 1.55,
+                    fontSize: "clamp(14px, 1.2vw, 18px)",
+                    lineHeight: 1.6,
                   }}
                 >
                   Prefer email or phone? Either route lands with the same team,
@@ -294,11 +295,12 @@ export default function ContactFormSection() {
                 </p>
               </div>
 
-              <div className="relative z-[1] flex flex-col gap-4">
-                <ContactRow label="Email" value={SUPPORT_EMAIL} href={`mailto:${SUPPORT_EMAIL}`} />
-                <ContactRow label="Phone" value={SUPPORT_PHONE} href={`tel:${SUPPORT_PHONE.replace(/\s+/g, "")}`} />
-                <ContactRow label="Hours" value="Mon – Sat · 9 AM – 7 PM IST" />
+              <div className="relative z-[1] flex flex-col gap-6">
+                <ContactRow icon={<Sms width={20} height={20} />} label="Email" value={SUPPORT_EMAIL} href={`mailto:${SUPPORT_EMAIL}`} />
+                <ContactRow icon={<Call width={20} height={20} />} label="Phone" value={SUPPORT_PHONE} href={`tel:${SUPPORT_PHONE.replace(/\s+/g, "")}`} />
+                <ContactRow icon={<Clock2 width={20} height={20} />} label="Hours" value="Mon – Sat · 9 AM – 7 PM IST" />
                 <ContactRow
+                  icon={<Building width={20} height={20} />}
                   label="HQ"
                   value="Incubex HSR27, 1500, 19th Main Rd, 1st Sector, HSR Layout, Bengaluru, 560102"
                 />
@@ -371,43 +373,57 @@ function Field({
 }
 
 function ContactRow({
+  icon,
   label,
   value,
   href,
 }: {
+  icon: ReactNode;
   label: string;
   value: string;
   href?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 border-t border-white/12 pt-4 first-of-type:border-t-0 first-of-type:pt-0">
+    <div className="flex gap-3.5 border-t border-white/12 pt-5 first-of-type:border-t-0 first-of-type:pt-0">
       <span
-        className="text-white/55"
+        aria-hidden
+        className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-[10px] text-white"
         style={{
-          fontSize: "11px",
-          fontWeight: 600,
-          letterSpacing: "0.06em",
-          textTransform: "uppercase",
+          background: "rgba(255,255,255,0.10)",
+          border: "1px solid rgba(255,255,255,0.16)",
         }}
       >
-        {label}
+        {icon}
       </span>
-      {href ? (
-        <a
-          href={href}
-          className="text-white transition hover:text-white/85"
-          style={{ fontSize: "clamp(14px, 1.05vw, 16px)", lineHeight: 1.45 }}
-        >
-          {value}
-        </a>
-      ) : (
+      <div className="flex min-w-0 flex-col gap-1.5">
         <span
-          className="text-white"
-          style={{ fontSize: "clamp(14px, 1.05vw, 16px)", lineHeight: 1.45 }}
+          className="text-white/55"
+          style={{
+            fontSize: "12px",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+          }}
         >
-          {value}
+          {label}
         </span>
-      )}
+        {href ? (
+          <a
+            href={href}
+            className="text-white transition hover:text-white/85"
+            style={{ fontSize: "clamp(16px, 1.35vw, 19px)", lineHeight: 1.5 }}
+          >
+            {value}
+          </a>
+        ) : (
+          <span
+            className="text-white"
+            style={{ fontSize: "clamp(16px, 1.35vw, 19px)", lineHeight: 1.5 }}
+          >
+            {value}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

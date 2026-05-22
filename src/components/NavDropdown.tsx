@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useNavbar } from "./ui/navbar";
 
 export type NavDropdownItem = {
   label: string;
@@ -36,15 +37,13 @@ type Props = DesktopProps | MobileProps;
 const OPEN_DELAY = 120;
 const CLOSE_DELAY = 150;
 
-// Glass tokens cloned from the Navbar surface so the dropdown panel
-// reads as a continuation of the bar itself.
-const PANEL_BG =
-  "linear-gradient(180deg, rgba(255,255,255,0.84) 0%, rgba(255,255,255,0.68) 100%)";
+// Solid white panel so the menu reads as a crisp, opaque surface rather
+// than a see-through glass sheet that competes with the page behind it.
+const PANEL_BG = "#ffffff";
 const PANEL_SHADOW = [
-  "0 1px 0 rgba(255,255,255,0.6) inset",
-  "0 -1px 0 rgba(75,74,213,0.12) inset",
-  "0 0 0 1px rgba(255,255,255,0.14) inset",
-  "0 20px 52px rgba(33,32,119,0.26)",
+  "0 1px 0 rgba(255,255,255,0.8) inset",
+  "0 0 0 1px rgba(75,74,213,0.06) inset",
+  "0 20px 52px rgba(33,32,119,0.22)",
 ].join(", ");
 
 export default function NavDropdown(props: Props) {
@@ -60,6 +59,7 @@ function DesktopDropdown({ label, items }: DesktopProps) {
   const closeTimer = useRef<number | null>(null);
   const panelId = useId();
   const pathname = usePathname();
+  const { onDark } = useNavbar();
 
   const clearTimers = () => {
     if (openTimer.current) window.clearTimeout(openTimer.current);
@@ -135,7 +135,11 @@ function DesktopDropdown({ label, items }: DesktopProps) {
           clearTimers();
           setOpen(true);
         }}
-        className="inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[13px] font-medium capitalize tracking-wide text-[#1F1F1F]/90 transition hover:bg-white/55 lg:px-4 lg:text-sm"
+        className={`inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[13px] font-medium capitalize tracking-wide transition lg:px-4 lg:text-sm ${
+          onDark
+            ? "text-white/90 hover:bg-white/15"
+            : "text-[#1F1F1F]/90 hover:bg-white/55"
+        }`}
       >
         <span>{label}</span>
         <svg
@@ -216,7 +220,7 @@ function DesktopDropdown({ label, items }: DesktopProps) {
                 <Link
                   href={it.href}
                   role="menuitem"
-                  className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm text-[#1F1F1F] transition hover:bg-white/60"
+                  className="flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-sm text-[#1F1F1F] transition hover:bg-[#F3F0FB]"
                   onClick={() => setOpen(false)}
                 >
                   <span>{it.label}</span>

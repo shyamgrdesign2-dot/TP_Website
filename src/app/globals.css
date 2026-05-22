@@ -443,6 +443,22 @@
 .float-soft-alt { animation: float-soft-alt 5s ease-in-out infinite; }
 .float-tilt     { animation: float-tilt 6s ease-in-out infinite; }
 
+/* Clinic-walkthrough station cards: slide in from the left, one by one
+   (staggered via per-card animation-delay) when a station becomes active. */
+@keyframes vrxCardIn {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes vrxCardInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.vrx-card-in { animation: vrxCardIn 540ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.vrx-card-in-right { animation: vrxCardInRight 540ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .vrx-card-in, .vrx-card-in-right { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+
 /* Tab-panel content animations, bg/corners stay static, only text +
    mockup images animate when the tab swaps. Targets named children of
    each Figma-export variant.
@@ -957,4 +973,26 @@ body {
   .tier-card,
   .tier-card:hover { transition: none; transform: none !important; }
   .tier-card:hover .tier-card__header::after { animation: none; }
+}
+
+/* Image loading skeleton: a soft shimmer sweep shown behind a
+   background-image panel until the image paints over it. */
+.img-skeleton {
+  background-image: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.04) 28%,
+    rgba(255, 255, 255, 0.14) 50%,
+    rgba(255, 255, 255, 0.04) 72%
+  );
+  background-size: 200% 100%;
+  animation: img-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes img-shimmer {
+  0% { background-position: 180% 0; }
+  100% { background-position: -80% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .img-skeleton { animation: none; }
 }

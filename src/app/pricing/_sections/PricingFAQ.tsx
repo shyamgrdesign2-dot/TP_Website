@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ArrowDown02 } from "tp_icon/linear";
-import SectionHeading from "@/components/SectionHeading";
+import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
 import { SectionContent, SectionShell } from "@/components/SectionShell";
 
 type FaqItem = { q: string; a: string };
@@ -85,7 +85,9 @@ export default function PricingFAQ() {
   return (
     <SectionShell bg="lavender" className="w-full">
       <SectionContent padding="default" className="items-center gap-7">
-        <SectionHeading>Pricing FAQs</SectionHeading>
+        <SectionHeading>
+          Pricing <GradientSpan>FAQs</GradientSpan>
+        </SectionHeading>
         <div className="flex w-full max-w-[780px] flex-col gap-3">
           {ITEMS.map((item, i) => (
             <FaqRow key={item.q} item={item} idx={i} />

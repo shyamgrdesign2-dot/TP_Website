@@ -3,9 +3,10 @@ import Navbar from "@/sections/Navbar";
 import FinalCTA from "@/sections/FinalCTA";
 import Footer from "@/sections/Footer";
 import AboutHero from "./_sections/AboutHero";
-import AboutMission from "./_sections/AboutMission";
-import AboutValues from "./_sections/AboutValues";
-import AboutTeam from "./_sections/AboutTeam";
+import TrustedBy from "@/sections/TrustedBy";
+import AboutStory from "./_sections/AboutStory";
+import AboutEcosystem from "./_sections/AboutEcosystem";
+import AboutHiring from "./_sections/AboutHiring";
 import { buildPageMetadata } from "@/lib/metadata";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/site";
 import { breadcrumbsJsonLd } from "@/lib/json-ld";
@@ -36,9 +37,10 @@ export default function AboutPage() {
     <main className="relative">
       <Navbar />
       <AboutHero />
-      <AboutMission />
-      <AboutValues />
-      <AboutTeam />
+      <TrustedBy />
+      <AboutStory />
+      <AboutEcosystem />
+      <AboutHiring />
       <FinalCTA />
       <Footer />
 

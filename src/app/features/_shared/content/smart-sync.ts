@@ -23,6 +23,8 @@ export const SMART_SYNC_CONTENT: FeatureContent = {
     line2: "We sync.",
   },
 
+  videoId: "2fMYO2chObo",
+
   whyDoctors: {
     heading: "Why clinics choose SmartSync",
     cards: [

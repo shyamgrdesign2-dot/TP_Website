@@ -40,32 +40,17 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Contact", href: "/contact" },
 ];
 
-const NAV_LINK_CLASS =
-  "block rounded-full px-3.5 py-2 text-[13px] font-medium capitalize tracking-wide text-[#1F1F1F]/90 transition hover:bg-white/55 lg:px-4 lg:text-sm";
+const navLinkClass = (onDark: boolean) =>
+  `block rounded-full px-3.5 py-2 text-[13px] font-medium capitalize tracking-wide transition hover:bg-white/55 lg:px-4 lg:text-sm ${
+    onDark ? "text-white/90 hover:bg-white/15" : "text-[#1F1F1F]/90"
+  }`;
 
 export default function SiteNavbar() {
   return (
     <Navbar>
       <NavBody>
         <NavbarLogo />
-
-        <NavItems>
-          {NAV_ITEMS.map((item) => (
-            <li key={item.label} className="shrink-0">
-              {"items" in item ? (
-                <NavDropdown
-                  variant="desktop"
-                  label={item.label}
-                  items={item.items}
-                />
-              ) : (
-                <Link href={item.href} className={NAV_LINK_CLASS}>
-                  {item.label}
-                </Link>
-              )}
-            </li>
-          ))}
-        </NavItems>
+        <DesktopNavItems />
 
         <div className="relative z-[1] flex shrink-0 items-center justify-end gap-1.5 pr-1 sm:gap-2 sm:pr-2">
           <div className="hidden items-center gap-1.5 lg:flex lg:gap-2">
@@ -82,6 +67,29 @@ export default function SiteNavbar() {
 
       <MobileMenu />
     </Navbar>
+  );
+}
+
+function DesktopNavItems() {
+  const { onDark } = useNavbar();
+  return (
+    <NavItems>
+      {NAV_ITEMS.map((item) => (
+        <li key={item.label} className="shrink-0">
+          {"items" in item ? (
+            <NavDropdown
+              variant="desktop"
+              label={item.label}
+              items={item.items}
+            />
+          ) : (
+            <Link href={item.href} className={navLinkClass(onDark)}>
+              {item.label}
+            </Link>
+          )}
+        </li>
+      ))}
+    </NavItems>
   );
 }
 

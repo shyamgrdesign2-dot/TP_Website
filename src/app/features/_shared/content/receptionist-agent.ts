@@ -23,6 +23,8 @@ export const RECEPTIONIST_AGENT_CONTENT: FeatureContent = {
     line2: "never sleeps.",
   },
 
+  videoId: "BmfoK_D1KBI",
+
   whyDoctors: {
     heading: "Why Doctors Choose Receptionist Agent",
     cards: [

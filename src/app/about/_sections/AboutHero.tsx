@@ -1,6 +1,7 @@
-import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
+import { GradientSpan } from "@/components/SectionHeading";
 import SubpageHeroBg from "@/components/SubpageHeroBg";
 import ScrollReveal from "@/components/ScrollReveal";
+import TrustBadges from "@/sections/TrustBadges";
 
 /**
  * Compact hero for /about. Mirrors /contact + /pricing: dome +
@@ -52,25 +53,39 @@ export default function AboutHero() {
         </ScrollReveal>
 
         <ScrollReveal variant="fade-up" delay={80}>
-          <SectionHeading>
-            Transforming Healthcare,
+          <h1
+            className="font-extrabold leading-[1.06] tracking-[-1px] text-[#1F1F1F] [text-wrap:balance] sm:tracking-[-2px]"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4.8vw, 64px)",
+              maxWidth: "min(900px, 92vw)",
+            }}
+          >
+            We are building the
             <br />
-            <GradientSpan>one practice at a time.</GradientSpan>
-          </SectionHeading>
+            <GradientSpan>EMR India deserves.</GradientSpan>
+          </h1>
         </ScrollReveal>
 
         <ScrollReveal variant="fade-up" delay={160}>
           <p
-            className="text-[#4A4A66] [text-wrap:balance]"
+            className="text-[#3D3D3D] [text-wrap:balance]"
             style={{
-              fontSize: "clamp(14px, 1.15vw, 18px)",
+              fontSize: "clamp(15px, 1.3vw, 21px)",
               lineHeight: 1.6,
-              maxWidth: "62ch",
+              maxWidth: "min(680px, 90vw)",
             }}
           >
-            TatvaCare was founded with a simple mission: give doctors their
-            time back so they can focus on what matters most, their patients.
+            TatvaPractice is part of TatvaCare, a healthcare technology company
+            solving India&rsquo;s care-delivery gaps end to end.
           </p>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fade-up" delay={220} className="w-full">
+          <div className="mt-2 flex w-full justify-center">
+            <TrustBadges />
+          </div>
         </ScrollReveal>
       </div>
     </section>

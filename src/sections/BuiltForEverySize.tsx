@@ -1,6 +1,6 @@
 import PracticeSizeSection from "@/features/practice-size/PracticeSizeSection";
 import ScrollReveal from "@/components/ScrollReveal";
-import SectionHeading from "@/components/SectionHeading";
+import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
 import { SectionContent, SectionShell } from "@/components/SectionShell";
 
 export default function BuiltForEverySize() {
@@ -12,7 +12,7 @@ export default function BuiltForEverySize() {
             <SectionHeading>
               Built for
               <br />
-              Every Practice Size
+              <GradientSpan>Every Practice Size</GradientSpan>
             </SectionHeading>
           </div>
           <div className="[&_[data-name='Title_Container']]:hidden sm:[&_[data-name='Title_Container']]:block">

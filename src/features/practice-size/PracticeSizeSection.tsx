@@ -78,7 +78,7 @@ function Container6() {
     <div className="content-stretch flex gap-[11.685px] items-center relative shrink-0 w-full" data-name="Container">
       <FeatureIcon name="money" />
       <div className="flex flex-[1_0_0] flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] min-w-px not-italic relative text-[#454551] text-[14px] sm:text-[16px]">
-        <p className="leading-[normal]">Affordable pricing</p>
+        <p className="truncate leading-[normal]">Affordable pricing</p>
       </div>
     </div>
   );
@@ -89,7 +89,7 @@ function Container7() {
     <div className="content-stretch flex gap-[11.685px] items-center relative shrink-0 w-full" data-name="Container">
       <FeatureIcon name="flash" />
       <div className="flex flex-[1_0_0] flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] min-w-px not-italic relative text-[#454551] text-[14px] sm:text-[16px]">
-        <p className="leading-[24px]">Setup and go live instantly</p>
+        <p className="truncate leading-[24px]">Setup and go live instantly</p>
       </div>
     </div>
   );
@@ -100,7 +100,7 @@ function Container8() {
     <div className="content-stretch flex gap-[11.685px] items-center relative shrink-0 w-full" data-name="Container">
       <FeatureIcon name="magicpen" />
       <div className="flex flex-[1_0_0] flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] min-w-px not-italic relative text-[#454551] text-[14px] sm:text-[16px]">
-        <p className="leading-[24px]">{`Personalised for workflows & more`}</p>
+        <p className="truncate leading-[24px]">{`Personalised for workflows & more`}</p>
       </div>
     </div>
   );
@@ -197,7 +197,7 @@ function Container14() {
     <div className="content-stretch flex gap-[11.685px] items-center relative shrink-0 w-full" data-name="Container">
       <FeatureIcon name="clipboardText" />
       <div className="flex flex-[1_0_0] flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] min-w-px not-italic relative text-[#454551] text-[14px] sm:text-[16px]">
-        <p className="leading-[normal]">ABDM + HL7 support</p>
+        <p className="truncate leading-[normal]">ABDM + HL7 support</p>
       </div>
     </div>
   );
@@ -208,7 +208,7 @@ function Container15() {
     <div className="content-stretch flex gap-[11.685px] items-center relative shrink-0 w-full" data-name="Container">
       <FeatureIcon name="chart" />
       <div className="flex flex-[1_0_0] flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] min-w-px not-italic relative text-[#454551] text-[14px] sm:text-[16px]">
-        <p className="leading-[24px]">Built-in analytics suite</p>
+        <p className="truncate leading-[24px]">Built-in analytics suite</p>
       </div>
     </div>
   );
@@ -219,7 +219,7 @@ function Container16() {
     <div className="content-stretch flex gap-[11.685px] items-center relative shrink-0 w-full" data-name="Container">
       <FeatureIcon name="hospital" />
       <div className="flex flex-[1_0_0] flex-col font-['Inter:Regular',sans-serif] font-normal justify-center leading-[0] min-w-px not-italic relative text-[#454551] text-[14px] sm:text-[16px]">
-        <p className="leading-[24px]">{`Multi-specialty module support & more`}</p>
+        <p className="truncate leading-[24px]">{`Multi-specialty module support & more`}</p>
       </div>
     </div>
   );

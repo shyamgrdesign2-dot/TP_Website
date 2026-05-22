@@ -1,6 +1,7 @@
 import MobileStickyCTA from "@/components/MobileStickyCTA";
 import Navbar from "@/sections/Navbar";
 import Testimonials from "@/sections/Testimonials";
+import TrustedBy from "@/sections/TrustedBy";
 import Footer from "@/sections/Footer";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/site";
 import {
@@ -11,7 +12,6 @@ import type { FeatureContent } from "../content/types";
 import FeatureHero from "./FeatureHero";
 import FeaturePracticeMgmt from "./FeaturePracticeMgmt";
 import FeatureWhyDoctors from "./FeatureWhyDoctors";
-import FeatureSpecialties from "./FeatureSpecialties";
 import SolutionHero from "../../../solutions/_shared/_sections/SolutionHero";
 
 // Shared shell used by every Features + Solutions subpage. Each
@@ -67,17 +67,14 @@ export default function FeaturePage({
       ) : (
         <FeatureHero content={content.hero} />
       )}
+      <TrustedBy />
       <FeatureWhyDoctors content={content.whyDoctors} />
-      <FeatureSpecialties />
-      <FeaturePracticeMgmt
-        featureLabel={content.navLabel}
-        headline={
-          content.videoSection ?? {
-            line1: `How ${content.navLabel}`,
-            line2: "works.",
-          }
-        }
-      />
+      {section === "features" ? (
+        <FeaturePracticeMgmt
+          featureLabel={content.navLabel}
+          videoId={content.videoId}
+        />
+      ) : null}
       <Testimonials />
       <Footer />
 

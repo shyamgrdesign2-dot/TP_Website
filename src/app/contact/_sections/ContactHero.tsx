@@ -1,6 +1,7 @@
-import SectionHeading, { GradientSpan } from "@/components/SectionHeading";
+import { GradientSpan } from "@/components/SectionHeading";
 import SubpageHeroBg from "@/components/SubpageHeroBg";
 import ScrollReveal from "@/components/ScrollReveal";
+import TrustBadges from "@/sections/TrustBadges";
 
 // Compact hero for /contact. We don't use the full FeatureHero shell
 // here (h-screen, trust badges, scroll arrow) because the page's
@@ -51,17 +52,24 @@ export default function ContactHero() {
         </ScrollReveal>
 
         <ScrollReveal variant="fade-up" delay={80}>
-          <SectionHeading>
-            We&rsquo;d love to{" "}
-            <GradientSpan>hear from you.</GradientSpan>
-          </SectionHeading>
+          <h1
+            className="font-extrabold leading-[1.06] tracking-[-1px] text-[#1F1F1F] [text-wrap:balance] sm:tracking-[-2px]"
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: "clamp(32px, 4.8vw, 64px)",
+              maxWidth: "min(900px, 92vw)",
+            }}
+          >
+            We&rsquo;d love to <GradientSpan>hear from you.</GradientSpan>
+          </h1>
         </ScrollReveal>
 
         <ScrollReveal variant="fade-up" delay={160}>
           <p
-            className="text-[#4A4A66] [text-wrap:balance]"
+            className="text-[#3D3D3D] [text-wrap:balance]"
             style={{
-              fontSize: "clamp(14px, 1.15vw, 18px)",
+              fontSize: "clamp(15px, 1.3vw, 21px)",
               lineHeight: 1.6,
               maxWidth: "min(820px, 90vw)",
             }}
@@ -70,6 +78,12 @@ export default function ContactHero() {
             hi, drop us a note and we&rsquo;ll respond within one business
             day. Built by clinicians, supported by humans.
           </p>
+        </ScrollReveal>
+
+        <ScrollReveal variant="fade-up" delay={220} className="w-full">
+          <div className="mt-2 flex w-full justify-center">
+            <TrustBadges />
+          </div>
         </ScrollReveal>
       </div>
     </section>

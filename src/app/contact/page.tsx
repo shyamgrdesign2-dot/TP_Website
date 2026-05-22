@@ -3,6 +3,7 @@ import Navbar from "@/sections/Navbar";
 import Footer from "@/sections/Footer";
 import ContactHero from "./_sections/ContactHero";
 import ContactFormSection from "./_sections/ContactFormSection";
+import TrustedBy from "@/sections/TrustedBy";
 import { buildPageMetadata } from "@/lib/metadata";
 import { absoluteUrl, SITE_URL } from "@/lib/site";
 import { breadcrumbsJsonLd } from "@/lib/json-ld";
@@ -35,6 +36,7 @@ export default function ContactPage() {
       <Navbar />
       <ContactHero />
       <ContactFormSection />
+      <TrustedBy />
       <Footer />
 
       <script
