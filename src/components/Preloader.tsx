@@ -1,19 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { preloadHeroFrames } from "@/lib/heroFrames";
 
 // Full-page brand preloader. On the first visit of a tab session it
-// covers the page, streams the hero walkthrough video (the heaviest
-// asset) to a real byte-progress bar, waits for fonts, then fades out.
-// Repeat navigations in the same session skip it. A hard safety cap
-// guarantees the site is never gated for longer than `MAX_WAIT_MS`.
-const MAX_WAIT_MS = 7000;
+// covers the page, downloads the hero walkthrough frame sequence (the
+// heaviest asset) to a real progress bar, waits for fonts, then fades
+// out. Repeat navigations in the same session skip it. A hard safety
+// cap guarantees the site is never gated for longer than `MAX_WAIT_MS`.
+const MAX_WAIT_MS = 9000;
 // Keep the curtain up for at least this long even on instant (cached)
 // loads, so it reads as an intentional intro rather than a flash.
 const MIN_SHOW_MS = 700;
 const SESSION_KEY = "tp_preloaded";
-const VIDEO_DESKTOP = "/hospital-walkthrough.mp4";
-const VIDEO_MOBILE = "/hospital-walkthrough-mobile.mp4";
 const POSTER = "/hospital-walkthrough-poster.webp";
 
 export default function Preloader() {
@@ -54,39 +53,24 @@ export default function Preloader() {
 
     const safety = window.setTimeout(finish, MAX_WAIT_MS);
 
-    const videoSrc =
-      window.matchMedia("(max-width: 639px)").matches
-        ? VIDEO_MOBILE
-        : VIDEO_DESKTOP;
-
     async function preload() {
-      // Poster + fonts kick off immediately; the video stream drives the bar.
+      // Poster + fonts kick off immediately; the full frame-sequence download
+      // (decoded and cached for instant scrubbing) drives the bar.
       const posterImg = new Image();
       posterImg.src = POSTER;
       const fontsReady =
         "fonts" in document ? document.fonts.ready : Promise.resolve();
 
       try {
-        const res = await fetch(videoSrc);
-        const total = Number(res.headers.get("Content-Length")) || 0;
-        const reader = res.body?.getReader();
-        if (reader && total > 0) {
-          let received = 0;
-          for (;;) {
-            const { done, value } = await reader.read();
-            if (done || cancelled) break;
-            received += value?.length ?? 0;
-            // Video download fills the bar to 92%; fonts cover the rest.
-            setProgress(Math.min(92, Math.round((received / total) * 92)));
-          }
-        } else {
-          // No stream/length available, just await the response.
-          await res.arrayBuffer().catch(() => {});
-          setProgress(92);
-        }
+        await preloadHeroFrames((loaded, total) => {
+          if (cancelled || total <= 0) return;
+          // Frames fill the bar to 92%; fonts cover the rest.
+          setProgress(Math.min(92, Math.round((loaded / total) * 92)));
+        });
       } catch {
-        setProgress(92);
+        // Failure: don't gate the site, fall through to fonts/finish.
       }
+      setProgress((p) => Math.max(p, 92));
 
       await fontsReady.catch(() => {});
       finish();
@@ -129,18 +113,34 @@ export default function Preloader() {
           style={{ animation: "tp-preload-pulse 1.6s ease-in-out infinite" }}
         />
 
-        <div
-          className="relative h-[3px] w-[200px] overflow-hidden rounded-full"
-          style={{ background: "rgba(75,74,213,0.16)" }}
-        >
-          <div
-            className="absolute inset-y-0 left-0 rounded-full"
-            style={{
-              width: `${progress}%`,
-              background: "linear-gradient(90deg, #4B4AD5 0%, #27276F 100%)",
-              transition: "width 240ms ease",
-            }}
-          />
+        {/* Circular progress: a spinning track plus an arc that fills with the
+            real download percentage, and the live number in the centre. */}
+        <div className="relative grid h-12 w-12 place-items-center">
+          <svg
+            className="h-12 w-12 -rotate-90"
+            viewBox="0 0 44 44"
+            aria-hidden
+          >
+            <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(75,74,213,0.16)" strokeWidth="3" />
+            <circle
+              cx="22"
+              cy="22"
+              r="18"
+              fill="none"
+              stroke="#4B4AD5"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={2 * Math.PI * 18}
+              strokeDashoffset={2 * Math.PI * 18 * (1 - progress / 100)}
+              style={{ transition: "stroke-dashoffset 240ms ease" }}
+            />
+          </svg>
+          <span
+            className="absolute text-[11px] font-semibold tabular-nums text-[#4B4AD5]"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {Math.round(progress)}
+          </span>
         </div>
       </div>
     </div>

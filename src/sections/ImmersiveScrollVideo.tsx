@@ -12,16 +12,17 @@ import {
 } from "tp_icon/bulk";
 import AnimatedGrid from "@/components/AnimatedGrid";
 import {
+  HERO_FRAME_COUNT,
+  HERO_FRAME_DURATION,
+  preloadHeroFrames,
+} from "@/lib/heroFrames";
+import {
   useIsMobile,
   usePrefersReducedMotion,
   useScrollProgress,
 } from "@/hooks/use-scroll-progress";
 
-const VIDEO_MP4 = "/hospital-walkthrough.mp4";
-// Lighter 854px encode for phones. iOS can't reliably render a paused video
-// that's scrubbed via currentTime, so on mobile we autoplay-loop it instead.
-const VIDEO_MP4_MOBILE = "/hospital-walkthrough-mobile.mp4";
-// First-frame still shown instantly while the video loads.
+// First frame, shown as a still behind the canvas until the sequence is ready.
 const VIDEO_POSTER = "/hospital-walkthrough-poster.webp";
 
 /* "AI" as normal (semibold) text, inheriting the surrounding colour. */
@@ -44,6 +45,34 @@ function PointIcon({ children }: { children: ReactNode }) {
       {children}
     </span>
   );
+}
+
+/* --------------------------- frame-sequence draw -------------------------- */
+const HERO_FRAME_LAST = HERO_FRAME_COUNT - 1;
+
+/** Map a frame time (seconds) to the nearest frame index. */
+function timeToIndex(time: number) {
+  const t = Math.min(1, Math.max(0, time / HERO_FRAME_DURATION));
+  return Math.round(t * HERO_FRAME_LAST);
+}
+
+/** Draw an image onto the canvas with object-fit: cover semantics. */
+function paintFrame(
+  canvas: HTMLCanvasElement | null,
+  img: HTMLImageElement | undefined,
+) {
+  if (!canvas || !img) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  const cw = canvas.width;
+  const ch = canvas.height;
+  const iw = img.naturalWidth;
+  const ih = img.naturalHeight;
+  if (!cw || !ch || !iw || !ih) return;
+  const scale = Math.max(cw / iw, ch / ih);
+  const dw = iw * scale;
+  const dh = ih * scale;
+  ctx.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
 }
 
 /* ------------------------------ math helpers ----------------------------- */
@@ -180,79 +209,87 @@ const STATIONS: Station[] = [
 
 export default function ImmersiveScrollVideo() {
   const runwayRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[] | null>(null);
+  const frameIndexRef = useRef(-1);
   const targetRef = useRef(0);
   const displayRef = useRef(0);
   const progress = useScrollProgress(runwayRef);
   const isMobile = useIsMobile();
   const reduced = usePrefersReducedMotion();
-  const [duration, setDuration] = useState(0);
+  const [framesReady, setFramesReady] = useState(false);
 
-  // The rAF loop drives the scroll-synced glide on both desktop and mobile.
-  // A one-time muted play()/pause() primes the decoder so currentTime seeking
-  // works reliably (especially on iOS). Reduced-motion holds the first frame.
+  // Load the frame sequence (shared cache, already warmed by the Preloader),
+  // size the canvas to its box in device pixels, and keep it sized on resize.
+  // Drawing a pre-decoded image is what makes scrubbing smooth on iOS, where
+  // seeking a paused <video> via currentTime simply won't repaint.
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = true;
-    if (reduced) {
-      v.loop = false;
-      v.pause();
-      return;
-    }
-    // Prime the decoder, then hold — scroll drives playback on both desktop
-    // and mobile.
-    v.loop = false;
-    v.play()
-      .then(() => v.pause())
-      .catch(() => {});
-  }, [reduced]);
+    let alive = true;
 
-  // Capture duration reliably — the metadata event can fire before React
-  // attaches the inline handler when the file is cached.
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const sync = () => {
-      if (Number.isFinite(v.duration) && v.duration > 0) setDuration(v.duration);
+    const resize = () => {
+      const cv = canvasRef.current;
+      if (!cv) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+      const bw = Math.round(cv.clientWidth * dpr);
+      const bh = Math.round(cv.clientHeight * dpr);
+      if (cv.width !== bw || cv.height !== bh) {
+        cv.width = bw;
+        cv.height = bh;
+      }
+      const imgs = imagesRef.current;
+      const idx = frameIndexRef.current;
+      if (imgs && idx >= 0) paintFrame(cv, imgs[idx]);
     };
-    sync();
-    v.addEventListener("loadedmetadata", sync);
-    v.addEventListener("durationchange", sync);
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    preloadHeroFrames().then((imgs) => {
+      if (!alive) return;
+      imagesRef.current = imgs;
+      if (frameIndexRef.current < 0) frameIndexRef.current = 0;
+      setFramesReady(true);
+      resize();
+    });
+
     return () => {
-      v.removeEventListener("loadedmetadata", sync);
-      v.removeEventListener("durationchange", sync);
+      alive = false;
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
-  // Scroll sets a TARGET video time; the rAF loop glides the real playback to
-  // it. `duration` stays in deps so a late metadata load re-targets.
+  // Scroll sets a TARGET frame time; the rAF loop glides toward it. Reduced
+  // motion paints the mapped frame directly with no animation.
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v || reduced) return;
-    const dur = v.duration;
-    if (!Number.isFinite(dur) || dur <= 0) return;
-    targetRef.current = videoTimeAt(progress, dur, isMobile);
-  }, [progress, duration, reduced, isMobile]);
+    const t = videoTimeAt(progress, HERO_FRAME_DURATION, isMobile);
+    targetRef.current = t;
+    if (reduced) {
+      displayRef.current = t;
+      const imgs = imagesRef.current;
+      if (imgs) {
+        const idx = timeToIndex(t);
+        frameIndexRef.current = idx;
+        paintFrame(canvasRef.current, imgs[idx]);
+      }
+    }
+  }, [progress, reduced, isMobile]);
 
-  // Glide the frame toward the target every animation frame, eased and
-  // speed-capped, so the video flows through the in-between frames smoothly
-  // instead of snapping the whole 2s->4.5s delta at once (the "jump"). It
-  // decelerates as it nears each snap, then holds exactly.
+  // Glide the frame time toward the target every animation frame, eased and
+  // speed-capped, so the walkthrough flows through the in-between frames
+  // smoothly instead of snapping the whole delta at once. Only repaints when
+  // the rounded frame index actually changes.
   useEffect(() => {
     if (reduced) return;
-    const MAX_STEP = 0.05; // seconds of video per frame ceiling (~smooth glide)
+    const MAX_STEP = HERO_FRAME_DURATION * 0.005; // ~0.05s per tick for a 10s clip
     let raf = 0;
     const tick = () => {
-      const v = videoRef.current;
-      if (v && Number.isFinite(v.duration) && v.duration > 0) {
+      const imgs = imagesRef.current;
+      if (imgs) {
         const target = targetRef.current;
-        // Drive from our own glide position (reading v.currentTime back is
-        // stale while a seek is pending, which stalls the tween).
         const cur = displayRef.current;
         const diff = target - cur;
         let next: number;
-        if (Math.abs(diff) < 0.015) {
+        if (Math.abs(diff) < 0.012) {
           next = target;
         } else {
           let step = diff * 0.12; // ease (slows near the snap)
@@ -261,12 +298,10 @@ export default function ImmersiveScrollVideo() {
           next = cur + step;
         }
         displayRef.current = next;
-        if (Math.abs(v.currentTime - next) > 0.012) {
-          try {
-            v.currentTime = next;
-          } catch {
-            /* ignore */
-          }
+        const idx = timeToIndex(next);
+        if (idx !== frameIndexRef.current) {
+          frameIndexRef.current = idx;
+          paintFrame(canvasRef.current, imgs[idx]);
         }
       }
       raf = requestAnimationFrame(tick);
@@ -300,8 +335,9 @@ export default function ImmersiveScrollVideo() {
   // every active station.
   const leftFadeOn = activeStation >= 0;
 
-  // Tall runway so the scroll is slow and each room can be dwelled in.
-  const runwayHeight = reduced ? "auto" : isMobile ? "520vh" : "760vh";
+  // Short runway so a small scroll flips between states quickly instead of
+  // dragging through screens of scrolling for each room.
+  const runwayHeight = reduced ? "auto" : isMobile ? "200vh" : "240vh";
 
   return (
     <section
@@ -343,15 +379,21 @@ export default function ImmersiveScrollVideo() {
                 : "none",
           }}
         >
-          <video
-            ref={videoRef}
-            src={isMobile ? VIDEO_MP4_MOBILE : VIDEO_MP4}
-            poster={VIDEO_POSTER}
-            muted
-            playsInline
-            preload="auto"
-            onLoadedMetadata={(e) => setDuration(e.currentTarget.duration || 0)}
-            className="h-full w-full object-cover"
+          {/* Poster still behind the canvas until the frame sequence paints. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url('${VIDEO_POSTER}')`,
+              opacity: framesReady ? 0 : 1,
+              transition: "opacity 300ms ease",
+            }}
+          />
+          <canvas
+            ref={canvasRef}
+            role="img"
+            aria-label="A walkthrough of a clinic powered by TatvaPractice"
+            className="relative block h-full w-full"
           />
           {/* slight darken for text legibility */}
           <div className="pointer-events-none absolute inset-0" style={{ background: "rgba(7,6,18,0.18)" }} />
