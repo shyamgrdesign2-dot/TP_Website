@@ -17,7 +17,7 @@ const pairBtn = "w-full sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0";
 
 export default function CardCtaPair({
   learnMoreHref,
-  bookDemoHref = "/contact#contact",
+  bookDemoHref = "/contact",
   variant = "light",
   align = "start",
   className = "",

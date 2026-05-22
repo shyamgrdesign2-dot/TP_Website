@@ -103,7 +103,7 @@ export default function SubpageHeroCard({
               Start Free Trial
             </CtaButton>
             <CtaButton
-              href="/contact#contact"
+              href="/contact"
               variant="outlineOnGradient"
               size="lg"
               className="w-full md:w-[241px]"

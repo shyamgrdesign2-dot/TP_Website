@@ -37,9 +37,9 @@ export default function AboutPage() {
     <main className="relative">
       <Navbar />
       <AboutHero />
-      <TrustedBy />
       <AboutStory />
       <AboutEcosystem />
+      <TrustedBy />
       <AboutHiring />
       <FinalCTA />
       <Footer />

@@ -96,7 +96,7 @@ export default function Hero() {
               }}
             >
               <CtaButton
-                href="/contact#contact"
+                href="/contact"
                 variant="outline"
                 size="lg"
                 className="w-full min-w-0 sm:min-w-[200px] sm:flex-1 sm:basis-0"

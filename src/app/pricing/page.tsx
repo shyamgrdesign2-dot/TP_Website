@@ -21,9 +21,9 @@ export default function PricingPage() {
     <main className="relative pb-[88px] sm:pb-0">
       <Navbar />
       <PricingHero />
-      <TrustedBy />
       <PricingTiers />
       <PricingCompare />
+      <TrustedBy />
       <PricingFAQ />
       <FinalCTA />
       <Footer />

@@ -117,7 +117,7 @@ function TabCtaPair() {
   return (
     <div className="flex w-full flex-col items-stretch gap-3 pt-2 sm:flex-row sm:gap-4 sm:pt-1">
       <CtaButton
-        href="/contact#contact"
+        href="/contact"
         variant="outlineOnGradient"
         size="md"
         className="w-full sm:w-auto sm:min-w-[160px] sm:flex-1 sm:basis-0"

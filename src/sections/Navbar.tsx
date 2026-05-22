@@ -55,7 +55,7 @@ export default function SiteNavbar() {
 
         <div className="relative z-[1] flex shrink-0 items-center justify-end gap-1.5 pr-1 sm:gap-2 sm:pr-2">
           <div className="hidden items-center gap-1.5 lg:flex lg:gap-2">
-            <NavbarButton variant="outline" href="/contact#contact">
+            <NavbarButton variant="outline" href="/contact">
               Book Demo
             </NavbarButton>
             <NavbarButton variant="primary" href={TRIAL_URL}>
@@ -128,7 +128,7 @@ function MobileMenu() {
         ))}
       </ul>
       <div className="flex flex-col gap-2 border-t border-white/40 p-4">
-        <NavbarButton variant="outline" href="/contact#contact" className="w-full">
+        <NavbarButton variant="outline" href="/contact" className="w-full">
           Book Demo
         </NavbarButton>
         <NavbarButton variant="primary" href={TRIAL_URL} className="w-full">

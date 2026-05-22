@@ -93,7 +93,7 @@ export default function FinalCTA() {
               }}
             >
               <CtaButton
-                href="/contact#contact"
+                href="/contact"
                 variant="outlineOnGradient"
                 size="md"
                 className="w-full sm:w-auto sm:flex-1 sm:basis-0 sm:min-w-0"

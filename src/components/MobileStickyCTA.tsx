@@ -96,7 +96,7 @@ export default function MobileStickyCTA() {
       }}
     >
       <CtaButton
-        href="/contact#contact"
+        href="/contact"
         variant="outline"
         size="md"
         className="flex-1 basis-0 bg-white/70"
