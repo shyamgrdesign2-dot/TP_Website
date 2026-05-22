@@ -1,3 +1,4 @@
+import { GradientSpan } from "@/components/SectionHeading";
 import svgPaths from "./testimonial-paths";
 import imgLogo from "../../../public/Assets/Partners/zydus-logo.png";
 import imgLogo1 from "../../../public/Assets/Partners/zydus-logo.png";
@@ -430,7 +431,9 @@ function DivFlex13() {
       <Frame15 />
       <div className="flex flex-col font-['Mulish:Bold',sans-serif] font-bold justify-center leading-[0] relative shrink-0 text-[#454551] text-[30px] text-center tracking-[-2px] w-[499.536px]">
         <p className="leading-[normal] mb-0">Hear from</p>
-        <p className="leading-[normal]">Healthcare Professionals</p>
+        <p className="leading-[normal]">
+          <GradientSpan>Healthcare Professionals</GradientSpan>
+        </p>
       </div>
       <Frame7 />
     </div>

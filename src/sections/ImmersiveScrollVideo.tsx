@@ -18,9 +18,11 @@ import {
 } from "@/hooks/use-scroll-progress";
 
 const VIDEO_MP4 = "/hospital-walkthrough.mp4";
-// Lighter 854px all-intra encode for phones, scrubs far smoother than the
-// full-res file on mobile decoders.
+// Lighter 854px encode for phones. iOS can't reliably render a paused video
+// that's scrubbed via currentTime, so on mobile we autoplay-loop it instead.
 const VIDEO_MP4_MOBILE = "/hospital-walkthrough-mobile.mp4";
+// First-frame still shown instantly while the video loads.
+const VIDEO_POSTER = "/hospital-walkthrough-poster.webp";
 
 /* "AI" as normal (semibold) text, inheriting the surrounding colour. */
 function Ai() {
@@ -193,11 +195,14 @@ export default function ImmersiveScrollVideo() {
     const v = videoRef.current;
     if (!v) return;
     v.muted = true;
-    v.loop = false;
     if (reduced) {
+      v.loop = false;
       v.pause();
       return;
     }
+    // Prime the decoder, then hold — scroll drives playback on both desktop
+    // and mobile.
+    v.loop = false;
     v.play()
       .then(() => v.pause())
       .catch(() => {});
@@ -341,6 +346,7 @@ export default function ImmersiveScrollVideo() {
           <video
             ref={videoRef}
             src={isMobile ? VIDEO_MP4_MOBILE : VIDEO_MP4}
+            poster={VIDEO_POSTER}
             muted
             playsInline
             preload="auto"

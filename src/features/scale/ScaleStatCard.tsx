@@ -17,8 +17,10 @@ export type ScaleStat = {
   revealDelay?: number;
 };
 
-const CARD_REVEAL_MS = 520;
-const TEXT_AFTER_CARD_MS = 380;
+// Count + label start promptly after the card reveals so the whole grid
+// animates the moment it enters the viewport (no long dead time at 0).
+const CARD_REVEAL_MS = 120;
+const TEXT_AFTER_CARD_MS = 120;
 
 /** Figma 2302:7164, watermark icon right, copy left; never overlaps */
 export default function ScaleStatCard({

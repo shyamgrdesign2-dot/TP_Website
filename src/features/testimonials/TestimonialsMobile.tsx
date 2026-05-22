@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { GradientSpan } from "@/components/SectionHeading";
 import { TESTIMONIALS } from "./testimonialsData";
 
 const SLIDE_WIDTH = "min(86vw, 300px)";
@@ -155,7 +156,7 @@ export default function TestimonialsMobile() {
       >
         Hear from
         <br />
-        Healthcare Professionals
+        <GradientSpan>Healthcare Professionals</GradientSpan>
       </h2>
 
       <div

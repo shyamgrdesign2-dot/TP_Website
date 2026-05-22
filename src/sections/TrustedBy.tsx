@@ -27,7 +27,7 @@ export default function TrustedBy() {
 
         <div
           className="logo-carousel-mask relative w-full max-w-[var(--section-w)] overflow-hidden"
-          style={{ minHeight: "clamp(48px, 5vw, 72px)" }}
+          style={{ minHeight: "clamp(56px, 5.5vw, 76px)" }}
         >
           <div className="logo-carousel-track flex h-full items-center">
             {[0, 1].map((cycle) => (
@@ -35,12 +35,12 @@ export default function TrustedBy() {
                 {PARTNER_LOGOS.map((logo, i) => (
                   <div
                     key={`${cycle}-${i}`}
-                    className="flex h-full items-center justify-center px-[clamp(20px,2.6vw,48px)]"
+                    className="flex h-full items-center justify-center px-[clamp(12px,1.8vw,32px)]"
                   >
                     <span
                       role="img"
                       aria-label={logo.name}
-                      className="block h-[clamp(30px,3.3vw,46px)] w-[clamp(96px,11vw,168px)]"
+                      className="block h-[clamp(40px,4vw,52px)] w-[clamp(124px,12vw,180px)]"
                       style={{
                         backgroundColor: TINT,
                         WebkitMaskImage: `url("${logo.src}")`,

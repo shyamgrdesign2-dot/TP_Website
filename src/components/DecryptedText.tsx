@@ -70,7 +70,7 @@ export default function DecryptedText({
           start();
         }
       },
-      { threshold: 0.35, rootMargin: "0px 0px -24px 0px" },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();

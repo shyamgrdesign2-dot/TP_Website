@@ -64,7 +64,7 @@ export default function CountUp({
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) startAnim();
       },
-      { threshold: 0.35 },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" },
     );
     obs.observe(el);
     return () => obs.disconnect();

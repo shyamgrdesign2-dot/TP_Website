@@ -2,6 +2,7 @@ import TpBulkIcon from "@/components/icons/TpBulkIcon";
 import type { TpBulkIconName } from "@/components/icons/tp-bulk-registry";
 import svgPaths from "./svg-cazyfuvy64";
 import SharedCtaPair from "@/components/CardCtaPair";
+import { GradientSpan } from "@/components/SectionHeading";
 
 function FeatureIcon({ name }: { name: TpBulkIconName }) {
   return (
@@ -18,7 +19,7 @@ function TitleContainer() {
         <p className="leading-[normal] whitespace-pre-wrap">
           {`Built for `}
           <br aria-hidden="true" />
-          Every Practice Size
+          <GradientSpan>Every Practice Size</GradientSpan>
         </p>
       </div>
     </div>
