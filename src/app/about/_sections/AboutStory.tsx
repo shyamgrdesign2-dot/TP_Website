@@ -130,25 +130,17 @@ export default function AboutStory() {
               boxShadow: "0 1px 0 rgba(255,255,255,0.85) inset",
             }}
           >
-            <div className="grid md:grid-cols-[minmax(0,42%)_1fr]">
-              {/* Image, full card height on the left */}
+            <div className="grid md:grid-cols-[minmax(0,40%)_1fr] md:items-center">
+              {/* Image panel sized to the photo's own aspect ratio (no crop,
+                  no letterbox) and vertically centred next to the copy. */}
               <div
-                className="relative min-h-[240px] overflow-hidden md:min-h-full"
+                className="relative w-full overflow-hidden"
                 style={{
+                  aspectRatio: "1100 / 1212",
                   background:
                     "radial-gradient(120% 120% at 0% 0%, #2A2466 0%, #14123A 60%, #0B0A26 100%)",
                 }}
               >
-                <div aria-hidden className="absolute inset-0 img-skeleton" />
-                <div className="absolute inset-0 grid place-items-center">
-                  <img
-                    src="/tatvapractice-logo.svg"
-                    alt=""
-                    aria-hidden
-                    className="w-[55%] opacity-25"
-                    style={{ filter: "brightness(0) invert(1)" }}
-                  />
-                </div>
                 <div
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: "url('/Assets/About/tatvacare.webp')" }}
@@ -164,12 +156,13 @@ export default function AboutStory() {
               >
                 <LightEyebrow>About TatvaCare</LightEyebrow>
                 <h3
-                  className="font-bold text-[#1F1F38] [text-wrap:balance]"
+                  className="font-bold text-[#1F1F38]"
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "clamp(22px, 2.6vw, 34px)",
+                    fontSize: "clamp(22px, 2.4vw, 32px)",
                     lineHeight: 1.14,
                     letterSpacing: "-0.01em",
+                    textWrap: "pretty",
                   }}
                 >
                   TatvaPractice is a TatvaCare product.

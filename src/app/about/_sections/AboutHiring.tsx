@@ -1,6 +1,7 @@
+import Link from "next/link";
+import { Sms } from "tp_icon/bulk";
 import ScrollReveal from "@/components/ScrollReveal";
 import SectionBg from "@/components/SectionBg";
-import CtaButton from "@/components/ui/CtaButton";
 
 const RECRUITMENT_EMAIL = "recruitment@tatvacare.in";
 
@@ -57,14 +58,30 @@ export default function AboutHiring() {
                   Help us build the EMR India deserves. Explore open roles, or
                   send us your profile and tell us what you want to work on.
                 </p>
-                <div className="mt-1">
-                  <CtaButton
-                    href={`mailto:${RECRUITMENT_EMAIL}`}
-                    variant="primaryOnDark"
-                    size="md"
+                <div className="mt-1 flex flex-wrap items-center gap-2.5">
+                  <span
+                    aria-hidden
+                    className="grid h-9 w-9 shrink-0 place-items-center rounded-[10px] text-white"
+                    style={{
+                      background: "rgba(255,255,255,0.12)",
+                      border: "1px solid rgba(255,255,255,0.20)",
+                    }}
                   >
-                    Mail us at {RECRUITMENT_EMAIL}
-                  </CtaButton>
+                    <Sms width={18} height={18} />
+                  </span>
+                  <span
+                    className="text-white/80"
+                    style={{ fontSize: "clamp(14px, 1.05vw, 16px)" }}
+                  >
+                    Mail us:
+                  </span>
+                  <Link
+                    href={`mailto:${RECRUITMENT_EMAIL}`}
+                    className="font-semibold text-white underline decoration-white/50 underline-offset-4 transition hover:decoration-white"
+                    style={{ fontSize: "clamp(14px, 1.05vw, 16px)" }}
+                  >
+                    {RECRUITMENT_EMAIL}
+                  </Link>
                 </div>
               </div>
 

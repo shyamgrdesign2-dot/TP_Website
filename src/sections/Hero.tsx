@@ -87,7 +87,7 @@ export default function Hero() {
             </div>
 
             <div
-              className="load-rise hero-cta-row mt-2 flex w-full flex-col justify-center gap-3 sm:flex-row sm:gap-5"
+              className="load-rise hero-cta-row mt-2 flex w-full flex-col justify-center gap-3 px-[clamp(24px,7vw,32px)] sm:flex-row sm:gap-5 sm:px-0"
               style={{
                 animationDelay: "560ms",
                 maxWidth: "clamp(480px, 54vw, 860px)",

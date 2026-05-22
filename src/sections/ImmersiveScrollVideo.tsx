@@ -18,6 +18,9 @@ import {
 } from "@/hooks/use-scroll-progress";
 
 const VIDEO_MP4 = "/hospital-walkthrough.mp4";
+// Lighter 854px all-intra encode for phones, scrubs far smoother than the
+// full-res file on mobile decoders.
+const VIDEO_MP4_MOBILE = "/hospital-walkthrough-mobile.mp4";
 
 /* "AI" as normal (semibold) text, inheriting the surrounding colour. */
 function Ai() {
@@ -337,7 +340,7 @@ export default function ImmersiveScrollVideo() {
         >
           <video
             ref={videoRef}
-            src={VIDEO_MP4}
+            src={isMobile ? VIDEO_MP4_MOBILE : VIDEO_MP4}
             muted
             playsInline
             preload="auto"
@@ -400,9 +403,7 @@ export default function ImmersiveScrollVideo() {
               textShadow: "0 4px 30px rgba(0,0,0,0.6)",
             }}
           >
-            One Visit,
-            <br />
-            Start to Finish.
+            AI-powered practice management.
           </h2>
           <p
             className="mt-4 text-white/90"
@@ -414,8 +415,8 @@ export default function ImmersiveScrollVideo() {
               textShadow: "0 2px 14px rgba(0,0,0,0.55)",
             }}
           >
-            Watch a single patient move from the front desk to the consultation
-            room, every step powered by TatvaPractice.
+            One AI-first EMR that runs your whole clinic, from the front desk to
+            the consult room.
           </p>
         </div>
 
