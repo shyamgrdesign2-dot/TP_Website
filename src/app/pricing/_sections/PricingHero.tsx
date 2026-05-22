@@ -62,30 +62,6 @@ export default function PricingHero() {
           card required.
         </p>
 
-        <div
-          className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#E8E0F0] bg-white p-1.5"
-          style={{
-            boxShadow: "0 2px 12px rgba(33,32,119,0.06)",
-            fontFamily: "var(--font-display)",
-            fontSize: "13px",
-            fontWeight: 600,
-          }}
-        >
-          <span
-            className="rounded-full px-4 py-2 text-white"
-            style={{
-              backgroundImage:
-                "linear-gradient(106deg, #4B4AD5 0%, #27276F 131.58%)",
-            }}
-          >
-            Monthly
-          </span>
-          <span className="px-4 py-2 text-[#454551]">
-            Annual{" "}
-            <span className="font-bold text-[#27276F]">· save 2 months</span>
-          </span>
-        </div>
-
         <div className="mt-2 flex w-full justify-center">
           <TrustBadges />
         </div>

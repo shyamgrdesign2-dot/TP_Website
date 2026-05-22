@@ -8,6 +8,7 @@ import {
   SITE_URL,
 } from "@/lib/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/json-ld";
+import Preloader from "@/components/Preloader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -122,6 +123,7 @@ export default function RootLayout({
       className={`${inter.variable} ${mulish.variable} antialiased`}
     >
       <body className="min-h-full">
+        <Preloader />
         {children}
         {/* Site-wide structured data. Organization powers the Knowledge
             Graph card; WebSite enables the Google sitelinks search box. */}
